@@ -1,0 +1,38 @@
+﻿@model GradStockUp.Models.Size
+
+@{
+    ViewBag.Title = "Details";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>@Model.SizeDescription</h2>
+<h4>Details</h4>
+
+<div>
+    <dl class="dl-horizontal">
+        <hr />
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.StockTypes)
+            </dt>
+            @foreach (var item in Model.StockTypes)
+            {
+                <dd>
+
+                    <div>@item.DESCRIPTION</div>
+
+
+                </dd>
+            }
+        </dl>
+</div>
+<p>
+    <div class="col-md-offset-2">
+        <a href="@Url.Action("Edit", "Sizes", new { id = Model.SizeID})" class="btn btn-default"><i class="fa fa-pencil"></i> Edit</a>
+    </div>
+
+    <div>
+        <a href=" @Url.Action("Index","Sizes")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Stock Types </a>
+    </div>
+</p>

@@ -1,0 +1,90 @@
+﻿@model GradStockUp.Models.StockDescription
+
+@{
+    ViewBag.Title = "Details";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>@Model.Colour.ColourName @Model.Size.SizeDescription @Model.StockType.DESCRIPTION</h2>
+<h4>Details</h4>
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RENTALSTOCKLEVEL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RENTALSTOCKLEVEL)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.RETAILSTOCKLEVEL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RETAILSTOCKLEVEL)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.RETAILTHRESHOLD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RETAILTHRESHOLD)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.RENTALTHRESHOLD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RENTALTHRESHOLD)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.FLAG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FLAG)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Colour.ColourName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Colour.ColourName)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Size.SizeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Size.SizeDescription)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.StockType.DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockType.DESCRIPTION)
+        </dd>
+        <hr />
+    </dl>
+</div>
+<p>
+    <div class="col-md-offset-2">
+        <a href="@Url.Action("Edit", "StockDescriptions", new { id = Model.StockDescriptionID})" class="btn btn-default"><i class="fa fa-pencil"></i>Edit</a>
+    </div>
+
+    <div>
+        <a href=" @Url.Action("Index","StockDescriptions")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Stock Descriptions</a>
+    </div>
+</p>

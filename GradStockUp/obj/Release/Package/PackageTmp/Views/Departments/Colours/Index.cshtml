@@ -1,0 +1,69 @@
+﻿@model IEnumerable<GradStockUp.Models.Colour>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+<h2>Colours</h2>
+
+<p>
+    <a href="@Url.Action("Create","Colours")" class="btn btn-default"><i class="fa fa-plus"></i>  Create New </a>
+</p>
+<table class="table table-striped" id="ColourTable">
+    <thead class="table-heading">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ColourName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ColourName)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Colours", new { id = item.ColourID})" class="btn btn-default"><i class="fa fa-pencil"></i>Edit</a>
+                    <a onclick="Delete(@item.ColourID)" class="btn btn-default"><i class="fa fa-trash"></i>  Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                toastr.success(successMessage);
+        });
+        $(function () {
+            var errorMessage = '@TempData["ErrorMessage"]'
+                    if (errorMessage != '')
+                        toastr.error(errorMessage);
+        });
+         function Delete(id) {
+            alertify.confirm('GradStockUp','Are You Sure to Delete this Record ?',function(){
+                window.location.href  = '@Url.Action("Delete", "Colours")/'+id;
+            },null );
+        }
+    </script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+        function activateJQueryTable() {
+            $("#ColourTable").DataTable();
+        }
+        $(function () {
+            activateJQueryTable();
+        }
+        );
+
+    </script>
+}

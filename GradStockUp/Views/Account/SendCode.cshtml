@@ -1,0 +1,26 @@
+﻿@model GradStockUp.Models.SendCodeViewModel
+@{
+    ViewBag.Title = "Get Verification Code";
+}
+<h1 style="color:goldenrod">@ViewBag.Title</h1>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("SendCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("rememberMe", @Model.RememberMe)
+    <h4>Send verification code</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            Select Two-Factor Authentication Provider:
+            @Html.DropDownListFor(model => model.SelectedProvider, Model.Providers, new { @style="background-color:black"})
+            <br/>
+            <input type="submit" style="background-color:goldenrod" class="btn btn-default" value="Submit" />
+        </div>
+    </div>
+}
+
+

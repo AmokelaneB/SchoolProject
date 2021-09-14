@@ -1,0 +1,173 @@
+﻿@model GradStockUp.Models.Customer
+
+
+@{
+    ViewBag.Title = "Create";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Create", "Customers", FormMethod.Post, new { id = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Customer</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerSurname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerSurname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomerSurname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div>
+                    <span class="col-sm-offset-2" style="padding-left:2rem">
+                        <label>
+                            <input type="radio" name="identification" value="1"> SA ID
+                        </label>
+                    </span>
+                    <span class="col-sm-offset-1" style="padding-left:2rem">
+                        <label>
+                            <input type="radio" name="identification" value="2"> Passport
+                        </label>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-offset-2" style="padding-left:2rem">
+            <div class="col-sm-offset-2">
+                <input disabled class="form-control" type="text" name="IDNumber" value="" id="IDNumber" placeholder="Select Identification Option">
+                <div class="text-danger" id="ValidationMessage"></div>
+                @*@Html.EditorFor(model => model.IDnumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Select Identification Option", id = "IDNumber" } })*@
+                @Html.ValidationMessageFor(model => model.IDnumber, "", new { @class = "text-danger", id = "ValidationMessage" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NextoFKin, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NextoFKin, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NextoFKin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.kinPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.kinPhone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.kinPhone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrganizationID, "Organization Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("OrganizationID", null, htmlAttributes: new { @class = "form-control" })
+                <div class="col-md-offset-3 col-md-5" style="padding-left:5px; margin-top:2px">
+                    <a href="@Url.Action("Create","Organizations")" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                </div>
+                @Html.ValidationMessageFor(model => model.OrganizationID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="SubmitButton" type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+
+
+    </div>
+}
+
+<div>
+
+    <a href=" @Url.Action("Index","Customers")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Customers </a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            var input = document.querySelector('#IDNumber');
+
+            $('input[type=radio][name=identification]').change(function () {
+                if (this.value == 1) {
+
+                    $('#IDNumber').attr('placeholder', 'Enter SA ID Number');
+                    input.disabled = false;
+                    $('#PassportNumber').attr('placeholder', 'Enter SA ID Number');
+                    $('#PassportNumber').attr('id', 'IDNumber');
+
+                } else if (this.value == 2) {
+                    $('#IDNumber').attr('placeholder', 'Enter Passport Number');
+                    input.disabled = false;
+                    $('#PassportNumber').attr('placeholder', 'Enter Passport Number');
+                    $('#IDNumber').attr('id', 'PassportNumber');
+                }
+            });
+
+        });
+        $('#SubmitButton').click(function (e) {
+
+
+            var passport = document.querySelector("#PassportNumber").value;
+            //var SAid = document.querySelector("#IDNumber").value;
+            var patt = new RegExp("[A-Z]{2}[0-9]{7}");
+            var patt2 = new RegExp("[A-Z]{1}[0-9]{7}");
+            //var saPattern = new RegExp("[0-9]{13}");
+
+            if (patt.test(passport) || patt2.test(passport)) {
+
+                $("#form").submit();
+            }
+            else {
+                $("form").submit(function (e) {
+                    $("#ValidationMessage").html("Invalid Passport");
+                });
+            };
+
+        });
+
+    </script>
+
+}
+

@@ -1,0 +1,65 @@
+﻿@model GradStockUp.Models.Institution
+
+@{
+    ViewBag.Title = "Details";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>@Model.InstitutionName</h2>
+<h4>Institution Details</h4>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Establishments)
+        </dt>
+
+
+        @foreach (var item in Model.Establishments)
+        {
+            <dd>
+
+                <div>@item.EstaName</div>
+
+
+            </dd>
+        }
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Faculties)
+        </dt>
+
+
+        @foreach (var item in Model.Faculties)
+        {
+            <dd>
+
+                <div>@item.Description</div>
+
+
+            </dd>
+        }
+    </dl>
+    <br />
+</div>
+<p>
+    <div class="col-md-offset-2">
+        <a href="@Url.Action("Edit", "Institutions", new { id = Model.InstitutionID})" class="btn btn-default"><i class="fa fa-pencil"></i>Edit</a>
+    </div>
+
+    <div>
+        <a href=" @Url.Action("Index","Institutions")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Institutions </a>
+    </div>
+</p>

@@ -1,0 +1,2139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D101C301-E3A8-4CB1-A5ED-087B557EC8A9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GradStockUp</RootNamespace>
+    <AssemblyName>GradStockUp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44345</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Engine.13.0.4000\lib\net40\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ClientDoc, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ClientDoc.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.ClientDoc.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommLayer.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.CommLayer.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonControls, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonControls.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.CommonControls.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonObjectModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonObjectModel.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.CommonObjectModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.Controllers, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.Controllers.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.Controllers.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CubeDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.CubeDefModel.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.CubeDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.DataDefModel.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataSetConversion, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.DataSetConversion.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.DataSetConversion.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ObjectFactory, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ObjectFactory.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.ObjectFactory.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.Prompting, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.Prompting.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.Prompting.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ReportDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.ReportDefModel.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.ReportDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.XmlSerialize, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.ReportAppServer.XmlSerialize.13.0.4000\lib\net40\CrystalDecisions.ReportAppServer.XmlSerialize.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalDecisions.ReportSource.1.0.0\lib\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Shared.13.0.4000\lib\net40\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="DHTMLX, Version=4.0.7282.34360, Culture=neutral, PublicKeyToken=53f24791214eb8ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\DHTMLX.Scheduler.NET.4.0.2\lib\DHTMLX.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.2\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.2\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.2\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio, Version=5.47.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.5.47.1\lib\net451\Twilio.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddedToListItems.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BulkTrans.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BackOrderController.cs" />
+    <Compile Include="Controllers\BackOrderStatuController.cs" />
+    <Compile Include="Controllers\BankController.cs" />
+    <Compile Include="Controllers\ColourController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\CustomerRentalController.cs" />
+    <Compile Include="Controllers\CustomerReportController.cs" />
+    <Compile Include="Controllers\DeliveryStatuController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\EmployeeTypeController.cs" />
+    <Compile Include="Controllers\EstablishmentController.cs" />
+    <Compile Include="Controllers\FacultyController.cs" />
+    <Compile Include="Controllers\FacultyQualificationController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstitutionController.cs" />
+    <Compile Include="Controllers\InstitutionFacultieController.cs" />
+    <Compile Include="Controllers\INSTITUTIONLINEController.cs" />
+    <Compile Include="Controllers\InstitutionLineQualificationController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OnlineOrderController.cs" />
+    <Compile Include="Controllers\OrderStatuController.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\OutfitController.cs" />
+    <Compile Include="Controllers\PriceController.cs" />
+    <Compile Include="Controllers\QualificationController.cs" />
+    <Compile Include="Controllers\QualificationStockTypeController.cs" />
+    <Compile Include="Controllers\QualificationTypeController.cs" />
+    <Compile Include="Controllers\RefundStatuController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\SizeController.cs" />
+    <Compile Include="Controllers\StatuController.cs" />
+    <Compile Include="Controllers\StockController.cs" />
+    <Compile Include="Controllers\StockDescriptionController.cs" />
+    <Compile Include="Controllers\StockStateController.cs" />
+    <Compile Include="Controllers\StockTypeController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Controllers\SupplierOrderController.cs" />
+    <Compile Include="CustomerDetails.cs" />
+    <Compile Include="Descriptions.cs" />
+    <Compile Include="DescriptorList.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppUser.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BackOrder.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BackOrderLine.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BackOrderStatu.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Bank.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CheckInLaundry.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Colour.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerRental.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerRentalLine.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Delivery.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeliveryStatu.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Department.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Document.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeType.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Establishment.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EstablishmentInstitute.cs" />
+    <Compile Include="Models\EstablishmentStockTypeLine.cs" />
+    <Compile Include="Models\EstaInstCheckVM.cs" />
+    <Compile Include="Models\EstaIntVM.cs" />
+    <Compile Include="Models\Event.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Faculty.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FacultyQualification.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileUploadModel.cs" />
+    <Compile Include="Models\getOrganizationByID_Result.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GradStockUp.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GradStockUp.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GradStockUp.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GradStockUp.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GradStockUp.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Institution.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InstitutionFaculty.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InstitutionFacultyLine.cs" />
+    <Compile Include="Models\INSTITUTIONLINE.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InstitutionLineQualification.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LaundryLine.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Location.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OnlineOrder.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderDescriptions.cs" />
+    <Compile Include="Models\OrderStatu.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderVM.cs" />
+    <Compile Include="Models\Organization.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Outfit.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PaymentMethod.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Price.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrder.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderLine.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Qualification.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QualificationStockType.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QualificationType.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RefundStatu.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RetreveItemData.cs" />
+    <Compile Include="Models\ReturnFromLaundry.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReturnLine.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Size.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Status.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Stock.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockDescription.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockQualification.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockReturn.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockReturnLine.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockState.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockType.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockTypeSizeLine.cs" />
+    <Compile Include="Models\Supplier.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupplierOrder.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupplierOrderDetailsModel.cs" />
+    <Compile Include="Models\SupplierOrderLine.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupplierOrderViewModel.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WriteOff.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WriteOffLine.cs">
+      <DependentUpon>GradStockUp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PriceItem.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QualItems.cs" />
+    <Compile Include="Reporting\CustomerModel.Designer.cs" />
+    <Compile Include="Reporting\CustomerModel1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CustomerModel.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\CustomerRentalReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporting\CustomerRentals.Designer.cs" />
+    <Compile Include="Reporting\CustomerTransactionReport.cs" />
+    <Compile Include="Reporting\TransferReport.cs" />
+    <Compile Include="CrystalRepo\CustomerRentalReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalRepo\CustomerRentals.Designer.cs" />
+    <Compile Include="CrystalRepo\ParameterSupplierOrder.Designer.cs" />
+    <Compile Include="CrystalRepo\ParametisedSupplierOrderReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalRepo\Sales.Designer.cs" />
+    <Compile Include="CrystalRepo\SalesReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalRepo\SupplierOrder.Designer.cs" />
+    <Compile Include="CrystalRepo\SupplierOrderReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RetrieveData.cs" />
+    <Compile Include="ReturnedItems.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="StockTypeList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\alertifyjs\alertify.css" />
+    <Content Include="Content\alertifyjs\alertify.min.css" />
+    <Content Include="Content\alertifyjs\alertify.rtl.css" />
+    <Content Include="Content\alertifyjs\alertify.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.min.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\bootstrap.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\default.css" />
+    <Content Include="Content\alertifyjs\themes\default.min.css" />
+    <Content Include="Content\alertifyjs\themes\default.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\default.rtl.min.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.min.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.rtl.css" />
+    <Content Include="Content\alertifyjs\themes\semantic.rtl.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\select2.css" />
+    <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\css\Sidebar-Menu-1.css" />
+    <Content Include="Content\css\Sidebar-Menu.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.semanticui.css" />
+    <Content Include="Content\DataTables\css\autoFill.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.min.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.semanticui.css" />
+    <Content Include="Content\DataTables\css\buttons.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.semanticui.css" />
+    <Content Include="Content\DataTables\css\colReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.semanticui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.semanticui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.semanticui.css" />
+    <Content Include="Content\DataTables\css\keyTable.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.min.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.semanticui.css" />
+    <Content Include="Content\DataTables\css\responsive.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.dataTables.css" />
+    <Content Include="Content\DataTables\css\rowGroup.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.foundation.css" />
+    <Content Include="Content\DataTables\css\rowGroup.foundation.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.jqueryui.css" />
+    <Content Include="Content\DataTables\css\rowGroup.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.semanticui.css" />
+    <Content Include="Content\DataTables\css\rowGroup.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.semanticui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.min.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.semanticui.css" />
+    <Content Include="Content\DataTables\css\scroller.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\select.foundation.css" />
+    <Content Include="Content\DataTables\css\select.foundation.min.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\select.semanticui.css" />
+    <Content Include="Content\DataTables\css\select.semanticui.min.css" />
+    <Content Include="Content\DataTables\images\details_close.png" />
+    <Content Include="Content\DataTables\images\details_open.png" />
+    <Content Include="Content\DataTables\images\sort_asc.png" />
+    <Content Include="Content\DataTables\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTables\images\sort_both.png" />
+    <Content Include="Content\DataTables\images\sort_desc.png" />
+    <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
+    <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\GradStyles.css" />
+    <Content Include="Content\images\GradStockUpHead.jpg" />
+    <Content Include="Content\images\PointOfSale.png" />
+    <Content Include="Content\images\StockBackground.jpg" />
+    <Content Include="Content\images\Suppliers.jpg" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\themes\base\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.menu.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
+    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\9022barcode.png" />
+    <Content Include="Models\GradStockUp.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GradStockUp.edmx</DependentUpon>
+      <LastGenOutput>GradStockUp.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\GradStockUp.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GradStockUp.edmx</DependentUpon>
+      <LastGenOutput>GradStockUp.cs</LastGenOutput>
+    </Content>
+    <Content Include="Reporting\LetterHead.png" />
+    <Content Include="Scripts\alertify.js" />
+    <Content Include="Scripts\alertify.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Reporting\CustomerReport.pdf" />
+    <Content Include="Reporting\Transfer.pdf" />
+    <Content Include="Controllers\Stock.json" />
+    <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler.css" />
+    <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler.js" />
+    <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler_contrast_black.css" />
+    <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler_contrast_white.css" />
+    <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler_custom_lightbox.js" />
+    <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler_flat.css" />
+    <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler_material.css" />
+    <Content Include="Scripts\dhtmlxScheduler\dhtmlxscheduler_terrace.css" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_active_links.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_agenda_view.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_all_timed.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_collision.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_container_autoresize.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_cookie.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_csp.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_daytimeline.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_drag_between.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_editors.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_expand.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_grid_view.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_html_templates.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_key_nav.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_layer.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_limit.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_live_updates.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_map_view.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_minical.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_monthheight.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_multisection.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_multiselect.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_multisource.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_mvc.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_offline.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_outerdrag.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_pdf.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_quick_info.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_readonly.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_recurring.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_serialize.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_timeline.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_tooltip.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_treetimeline.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_units.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_url.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_week_agenda.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_wp.js" />
+    <Content Include="Scripts\dhtmlxScheduler\ext\dhtmlxscheduler_year_view.js" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\buttons.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\but_repeat.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\calendar.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\clock_big.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\clock_small.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\collapse_expand_icon.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\controls.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\databg.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\databg_now.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\export_ical.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\export_pdf.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\icon.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\images.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\loading.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs\resize_dots.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\arrow_left.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\arrow_right.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\but_repeat.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\calendar.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\clock_big.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\clock_small.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\close_icon.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\collapse_expand_icon.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\controls.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\databg.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\databg_now.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\export_ical.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\export_pdf.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\resize_dots.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_black\resizing.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\arrow_left.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\arrow_right.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\but_repeat.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\calendar.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\clock_big.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\clock_small.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\close_icon.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\collapse_expand_icon.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\controls.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\databg.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\export_ical.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\export_pdf.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\quick_info_edit.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\resize_dots.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_contrast_white\resizing.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\agenda-calendar-hov.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\agenda-calendar.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\agenda_bg.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\arrow_left.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\arrow_left_hov.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\arrow_right.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\arrow_right_hov.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\but_repeat.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\calendar.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\clock_big.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\clock_small.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\close_icon.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\collapse_expand_icon.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\controls.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\databg.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\drag-horizontal.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\drag-vertical.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\export_ical.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\export_pdf.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\icon.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\menu-down.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\resizing.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\Shape.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\time.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_material\tree_arrow.svg" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\arrow_left.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\arrow_right.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\but_repeat.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\calendar.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\clock_big.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\clock_small.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\close_icon.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\collapse_expand_icon.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\controls.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\databg.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\databg_now.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\export_ical.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\export_pdf.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\resize_dots.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_dhx_terrace\resizing.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\agenda_bg.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\arrow_left.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\arrow_right.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\but_repeat.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\calendar.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\clock.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\clock_big.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\clock_small.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\close_icon.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\collapse_expand_icon.gif" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\controls.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\databg.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\databg_now.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\export_ical.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\export_pdf.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\resize_dots.png" />
+    <Content Include="Scripts\dhtmlxScheduler\imgs_flat\resizing.png" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_ar.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_be.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_ca.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_cn.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_cs.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_da.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_de.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_el.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_en.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_es.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_fi.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_fr.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_he.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_hu.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_id.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_it.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_jp.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_nb.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_nl.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_no.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_pl.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_pt.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_ro.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_ru.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_si.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_sk.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_sv.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_tr.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\locale_ua.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_be.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_cn.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_cs.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_da.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_de.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_el.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_en.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_es.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_fi.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_fr.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_he.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_it.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_nb.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_nl.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_pl.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_pt.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_ro.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_ru.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_sk.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_sv.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\locale_recurring_ua.js" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_be.html" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_cn.html" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_de.html" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_el.html" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_en.html" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_es.html" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_fr.html" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_he.html" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_it.html" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_nl.html" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_ro.html" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_ru.html" />
+    <Content Include="Scripts\dhtmlxScheduler\locale\recurring\repeat_template_sk.html" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\AddListItems.json" />
+    <Content Include="Scripts\Description.json" />
+    <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Content\DataTables\css\mixins.scss" />
+    <Content Include="Content\DataTables\css\semanticui.scss" />
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\BackOrderStatus\Create.cshtml">
+      <Link>Views\Departments\BackOrderStatus\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\BackOrderStatus\Delete.cshtml">
+      <Link>Views\Departments\BackOrderStatus\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\BackOrderStatus\Details.cshtml">
+      <Link>Views\Departments\BackOrderStatus\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\BackOrderStatus\Edit.cshtml">
+      <Link>Views\Departments\BackOrderStatus\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\BackOrderStatus\Index.cshtml">
+      <Link>Views\Departments\BackOrderStatus\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\BackOrders\Create.cshtml">
+      <Link>Views\Departments\BackOrders\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\BackOrders\Delete.cshtml">
+      <Link>Views\Departments\BackOrders\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\BackOrders\Edit.cshtml">
+      <Link>Views\Departments\BackOrders\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\BackOrders\Index.cshtml">
+      <Link>Views\Departments\BackOrders\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Banks\Create.cshtml">
+      <Link>Views\Departments\Banks\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Banks\Delete.cshtml">
+      <Link>Views\Departments\Banks\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Banks\Details.cshtml">
+      <Link>Views\Departments\Banks\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Banks\Edit.cshtml">
+      <Link>Views\Departments\Banks\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Banks\Index.cshtml">
+      <Link>Views\Departments\Banks\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Colours\Create.cshtml">
+      <Link>Views\Departments\Colours\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Colours\Delete.cshtml">
+      <Link>Views\Departments\Colours\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Colours\Details.cshtml">
+      <Link>Views\Departments\Colours\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Colours\Edit.cshtml">
+      <Link>Views\Departments\Colours\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Colours\Index.cshtml">
+      <Link>Views\Departments\Colours\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Customers\Create.cshtml">
+      <Link>Views\Departments\Customers\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Customers\Delete.cshtml">
+      <Link>Views\Departments\Customers\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Customers\Details.cshtml">
+      <Link>Views\Departments\Customers\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Customers\Edit.cshtml">
+      <Link>Views\Departments\Customers\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Customers\Index.cshtml">
+      <Link>Views\Departments\Customers\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\DeliveryStatus\Create.cshtml">
+      <Link>Views\Departments\DeliveryStatus\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\DeliveryStatus\Delete.cshtml">
+      <Link>Views\Departments\DeliveryStatus\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\DeliveryStatus\Details.cshtml">
+      <Link>Views\Departments\DeliveryStatus\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\DeliveryStatus\Edit.cshtml">
+      <Link>Views\Departments\DeliveryStatus\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\DeliveryStatus\Index.cshtml">
+      <Link>Views\Departments\DeliveryStatus\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Departments\Create.cshtml">
+      <Link>Views\Departments\Departments\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Departments\Delete.cshtml">
+      <Link>Views\Departments\Departments\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Departments\Details.cshtml">
+      <Link>Views\Departments\Departments\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Departments\Edit.cshtml">
+      <Link>Views\Departments\Departments\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Departments\Index.cshtml">
+      <Link>Views\Departments\Departments\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Documents\Create.cshtml">
+      <Link>Views\Departments\Documents\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Documents\Delete.cshtml">
+      <Link>Views\Departments\Documents\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Documents\Details.cshtml">
+      <Link>Views\Departments\Documents\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Documents\Edit.cshtml">
+      <Link>Views\Departments\Documents\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Documents\Index.cshtml">
+      <Link>Views\Departments\Documents\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\EmployeeTypes\Create.cshtml">
+      <Link>Views\Departments\EmployeeTypes\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\EmployeeTypes\Delete.cshtml">
+      <Link>Views\Departments\EmployeeTypes\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\EmployeeTypes\Details.cshtml">
+      <Link>Views\Departments\EmployeeTypes\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\EmployeeTypes\Edit.cshtml">
+      <Link>Views\Departments\EmployeeTypes\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\EmployeeTypes\Index.cshtml">
+      <Link>Views\Departments\EmployeeTypes\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Establishments\Create.cshtml">
+      <Link>Views\Departments\Establishments\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Establishments\CreateEstablishmentStockType.cshtml">
+      <Link>Views\Departments\Establishments\CreateEstablishmentStockType.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Establishments\CreateInstitutionEstablishment.cshtml">
+      <Link>Views\Departments\Establishments\CreateInstitutionEstablishment.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Establishments\CreateStockTypeAddOn.cshtml">
+      <Link>Views\Departments\Establishments\CreateStockTypeAddOn.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Establishments\Delete.cshtml">
+      <Link>Views\Departments\Establishments\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Establishments\Details.cshtml">
+      <Link>Views\Departments\Establishments\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Establishments\Edit.cshtml">
+      <Link>Views\Departments\Establishments\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Establishments\Index.cshtml">
+      <Link>Views\Departments\Establishments\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Faculties\AddFacultyInstitution.cshtml">
+      <Link>Views\Departments\Faculties\AddFacultyInstitution.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Faculties\Create.cshtml">
+      <Link>Views\Departments\Faculties\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Faculties\CreateFacultyInstitution.cshtml">
+      <Link>Views\Departments\Faculties\CreateFacultyInstitution.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Faculties\Delete.cshtml">
+      <Link>Views\Departments\Faculties\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Faculties\Details.cshtml">
+      <Link>Views\Departments\Faculties\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Faculties\Edit.cshtml">
+      <Link>Views\Departments\Faculties\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Faculties\Index.cshtml">
+      <Link>Views\Departments\Faculties\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\FacultyQualifications\Create.cshtml">
+      <Link>Views\Departments\FacultyQualifications\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\FacultyQualifications\CreateFacultyQualificationTypes.cshtml">
+      <Link>Views\Departments\FacultyQualifications\CreateFacultyQualificationTypes.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\FacultyQualifications\Delete.cshtml">
+      <Link>Views\Departments\FacultyQualifications\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\FacultyQualifications\Details.cshtml">
+      <Link>Views\Departments\FacultyQualifications\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\FacultyQualifications\Edit.cshtml">
+      <Link>Views\Departments\FacultyQualifications\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\FacultyQualifications\Index.cshtml">
+      <Link>Views\Departments\FacultyQualifications\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\FileUpload\Index.cshtml">
+      <Link>Views\Departments\FileUpload\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\InstitutionFaculties\Create.cshtml">
+      <Link>Views\Departments\InstitutionFaculties\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\InstitutionFaculties\CreateInstitutionFaculty.cshtml">
+      <Link>Views\Departments\InstitutionFaculties\CreateInstitutionFaculty.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\InstitutionFaculties\Delete.cshtml">
+      <Link>Views\Departments\InstitutionFaculties\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\InstitutionFaculties\Details.cshtml">
+      <Link>Views\Departments\InstitutionFaculties\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\InstitutionFaculties\Edit.cshtml">
+      <Link>Views\Departments\InstitutionFaculties\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\InstitutionFaculties\Index.cshtml">
+      <Link>Views\Departments\InstitutionFaculties\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\InstitutionLineQualifications\Create.cshtml">
+      <Link>Views\Departments\InstitutionLineQualifications\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\InstitutionLineQualifications\CreateInstitutionLineQualifications.cshtml">
+      <Link>Views\Departments\InstitutionLineQualifications\CreateInstitutionLineQualifications.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\InstitutionLineQualifications\Delete.cshtml">
+      <Link>Views\Departments\InstitutionLineQualifications\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\InstitutionLineQualifications\Details.cshtml">
+      <Link>Views\Departments\InstitutionLineQualifications\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\InstitutionLineQualifications\Edit.cshtml">
+      <Link>Views\Departments\InstitutionLineQualifications\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\InstitutionLineQualifications\Index.cshtml">
+      <Link>Views\Departments\InstitutionLineQualifications\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\INSTITUTIONLINEs\Create.cshtml">
+      <Link>Views\Departments\INSTITUTIONLINEs\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\INSTITUTIONLINEs\CreateInstitutionLine.cshtml">
+      <Link>Views\Departments\INSTITUTIONLINEs\CreateInstitutionLine.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\INSTITUTIONLINEs\Delete.cshtml">
+      <Link>Views\Departments\INSTITUTIONLINEs\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\INSTITUTIONLINEs\Details.cshtml">
+      <Link>Views\Departments\INSTITUTIONLINEs\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\INSTITUTIONLINEs\Edit.cshtml">
+      <Link>Views\Departments\INSTITUTIONLINEs\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\INSTITUTIONLINEs\Index.cshtml">
+      <Link>Views\Departments\INSTITUTIONLINEs\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Institutions\Create.cshtml">
+      <Link>Views\Departments\Institutions\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Institutions\CreateEstablishmentInstitution.cshtml">
+      <Link>Views\Departments\Institutions\CreateEstablishmentInstitution.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Institutions\CreateInstitutionFaculty.cshtml">
+      <Link>Views\Departments\Institutions\CreateInstitutionFaculty.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Institutions\Delete.cshtml">
+      <Link>Views\Departments\Institutions\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Institutions\Details.cshtml">
+      <Link>Views\Departments\Institutions\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Institutions\Edit.cshtml">
+      <Link>Views\Departments\Institutions\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Institutions\Index.cshtml">
+      <Link>Views\Departments\Institutions\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Locations\Create.cshtml">
+      <Link>Views\Departments\Locations\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Locations\Delete.cshtml">
+      <Link>Views\Departments\Locations\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Locations\Details.cshtml">
+      <Link>Views\Departments\Locations\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Locations\Edit.cshtml">
+      <Link>Views\Departments\Locations\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Locations\Index.cshtml">
+      <Link>Views\Departments\Locations\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\OrderStatus\Create.cshtml">
+      <Link>Views\Departments\OrderStatus\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\OrderStatus\Delete.cshtml">
+      <Link>Views\Departments\OrderStatus\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\OrderStatus\Details.cshtml">
+      <Link>Views\Departments\OrderStatus\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\OrderStatus\Edit.cshtml">
+      <Link>Views\Departments\OrderStatus\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\OrderStatus\Index.cshtml">
+      <Link>Views\Departments\OrderStatus\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Organizations\Create.cshtml">
+      <Link>Views\Departments\Organizations\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Organizations\Delete.cshtml">
+      <Link>Views\Departments\Organizations\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Organizations\Details.cshtml">
+      <Link>Views\Departments\Organizations\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Organizations\Edit.cshtml">
+      <Link>Views\Departments\Organizations\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Organizations\Index.cshtml">
+      <Link>Views\Departments\Organizations\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Outfits\Create.cshtml">
+      <Link>Views\Departments\Outfits\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Outfits\Delete.cshtml">
+      <Link>Views\Departments\Outfits\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Outfits\Details.cshtml">
+      <Link>Views\Departments\Outfits\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Outfits\Edit.cshtml">
+      <Link>Views\Departments\Outfits\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Outfits\Index.cshtml">
+      <Link>Views\Departments\Outfits\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Prices\Create.cshtml">
+      <Link>Views\Departments\Prices\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Prices\Delete.cshtml">
+      <Link>Views\Departments\Prices\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Prices\Details.cshtml">
+      <Link>Views\Departments\Prices\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Prices\Edit.cshtml">
+      <Link>Views\Departments\Prices\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Prices\Index.cshtml">
+      <Link>Views\Departments\Prices\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\QualificationStockType\Create.cshtml">
+      <Link>Views\Departments\QualificationStockType\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\QualificationStockType\Delete.cshtml">
+      <Link>Views\Departments\QualificationStockType\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\QualificationStockType\Details.cshtml">
+      <Link>Views\Departments\QualificationStockType\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\QualificationStockType\Edit.cshtml">
+      <Link>Views\Departments\QualificationStockType\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\QualificationStockType\Index.cshtml">
+      <Link>Views\Departments\QualificationStockType\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\QualificationTypes\Create.cshtml">
+      <Link>Views\Departments\QualificationTypes\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\QualificationTypes\CreateNewQualificationQType.cshtml">
+      <Link>Views\Departments\QualificationTypes\CreateNewQualificationQType.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\QualificationTypes\CreateQualificationQType.cshtml">
+      <Link>Views\Departments\QualificationTypes\CreateQualificationQType.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\QualificationTypes\Delete.cshtml">
+      <Link>Views\Departments\QualificationTypes\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\QualificationTypes\Details.cshtml">
+      <Link>Views\Departments\QualificationTypes\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\QualificationTypes\Edit.cshtml">
+      <Link>Views\Departments\QualificationTypes\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\QualificationTypes\Index.cshtml">
+      <Link>Views\Departments\QualificationTypes\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\RefundStatus\Create.cshtml">
+      <Link>Views\Departments\RefundStatus\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\RefundStatus\Delete.cshtml">
+      <Link>Views\Departments\RefundStatus\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\RefundStatus\Details.cshtml">
+      <Link>Views\Departments\RefundStatus\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\RefundStatus\Edit.cshtml">
+      <Link>Views\Departments\RefundStatus\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\RefundStatus\Index.cshtml">
+      <Link>Views\Departments\RefundStatus\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Sizes\AddOnStockType.cshtml">
+      <Link>Views\Departments\Sizes\AddOnStockType.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Sizes\Create.cshtml">
+      <Link>Views\Departments\Sizes\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Sizes\CreateSizeStockType.cshtml">
+      <Link>Views\Departments\Sizes\CreateSizeStockType.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Sizes\Delete.cshtml">
+      <Link>Views\Departments\Sizes\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Sizes\Details.cshtml">
+      <Link>Views\Departments\Sizes\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Sizes\Edit.cshtml">
+      <Link>Views\Departments\Sizes\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Sizes\Index.cshtml">
+      <Link>Views\Departments\Sizes\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Status\Create.cshtml">
+      <Link>Views\Departments\Status\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Status\Delete.cshtml">
+      <Link>Views\Departments\Status\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Status\Details.cshtml">
+      <Link>Views\Departments\Status\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Status\Edit.cshtml">
+      <Link>Views\Departments\Status\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\Status\Index.cshtml">
+      <Link>Views\Departments\Status\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockDescriptions\Create.cshtml">
+      <Link>Views\Departments\StockDescriptions\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockDescriptions\Delete.cshtml">
+      <Link>Views\Departments\StockDescriptions\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockDescriptions\Details.cshtml">
+      <Link>Views\Departments\StockDescriptions\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockDescriptions\Edit.cshtml">
+      <Link>Views\Departments\StockDescriptions\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockDescriptions\Index.cshtml">
+      <Link>Views\Departments\StockDescriptions\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockStates\Create.cshtml">
+      <Link>Views\Departments\StockStates\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockStates\Delete.cshtml">
+      <Link>Views\Departments\StockStates\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockStates\Details.cshtml">
+      <Link>Views\Departments\StockStates\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockStates\Edit.cshtml">
+      <Link>Views\Departments\StockStates\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockStates\Index.cshtml">
+      <Link>Views\Departments\StockStates\Index.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockTypeSizeLine\CreateStockTypeSize.cshtml">
+      <Link>Views\Departments\StockTypeSizeLine\CreateStockTypeSize.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockTypes\AddOnSize.cshtml">
+      <Link>Views\Departments\StockTypes\AddOnSize.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockTypes\Create.cshtml">
+      <Link>Views\Departments\StockTypes\Create.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockTypes\CreateEstablishmentStockType.cshtml">
+      <Link>Views\Departments\StockTypes\CreateEstablishmentStockType.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockTypes\CreateStockTypeSize.cshtml">
+      <Link>Views\Departments\StockTypes\CreateStockTypeSize.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockTypes\Delete.cshtml">
+      <Link>Views\Departments\StockTypes\Delete.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockTypes\Details.cshtml">
+      <Link>Views\Departments\StockTypes\Details.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockTypes\Edit.cshtml">
+      <Link>Views\Departments\StockTypes\Edit.cshtml</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\..\Downloads\GradStockUp %284%29\GradStockUp\GradStockUp\Views\StockTypes\Index.cshtml">
+      <Link>Views\Departments\StockTypes\Index.cshtml</Link>
+    </Content>
+    <EntityDeploy Include="Models\GradStockUp.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GradStockUp.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\GradStockUp.edmx.diagram">
+      <DependentUpon>GradStockUp.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\gradstockUp - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\GradStockUp20201014093808 - Web Deploy.pubxml" />
+    <Content Include="Scripts\BulkTrans.json" />
+    <Content Include="Scripts\BulkOrder.json" />
+    <Content Include="Scripts\Cart.json" />
+    <Content Include="Scripts\AddListItems2.json" />
+    <Content Include="CrystalRepo\CustomerRentalReport.cshtml" />
+    <Content Include="CrystalRepo\CustomerRentalReport.rpt" />
+    <Content Include="CrystalRepo\CustomerRentals.xsc">
+      <DependentUpon>CustomerRentals.xsd</DependentUpon>
+    </Content>
+    <None Include="CrystalRepo\CustomerRentals.xsd" />
+    <Content Include="CrystalRepo\CustomerRentals.xss">
+      <DependentUpon>CustomerRentals.xsd</DependentUpon>
+    </Content>
+    <Content Include="CrystalRepo\ParameterSupplierOrder.xsc">
+      <DependentUpon>ParameterSupplierOrder.xsd</DependentUpon>
+    </Content>
+    <None Include="CrystalRepo\ParameterSupplierOrder.xsd" />
+    <Content Include="CrystalRepo\ParameterSupplierOrder.xss">
+      <DependentUpon>ParameterSupplierOrder.xsd</DependentUpon>
+    </Content>
+    <Content Include="CrystalRepo\ParametisedSupplierOrderReport.rpt" />
+    <Content Include="CrystalRepo\Sales.xsc">
+      <DependentUpon>Sales.xsd</DependentUpon>
+    </Content>
+    <None Include="CrystalRepo\Sales.xsd" />
+    <Content Include="CrystalRepo\Sales.xss">
+      <DependentUpon>Sales.xsd</DependentUpon>
+    </Content>
+    <Content Include="CrystalRepo\SalesReport.cshtml" />
+    <Content Include="CrystalRepo\SalesReport.rpt" />
+    <Content Include="CrystalRepo\SupplierOrder.cshtml" />
+    <Content Include="CrystalRepo\SupplierOrder.xsc">
+      <DependentUpon>SupplierOrder.xsd</DependentUpon>
+    </Content>
+    <None Include="CrystalRepo\SupplierOrder.xsd" />
+    <Content Include="CrystalRepo\SupplierOrder.xss">
+      <DependentUpon>SupplierOrder.xsd</DependentUpon>
+    </Content>
+    <Content Include="CrystalRepo\SupplierOrderReport.rpt" />
+    <Content Include="Reporting\CustomerRentalReport.cshtml" />
+    <Content Include="Reporting\CustomerRentalReport.rpt" />
+    <Content Include="Reporting\CustomerModel.xsc">
+      <DependentUpon>CustomerModel.xsd</DependentUpon>
+    </Content>
+    <None Include="Reporting\CustomerModel.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CustomerModel1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Reporting\CustomerModel.xss">
+      <DependentUpon>CustomerModel.xsd</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.semanticui.js" />
+    <Content Include="Scripts\DataTables\autoFill.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.min.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.min.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.min.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.min.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.print.js" />
+    <Content Include="Scripts\DataTables\buttons.print.min.js" />
+    <Content Include="Scripts\DataTables\buttons.semanticui.js" />
+    <Content Include="Scripts\DataTables\buttons.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowGroup.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowGroup.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.min.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.min.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\responsive.semanticui.js" />
+    <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\i18n\af.js" />
+    <Content Include="Scripts\i18n\ar.js" />
+    <Content Include="Scripts\i18n\az.js" />
+    <Content Include="Scripts\i18n\bg.js" />
+    <Content Include="Scripts\i18n\bn.js" />
+    <Content Include="Scripts\i18n\bs.js" />
+    <Content Include="Scripts\i18n\ca.js" />
+    <Content Include="Scripts\i18n\cs.js" />
+    <Content Include="Scripts\i18n\da.js" />
+    <Content Include="Scripts\i18n\de.js" />
+    <Content Include="Scripts\i18n\dsb.js" />
+    <Content Include="Scripts\i18n\el.js" />
+    <Content Include="Scripts\i18n\en.js" />
+    <Content Include="Scripts\i18n\es.js" />
+    <Content Include="Scripts\i18n\et.js" />
+    <Content Include="Scripts\i18n\eu.js" />
+    <Content Include="Scripts\i18n\fa.js" />
+    <Content Include="Scripts\i18n\fi.js" />
+    <Content Include="Scripts\i18n\fr.js" />
+    <Content Include="Scripts\i18n\gl.js" />
+    <Content Include="Scripts\i18n\he.js" />
+    <Content Include="Scripts\i18n\hi.js" />
+    <Content Include="Scripts\i18n\hr.js" />
+    <Content Include="Scripts\i18n\hsb.js" />
+    <Content Include="Scripts\i18n\hu.js" />
+    <Content Include="Scripts\i18n\hy.js" />
+    <Content Include="Scripts\i18n\id.js" />
+    <Content Include="Scripts\i18n\is.js" />
+    <Content Include="Scripts\i18n\it.js" />
+    <Content Include="Scripts\i18n\ja.js" />
+    <Content Include="Scripts\i18n\ka.js" />
+    <Content Include="Scripts\i18n\km.js" />
+    <Content Include="Scripts\i18n\ko.js" />
+    <Content Include="Scripts\i18n\lt.js" />
+    <Content Include="Scripts\i18n\lv.js" />
+    <Content Include="Scripts\i18n\mk.js" />
+    <Content Include="Scripts\i18n\ms.js" />
+    <Content Include="Scripts\i18n\nb.js" />
+    <Content Include="Scripts\i18n\ne.js" />
+    <Content Include="Scripts\i18n\nl.js" />
+    <Content Include="Scripts\i18n\pl.js" />
+    <Content Include="Scripts\i18n\ps.js" />
+    <Content Include="Scripts\i18n\pt-BR.js" />
+    <Content Include="Scripts\i18n\pt.js" />
+    <Content Include="Scripts\i18n\ro.js" />
+    <Content Include="Scripts\i18n\ru.js" />
+    <Content Include="Scripts\i18n\sk.js" />
+    <Content Include="Scripts\i18n\sl.js" />
+    <Content Include="Scripts\i18n\sq.js" />
+    <Content Include="Scripts\i18n\sr-Cyrl.js" />
+    <Content Include="Scripts\i18n\sr.js" />
+    <Content Include="Scripts\i18n\sv.js" />
+    <Content Include="Scripts\i18n\th.js" />
+    <Content Include="Scripts\i18n\tk.js" />
+    <Content Include="Scripts\i18n\tr.js" />
+    <Content Include="Scripts\i18n\uk.js" />
+    <Content Include="Scripts\i18n\vi.js" />
+    <Content Include="Scripts\i18n\zh-CN.js" />
+    <Content Include="Scripts\i18n\zh-TW.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\pdfFromHTML.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\Sidebar-Menu.js" />
+    <Content Include="Scripts\SizeStockTypeLink.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Employee\Delete.cshtml" />
+    <Content Include="Views\Employee\Details.cshtml" />
+    <Content Include="Views\Employee\Edit.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Qualifications\Create.cshtml" />
+    <Content Include="Views\Qualifications\Delete.cshtml" />
+    <Content Include="Views\Qualifications\Details.cshtml" />
+    <Content Include="Views\Qualifications\Edit.cshtml" />
+    <Content Include="Views\Qualifications\Index.cshtml" />
+    <Content Include="Views\Home\StockManagerHome.cshtml" />
+    <Content Include="Views\Home\Help.cshtml" />
+    <Content Include="Views\Home\CashierHome.cshtml" />
+    <Content Include="Views\Stock\Create.cshtml" />
+    <Content Include="Views\Stock\Delete.cshtml" />
+    <Content Include="Views\Stock\Details.cshtml" />
+    <Content Include="Views\Stock\Edit.cshtml" />
+    <Content Include="Views\Stock\Index.cshtml" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\ReturnedItems.json" />
+    <Content Include="Scripts\ScannedItems.json" />
+    <Content Include="Scripts\StockDescriptions.json" />
+    <Content Include="Scripts\TransactionItems.json" />
+    <Content Include="Views\Stock\_CreateOrUpdate.cshtml" />
+    <Content Include="Views\Stock\Transfer.cshtml" />
+    <Content Include="Scripts\User.json" />
+    <Content Include="Views\CustomerRental\Create.cshtml" />
+    <Content Include="Views\CustomerRental\Delete.cshtml" />
+    <Content Include="Views\CustomerRental\Details.cshtml" />
+    <Content Include="Views\CustomerRental\Edit.cshtml" />
+    <Content Include="Views\CustomerRental\Index.cshtml" />
+    <Content Include="Views\CustomerRental\ReceiveCustomerOrder.cshtml" />
+    <Content Include="Views\Suppliers\Create.cshtml" />
+    <Content Include="Views\Suppliers\Delete.cshtml" />
+    <Content Include="Views\Suppliers\Details.cshtml" />
+    <Content Include="Views\Suppliers\Edit.cshtml" />
+    <Content Include="Views\Suppliers\Index.cshtml" />
+    <Content Include="Views\Qualifications\CreateQualificationQualificationType.cshtml" />
+    <Content Include="Views\Shared\Cruds_Layout.cshtml" />
+    <Content Include="Scripts\QualificationList.json" />
+    <Content Include="Scripts\StockTypeList.json" />
+    <Content Include="Views\CustomerRental\BulkTransaction.cshtml" />
+    <Content Include="Scripts\TemData.json" />
+    <Content Include="Views\Reports\CustomerRentalReport.cshtml" />
+    <Content Include="Views\Reports\SalesReport.cshtml" />
+    <Content Include="Views\Reports\SupplierOrder.cshtml" />
+    <Content Include="Views\BackOrders\Create.cshtml" />
+    <Content Include="Views\BackOrders\Delete.cshtml" />
+    <Content Include="Views\BackOrders\Edit.cshtml" />
+    <Content Include="Views\BackOrders\Index.cshtml" />
+    <Content Include="Views\BackOrderStatus\Create.cshtml" />
+    <Content Include="Views\BackOrderStatus\Delete.cshtml" />
+    <Content Include="Views\BackOrderStatus\Details.cshtml" />
+    <Content Include="Views\BackOrderStatus\Edit.cshtml" />
+    <Content Include="Views\BackOrderStatus\Index.cshtml" />
+    <Content Include="Views\Banks\Create.cshtml" />
+    <Content Include="Views\Banks\Delete.cshtml" />
+    <Content Include="Views\Banks\Details.cshtml" />
+    <Content Include="Views\Banks\Edit.cshtml" />
+    <Content Include="Views\Banks\Index.cshtml" />
+    <Content Include="Views\Colours\Create.cshtml" />
+    <Content Include="Views\Colours\Delete.cshtml" />
+    <Content Include="Views\Colours\Details.cshtml" />
+    <Content Include="Views\Colours\Edit.cshtml" />
+    <Content Include="Views\Colours\Index.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Delete.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\DeliveryStatus\Create.cshtml" />
+    <Content Include="Views\DeliveryStatus\Delete.cshtml" />
+    <Content Include="Views\DeliveryStatus\Details.cshtml" />
+    <Content Include="Views\DeliveryStatus\Edit.cshtml" />
+    <Content Include="Views\DeliveryStatus\Index.cshtml" />
+    <Content Include="Views\Documents\Create.cshtml" />
+    <Content Include="Views\Documents\Delete.cshtml" />
+    <Content Include="Views\Documents\Details.cshtml" />
+    <Content Include="Views\Documents\Edit.cshtml" />
+    <Content Include="Views\Documents\Index.cshtml" />
+    <Content Include="Views\EmployeeTypes\Create.cshtml" />
+    <Content Include="Views\EmployeeTypes\Delete.cshtml" />
+    <Content Include="Views\EmployeeTypes\Details.cshtml" />
+    <Content Include="Views\EmployeeTypes\Edit.cshtml" />
+    <Content Include="Views\EmployeeTypes\Index.cshtml" />
+    <Content Include="Views\Establishments\Create.cshtml" />
+    <Content Include="Views\Establishments\CreateEstablishmentStockType.cshtml" />
+    <Content Include="Views\Establishments\CreateInstitutionEstablishment.cshtml" />
+    <Content Include="Views\Establishments\CreateStockTypeAddOn.cshtml" />
+    <Content Include="Views\Establishments\Delete.cshtml" />
+    <Content Include="Views\Establishments\Details.cshtml" />
+    <Content Include="Views\Establishments\Edit.cshtml" />
+    <Content Include="Views\Establishments\Index.cshtml" />
+    <Content Include="Views\Faculties\AddFacultyInstitution.cshtml" />
+    <Content Include="Views\Faculties\Create.cshtml" />
+    <Content Include="Views\Faculties\CreateFacultyInstitution.cshtml" />
+    <Content Include="Views\Faculties\Delete.cshtml" />
+    <Content Include="Views\Faculties\Details.cshtml" />
+    <Content Include="Views\Faculties\Edit.cshtml" />
+    <Content Include="Views\Faculties\Index.cshtml" />
+    <Content Include="Views\FacultyQualifications\Create.cshtml" />
+    <Content Include="Views\FacultyQualifications\CreateFacultyQualificationTypes.cshtml" />
+    <Content Include="Views\FacultyQualifications\Delete.cshtml" />
+    <Content Include="Views\FacultyQualifications\Details.cshtml" />
+    <Content Include="Views\FacultyQualifications\Edit.cshtml" />
+    <Content Include="Views\FacultyQualifications\Index.cshtml" />
+    <Content Include="Views\FileUpload\Index.cshtml" />
+    <Content Include="Views\InstitutionFaculties\Create.cshtml" />
+    <Content Include="Views\InstitutionFaculties\CreateInstitutionFaculty.cshtml" />
+    <Content Include="Views\InstitutionFaculties\Delete.cshtml" />
+    <Content Include="Views\InstitutionFaculties\Details.cshtml" />
+    <Content Include="Views\InstitutionFaculties\Edit.cshtml" />
+    <Content Include="Views\InstitutionFaculties\Index.cshtml" />
+    <Content Include="Views\InstitutionLineQualifications\Create.cshtml" />
+    <Content Include="Views\InstitutionLineQualifications\CreateInstitutionLineQualifications.cshtml" />
+    <Content Include="Views\InstitutionLineQualifications\Delete.cshtml" />
+    <Content Include="Views\InstitutionLineQualifications\Details.cshtml" />
+    <Content Include="Views\InstitutionLineQualifications\Edit.cshtml" />
+    <Content Include="Views\InstitutionLineQualifications\Index.cshtml" />
+    <Content Include="Views\INSTITUTIONLINEs\Create.cshtml" />
+    <Content Include="Views\INSTITUTIONLINEs\CreateInstitutionLine.cshtml" />
+    <Content Include="Views\INSTITUTIONLINEs\Delete.cshtml" />
+    <Content Include="Views\INSTITUTIONLINEs\Details.cshtml" />
+    <Content Include="Views\INSTITUTIONLINEs\Edit.cshtml" />
+    <Content Include="Views\INSTITUTIONLINEs\Index.cshtml" />
+    <Content Include="Views\Institutions\Create.cshtml" />
+    <Content Include="Views\Institutions\CreateEstablishmentInstitution.cshtml" />
+    <Content Include="Views\Institutions\CreateInstitutionFaculty.cshtml" />
+    <Content Include="Views\Institutions\Delete.cshtml" />
+    <Content Include="Views\Institutions\Details.cshtml" />
+    <Content Include="Views\Institutions\Edit.cshtml" />
+    <Content Include="Views\Institutions\Index.cshtml" />
+    <Content Include="Views\Locations\Create.cshtml" />
+    <Content Include="Views\Locations\Delete.cshtml" />
+    <Content Include="Views\Locations\Details.cshtml" />
+    <Content Include="Views\Locations\Edit.cshtml" />
+    <Content Include="Views\Locations\Index.cshtml" />
+    <Content Include="Views\OrderStatus\Create.cshtml" />
+    <Content Include="Views\OrderStatus\Delete.cshtml" />
+    <Content Include="Views\OrderStatus\Details.cshtml" />
+    <Content Include="Views\OrderStatus\Edit.cshtml" />
+    <Content Include="Views\OrderStatus\Index.cshtml" />
+    <Content Include="Views\Organizations\Create.cshtml" />
+    <Content Include="Views\Organizations\Delete.cshtml" />
+    <Content Include="Views\Organizations\Details.cshtml" />
+    <Content Include="Views\Organizations\Edit.cshtml" />
+    <Content Include="Views\Organizations\Index.cshtml" />
+    <Content Include="Views\Outfits\Create.cshtml" />
+    <Content Include="Views\Outfits\Delete.cshtml" />
+    <Content Include="Views\Outfits\Details.cshtml" />
+    <Content Include="Views\Outfits\Edit.cshtml" />
+    <Content Include="Views\Outfits\Index.cshtml" />
+    <Content Include="Views\Prices\Create.cshtml" />
+    <Content Include="Views\Prices\Delete.cshtml" />
+    <Content Include="Views\Prices\Details.cshtml" />
+    <Content Include="Views\Prices\Edit.cshtml" />
+    <Content Include="Views\Prices\Index.cshtml" />
+    <Content Include="Views\QualificationStockType\Create.cshtml" />
+    <Content Include="Views\QualificationStockType\Delete.cshtml" />
+    <Content Include="Views\QualificationStockType\Details.cshtml" />
+    <Content Include="Views\QualificationStockType\Edit.cshtml" />
+    <Content Include="Views\QualificationStockType\Index.cshtml" />
+    <Content Include="Views\QualificationTypes\Create.cshtml" />
+    <Content Include="Views\QualificationTypes\CreateNewQualificationQType.cshtml" />
+    <Content Include="Views\QualificationTypes\CreateQualificationQType.cshtml" />
+    <Content Include="Views\QualificationTypes\Delete.cshtml" />
+    <Content Include="Views\QualificationTypes\Details.cshtml" />
+    <Content Include="Views\QualificationTypes\Edit.cshtml" />
+    <Content Include="Views\QualificationTypes\Index.cshtml" />
+    <Content Include="Views\RefundStatus\Create.cshtml" />
+    <Content Include="Views\RefundStatus\Delete.cshtml" />
+    <Content Include="Views\RefundStatus\Details.cshtml" />
+    <Content Include="Views\RefundStatus\Edit.cshtml" />
+    <Content Include="Views\RefundStatus\Index.cshtml" />
+    <Content Include="Views\Sizes\AddOnStockType.cshtml" />
+    <Content Include="Views\Sizes\Create.cshtml" />
+    <Content Include="Views\Sizes\CreateSizeStockType.cshtml" />
+    <Content Include="Views\Sizes\Delete.cshtml" />
+    <Content Include="Views\Sizes\Details.cshtml" />
+    <Content Include="Views\Sizes\Edit.cshtml" />
+    <Content Include="Views\Sizes\Index.cshtml" />
+    <Content Include="Views\Status\Create.cshtml" />
+    <Content Include="Views\Status\Delete.cshtml" />
+    <Content Include="Views\Status\Details.cshtml" />
+    <Content Include="Views\Status\Edit.cshtml" />
+    <Content Include="Views\Status\Index.cshtml" />
+    <Content Include="Views\StockDescriptions\Create.cshtml" />
+    <Content Include="Views\StockDescriptions\Delete.cshtml" />
+    <Content Include="Views\StockDescriptions\Details.cshtml" />
+    <Content Include="Views\StockDescriptions\Edit.cshtml" />
+    <Content Include="Views\StockDescriptions\Index.cshtml" />
+    <Content Include="Views\StockStates\Create.cshtml" />
+    <Content Include="Views\StockStates\Delete.cshtml" />
+    <Content Include="Views\StockStates\Details.cshtml" />
+    <Content Include="Views\StockStates\Edit.cshtml" />
+    <Content Include="Views\StockStates\Index.cshtml" />
+    <Content Include="Views\StockTypes\AddOnSize.cshtml" />
+    <Content Include="Views\StockTypes\Create.cshtml" />
+    <Content Include="Views\StockTypes\CreateEstablishmentStockType.cshtml" />
+    <Content Include="Views\StockTypes\CreateStockTypeSize.cshtml" />
+    <Content Include="Views\StockTypes\Delete.cshtml" />
+    <Content Include="Views\StockTypes\Details.cshtml" />
+    <Content Include="Views\StockTypes\Edit.cshtml" />
+    <Content Include="Views\StockTypes\Index.cshtml" />
+    <Content Include="Views\StockTypeSizeLine\CreateStockTypeSize.cshtml" />
+    <Content Include="Views\SupplierOrder\PlaceSupplierOrder.cshtml" />
+    <Content Include="Views\SupplierOrder\SuccessSupplierOrder.cshtml" />
+    <Content Include="Views\OnlineOrder\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="NewFolder1\" />
+    <Folder Include="UploadedFiles\" />
+    <Folder Include="Views\CustomerReport\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reporting\CustomerTransactionReport.rdlc" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57979</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44345/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

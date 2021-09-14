@@ -1,0 +1,42 @@
+﻿@model GradStockUp.Models.Faculty
+@{
+    ViewBag.Title = "AddFacultyInstitution";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Faculty <span class="spans">Institution Add-On</span></h2>
+<hr />
+<form action="/Faculties/AddFacultyInstitution" method="post">
+    <div>
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.DropDownList("FacultyID", null, htmlAttributes: new { @class = "form-control" })
+
+    </div>
+    <div style="padding-top:2rem">
+        @Html.LabelFor(model => model.Institutions, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        @foreach (var institution in ViewBag.Institutions)
+
+        {
+            <ul class="col-md-offset-2">
+                <li class="table-striped">
+                    <input type="checkbox" name="InstitutionIDs" value="@institution.InstitutionID" />@institution.InstitutionName
+                </li>
+            </ul>
+        }
+    </div>
+    <hr />
+ 
+    <div class="col-md-offset-2" style="padding-top:1rem"><input type="submit" value="Add-On Institutions" /></div>
+</form>
+<div style="padding: 2rem">
+    <div class="row">
+        <div class="col-sm-4">
+            <a href=" @Url.Action("Index","Faculties")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Faculties </a>
+        </div>
+        <div class="col-md-4">
+            <a href=" @Url.Action("CreateEstablishmentInstitution","Institutions")" class="btn btn-default"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Add New Institution </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,1046 @@
+﻿@model GradStockUp.Models.CustomerRental
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Run</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/select2.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.select.min.js" type="text/javascript"></script>
+    <link href="~/Content/DataTables/css/select.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/css/select2.min.css" rel="stylesheet" />
+    <script src="~/Scripts/Sidebar-Menu.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="~/Content/css/Sidebar-Menu-1.css" />
+    <link rel="stylesheet" href="~/Content/css/Sidebar-Menu.css" />
+    <style>
+        table.outlined {
+            border-collapse: collapse;
+        }
+
+            table.outlined tr {
+                border: 1px solid goldenrod;
+            }
+    </style>
+    <script>
+        $(document).ready(function () {
+
+
+
+            $('select').select2({ width: '100%', allowClear: true });
+            $.ajax({
+                type: "GET",
+                url: "/CustomerRental/getEstablishment",
+                data: "{}",
+                success: function (data) {
+
+                    var s = '< option value ="ff">  </option > ';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option   value = "' + data[i].EstaID + '" > ' + data[i].Description + '</option > ';
+                    }
+                    $("#Establishment").html(s);
+
+                }
+            });
+
+            $('#Establishment').on("change", function () {
+
+                $('#Institutes').attr("Disabled", false);
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getInstitution",
+                    data: "{}",
+                    success: function (data) {
+                        var s = '';
+                        $("#Institutes").empty();
+                        $('#Institutes').attr("Disabled", true);
+                        $("#Faculty").empty();
+                        $('#Faculty').attr("Disabled", true);
+                        $("#QualType").empty();
+                        $('#QualType').attr("Disabled", true);
+                        s = '< option value ="ff">  </option > ';
+                        for (var i = 0; i < data.length; i++) {
+
+
+                            if (data[i].EstaID == $("#Establishment").val())
+                                s += '<option  style="background-color: black" value = "' + data[i].InstID + '" > ' + data[i].description + '</option > ';
+                        }
+                        $("#Institutes").html(s);
+                        $('#Institutes').attr("Disabled", false);
+
+                    }
+                });
+
+            });
+
+            $('#Institutes').on("change", function () {
+                $("#QualType").empty();
+                $('#Faculty').attr("Disabled", false);
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getFaculties",
+                    data: "{}",
+                    success: function (data) {
+
+                        var s = '< option value ="ff">  </option > ';
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].InstID == $("#Institutes").val())
+                                s += '<option  style="background-color: black" value = "' + data[i].FacID + '" > ' + data[i].description + '</option > ';
+                        }
+                        $("#Faculty").html(s);
+                        $('#Faculty').attr("Disabled", false);
+
+                    }
+                });
+            });
+            $('#Faculty').change(function () {
+                $("#QualType").attr("Disabled", false);
+                $("#QualType").empty();
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getQualification",
+                    data: "{}",
+                    success: function (data) {
+                        var s;
+                        s = '< option value ="ff">  </option > ';
+                        for (var i = 0; i < data.length; i++) {
+
+                            if (data[i].InstID == $("#Institutes").val() && data[i].FacID == $('#Faculty').val()) {
+                                s += '<option  style="background-color: black" value = "' + data[i].QualID + '" > ' + data[i].description + '</option > ';
+                            }
+
+                        }
+                        $("#QualType").html(s);
+                        $('#QualType').attr("Disabled", false);
+
+                    }
+                });
+
+            });
+
+
+
+            $('#QualType').change(function () {
+                $("#DateFunction").attr("Disabled", false);
+            });
+
+            $('#DateFunction').change(function () {
+                $("#HeadCircum").attr("Disabled", false);
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getHeadCircum",
+                    data: "{}",
+                    success: function (data) {
+                        var s;
+                        s = '< option value ="ff">  </option > ';
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].stockTypeID == 1)
+                                s += '<option value = "' + data[i].ID + '" > ' + data[i].SizeDesc + '</option > ';
+                        }
+                        $("#HeadCircum").html(s);
+
+                    }
+                });
+
+            });
+            $('#DateFunction').change(function () {
+                $("#Height").attr("Disabled", false);
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getHeadCircum",
+                    data: "{}",
+                    success: function (data) {
+                        var s = '< option value ="ff">  </option > ';
+                        $("#Height").empty();
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].stockTypeID == 2)
+                                s += '<option value = "' + data[i].ID + '" > ' + data[i].SizeDesc + '</option > ';
+                        }
+                        $("#Height").html(s);
+
+                    }
+                });
+
+            });
+            $("#Height").change(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getHeadCircum",
+                    data: "{}",
+                    success: function (data) {
+                        var s = '< option value ="ff">  </option > ';
+                        $("#Hood").empty();
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].stockTypeID == 3)
+                                s += '<option value = "' + data[i].ID + '" > ' + data[i].SizeDesc + '</option > ';
+                        }
+                        $("#Hood").html(s);
+                        $("#Hood").attr("Disabled", false);
+                    }
+                });
+            })
+
+
+
+            $.ajax({
+                type: "GET",
+                url: "/CustomerRental/getDepartment",
+                data: "{}",
+                success: function (data) {
+                    var s = '< option value ="ff">  </option > ';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value = "' + data[i].DepID + '" > ' + data[i].description + '</option > ';
+                    }
+                    $("#TransactionType").html(s);
+                    $("#TransactionType").attr("Disabled", false);
+                }
+            });
+            var table = $('#tCustomer').DataTable({
+                "ajax": {
+                    "url": "/CustomerRental/GetCustomers",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "space" },
+                    { "data": "ID" },
+                    { "data": "CustID" },
+                    { "data": "CustName" },
+                    { "data": "CustSurname" },
+                    { "data": "CustPhone" },
+                    { "data": "CustEmail" },
+                    { "defaultContent": '<td class="border rounded-0" style="color: rgb(206,210,213);"><button class="btn btn-primary" type="button" style="background-color: rgb(216,74,56);">Remove</button></td>' }
+
+                ],
+                bFilter: false, bInfo: false,
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }],
+
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                },
+                "pageLength": 5
+            });
+            $("#SearchCus").keyup(function () {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("SearchCus");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("tCustomer");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[2];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+
+
+
+            });
+            /* Order Transactio*/
+
+            $("#TransactionType").change(function () {
+                var EstablishID = $("#Establishment").val();
+                var InstituteID = $("#Institutes").val();
+                var StockType = $("#StockType").val();
+                var TransactionType = $("#TransactionType").val();
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getPrice",
+                    data: { 'EstablshID': EstablishID, 'InstID': InstituteID, 'stckType': StockType, 'Trans': TransactionType },
+                    success: function (data) {
+                        $("#PriceItem").attr("value", data)
+
+                    }
+                });
+
+
+            });
+            $("#DisplayOutFit").on("click", function () {
+                var EstablshID = $("#Establishment").val();
+                var InstituteID = $("#Institutes").val();
+                var StockType = $("#StockType").val();
+                var TransactionType = $("#TransactionType").val();
+                var Price = $("#PriceItem").val()
+                var HeadSize = $("#HeadCircum").val();
+                var HeightSize = $("#Height").val();
+
+                var Faculty = $("#Faculty").val();
+                var hood = $("#Hood").val();
+
+
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/setPrice",
+                    dataType: "Json",
+                    data: { 'EstablshID': EstablshID, 'hood': hood, 'Fac': Faculty, 'InstituteID': InstituteID, 'StockType': StockType, 'TransactionType': TransactionType, 'Price': Price, 'HeadSize': HeadSize, 'HeightSize': HeightSize },
+                    success: function (data) {
+                        if (data == "failed") {
+
+                            alert("Stock items fitting the criteria are not avaiable in our store!")
+                        }
+                        else {
+                            $("#tRequested").empty();
+                            $.getJSON('/Scripts/AddListItems.json', function (res) {
+                                var trHTML = '';
+                                $.each(res, function (i, item) {
+                                    trHTML += "<tr><td><label>" + item.StockColour + " " + item.StockType + "(size " + item.StockSize + ")" + "</label> <br />";
+                                    trHTML += "<label>Rental : " + item.RentalPrice + "| Retail : " + item.RetailPrice + "</label></td>";
+                                    trHTML += " <td class='block' style='width:auto'><h8 class='card-title' style='padding-left: 0px;color: rgb(246,247,248);'>Transaction Type</h8>";
+                                    trHTML += "<select id='Transaction" + i + "'" + "style='background-color: rgb(75,70,70);color: rgb(242,243,245);'><option value='1'>Rental</option>";
+                                    trHTML += " <option value='2'>Retail</option><option value='3'>Exclude</option></select> </td> </tr>";
+                                });
+                                $("#tRequested").append(trHTML);
+                            });
+
+
+
+                        }
+
+                    }
+                });
+            })
+
+
+
+            $("#AddToCart").click(function () {
+                alert("hello");
+                var barCode = $("#stockBarcode").val();
+                alert(barCode);
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getStockItem",
+                    dataType: "Json",
+                    data: { 'barCode': barCode },
+                    success: function (data) {
+                        if (data == "Description Different") {
+                            alert("Item did not match any item in the requested list");
+                        }
+                        else
+                            if (data == "Item belongs to a different transaction") {
+                                alert("Item belongs to a different transaction");
+                            }
+                            else {
+
+                                var trHTML = '';
+                                $.each(data, function (i, item) {
+                                    trHTML += '<tr><td>' + item.Bar + '</td><td>' + item.StckTy + '</td><td>' + item.stckSize + '</td><td>' + item.StckCOlour + '</td><td>' + item.TransType + '</td><td>' + item.StckPrice + '</td> </tr>';
+                                });
+                                $("#CartDetails").append(trHTML);
+                            }
+
+
+                    }
+
+                });
+            });
+
+            $("#StockItem").click(function () {
+
+                var barCode = $("#stockBarcode").val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getStockItem",
+                    dataType: "Json",
+                    data: { 'barCode': barCode },
+                    success: function (data) {
+                        if (data == "Description Different") {
+                            alert("Item did not match any item in the requested list");
+                        }
+                        else
+                            if (data == "Item belongs to a different transaction") {
+                                alert("Item belongs to a different transaction");
+                            }
+                            else {
+
+                                var trHTML = '';
+                                $.each(data, function (i, item) {
+
+                                    trHTML += '<tr><td>' + item.Bar + '</td><td>' + item.StckTy + '</td><td>' + item.stckSize + '</td><td>' + item.StckCOlour + '</td><td>' + item.TransType + '</td></tr>';
+                                });
+                                $("#StockItemDetails").append(trHTML);
+                            }
+
+
+                    }
+
+                });
+
+
+            });
+
+            var selectedData;
+            $('#tCustomer').on('click', 'tr', function () {
+                selectedData = table.row(this).data();
+                $("#Establishment").attr("Disabled", false);
+
+
+            });
+            $("#SubmitOrder").on("click", function () {
+
+                CustID = selectedData.ID;
+                Name = selectedData.CustName + " " + selectedData.CustSurname;
+                alert(CustID);
+
+                Amount = $("#TotalPrice").val();
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/PlaceOrder",
+                    data: { 'CustID': CustID, 'Name': Name, 'Amount': Amount },
+                    success: function (data) {
+
+                        alert("Customer Order has Been Placed");
+                    }
+
+
+                });
+
+
+
+            });
+            /*end*/
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("#wrapper").toggleClass("toggled");
+            });
+            $('.textInput').keyup(function () {
+                $('span.error-keyup-2').remove();
+                var inputVal = $(this).val();
+                var characterReg = /^\s*[a-zA-Z,\s]+\s*$/;
+                if (!characterReg.test(inputVal)) {
+                    $(this).after('<span class="error error-keyup-2" style="background-color:red">Only Alphabets characters allowed.</span>');
+                }
+            });
+            $('#PhoneNum').keyup(function () {
+                $('span.error-keyup-1').hide();
+                var inputVal = $(this).val();
+                var numericReg = /^\d*[0-9](|.\d*[0-9]|,\d*[0-9])?$/;
+                if (!numericReg.test(inputVal)) {
+                    $(this).after('<span class="error error-keyup-1" style="background-color:red">Numeric characters only.</span>');
+                }
+            });
+            $('#NextPhoneNum').keyup(function () {
+                $('span.error-keyup-1').hide();
+                var inputVal = $(this).val();
+                var numericReg = /^\d*[0-9](|.\d*[0-9]|,\d*[0-9])?$/;
+                if (!numericReg.test(inputVal)) {
+                    $(this).after('<span class="error error-keyup-1" style="background-color:red">Numeric characters only.</span>');
+                }
+            });
+
+            $("#AddCustomer").on('click', function () {
+
+                var flag = true;
+                $(".error error - keyup - 1").remove();
+                $("span").remove();
+                var CustID = $("#CustomerID").val();
+                var CustName = $("#CustName").val();
+                var PhoneNum = $("#PhoneNum").val();
+                var CustSur = $("#CustSurn").val();
+                var Address = $("#CustAddAddres").val();
+                var Email = $("#CustEmail").val();
+                var NextKinName = $("#NextName").val();
+                var NextKinPhone = $("#NextPhoneNum").val();
+                if (CustID.length == 0) {
+                    $("#CustomerID").after('<span class="error error-keyup-1" style="background-color:red">Please Enter Customer ID.</span>');
+                    flag = false;
+                }
+                if (CustName.length == 0) {
+                    $("#CustName").after('<span class="error error-keyup-1" style="background-color:red">Missing Customer Name</span>');
+                    flag = false;
+                }
+                if (PhoneNum.length == 0) {
+                    $("#PhoneNum").after('<span class="error error-keyup-1" style="background-color:red">Field left empty.</span>');
+                    flag = false;
+                }
+                if ($("#CustSurn").val().length == 0) {
+                    $("#CustSurn").after('<span class="error error-keyup-1" style="background-color:red">Field left empty</span>');
+                    flag = false;
+                }
+                if (Address.length == 0) {
+                    $("#CustAddAddres").after('<span class="error error-keyup-1" style="background-color:red">Field left empty</span>');
+                    flag = false;
+                }
+                if (Email.length == 0) {
+                    $("#CustEmail").after('<span class="error error-keyup-1" style="background-color:red">Field left empty</span>');
+                    flag = false;
+                }
+                if (NextKinName.length == 0) {
+                    $("#NextName").after('<span class="error error-keyup-1" style="background-color:red">Numeric characters only.</span>');
+                    flag = false;
+                }
+                if (NextKinPhone.length == 0) {
+                    $("#NextPhoneNum").after('<span class="error error-keyup-1" style="background-color:red">Field left empty</span>');
+                    flag = false;
+                }
+
+                if (flag) {
+                    var form = $("#CustomerAddForm");
+                    $.ajax({
+                        type: "Post",
+                        url: "/CustomerRental/SaveCustomer",
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        data: form.serialize(),
+                        success: function (data) {
+
+                            alert("Search the customer and select the customer");
+                            table.ajax.reload();
+                        }
+                    });
+                }
+                else
+                    alert("Please complete the outstanding fields!");
+
+
+
+
+            });
+            var table = $('#dt-basic-checkbox').DataTable({
+                "ajax": {
+                    "url": "/CustomerRental/loadData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "space" },
+                    { "data": "ID" },
+                    { "data": "StockType" },
+                    { "data": "Size" },
+                    { "data": "ColourName" }
+
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }],
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                },
+                "pageLength": 5
+            });
+
+            $("#SaveChanges").on("click", function () {
+
+                alert("hello");
+                var barCode = $("#stockBarcode").val();
+                alert(barCode);
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getStockItem",
+                    dataType: "Json",
+                    data: { 'barCode': barCode },
+                    success: function (data) {
+                        if (data == "Description Different") {
+                            alert("Item did not match any item in the requested list");
+                        }
+                        else
+                            if (data == "Item belongs to a different transaction") {
+                                alert("Item belongs to a different transaction");
+                            }
+                            else {
+
+                                var trHTML = '';
+                                $.each(data, function (i, item) {
+                                    trHTML += '<tr><td>' + item.Bar + '</td><td>' + item.StckTy + '</td><td>' + item.stckSize + '</td><td>' + item.StckCOlour + '</td><td>' + item.TransType + '</td><td>' + item.StckPrice + '</td> </tr>';
+                                });
+                                $("#CartDetails").append(trHTML);
+                            }
+
+
+                    }
+
+                });
+            });
+
+            $('#DisplayItem').on('click', function (e) {
+                var barCode = $("#stockBarcode").val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getStockItem",
+                    dataType: "Json",
+                    data: { 'barCode': barCode },
+                    success: function (data) {
+                        if (data == "Description Different") {
+                            alert("Item did not match any item in the requested list");
+                        }
+                        else
+                            if (data == "Item belongs to a different transaction") {
+                                alert("Item belongs to a different transaction");
+                            }
+                            else {
+
+                                var trHTML = '';
+                                $.each(data, function (i, item) {
+
+                                    trHTML += '<tr><td>' + item.Bar + '</td><td>' + item.StckTy + '</td><td>' + item.stckSize + '</td><td>' + item.StckCOlour + '</td><td>' + item.TransType + '</td></tr>';
+                                });
+                                $("#StockItemDetails").append(trHTML);
+                            }
+
+
+                    }
+
+                });
+                $('#myModal').modal('show');
+
+                e.preventDefault();
+            });
+        });
+
+    </script>
+</head>
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Scanned Item</h4>
+            </div>
+            <div class="modal-body" style="border-color: rgb(207,152,10);background-color: rgb(44,41,41);">
+                <div class="container">
+                    <div class="form">
+                        <div class="form-content">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered" style="color:white;">
+                                        <thead>
+                                            <tr>
+                                                <th class="border rounded-0 shadow-sm" style="color: rgb(246,180,9);">Stock ID</th>
+                                                <th class="border rounded-0 shadow-sm" style="color:rgb(246,180,9);border-color: rgb(246,180,9);">Stock Type</th>
+                                                <th class="border rounded-0 shadow-sm" style="color:rgb(246,180,9);">Stock Size</th>
+                                                <th class="border rounded-0 shadow-sm" style="color: rgb(246,180,9);">Colour</th>
+                                                <th class="border rounded-0 shadow-sm" style="color:rgb(246,180,9);">Department(Rental/Retail)</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="StockItemDetails" style="color:white;">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="SaveChanges" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" style="background-color: rgb(44,41,41);">
+        <div class="modal-content" style="background-color: rgb(44,41,41);">
+
+            <div class="modal-header">
+                <h5 class="mb-0" style="background-color: rgb(44,41,41);color: rgb(220,185,4); font-size: 45px; text-align: left;">Add Customer</h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+
+            </div>
+            <div class="modal-body" style="border-color: rgb(207,152,10);">
+                <div class="card" style="background-color: rgb(222,187,3);">
+                    <form id="CustomerAddForm">
+
+                        <h5 class="mb-0" style="color: rgb(220,185,4);text-align: left;background-color: rgb(44,41,41);">Customer Details</h5>
+                        <div class="card-body" style="border-color: rgb(207,152,10);background-color: rgb(44,41,41);">
+                            <div class="container register-form">
+                                <div class="form">
+                                    <div class="form-content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="CustomerID" style="color: rgb(242,243,245);">ID Number*</label>
+                                                    <input type="text" id="CustomerID" name="CustomerID" class="form-control" style="background-color: rgb(75,70,70);color: rgb(242,243,245);" required />
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="CustName" style="color: rgb(242,243,245);">Name* </label>
+                                                    <input type="text" id="CustName" name="CustName" style="background-color: rgb(75,70,70);color: rgb(242,243,245);" value="" class="textInput form-control" required />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="PhoneNum" style="color: rgb(242,243,245);">Phone Number*</label>
+                                                    <input type="text" id="PhoneNum" name="PhoneNum" style="background-color: rgb(75,70,70);color: rgb(242,243,245);" value="" class="form-control" required />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="CustAddAddres" style="color: rgb(242,243,245);">Address* </label>
+                                                    <textarea id="CustAddAddres" name="CustAddAddres" style="background-color: rgb(75,70,70);color: rgb(242,243,245);" value="" class="form-control" rows="4" cols="50"> </textarea>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+
+                                                    <label for="CustSurn" style="color: rgb(242,243,245);">Surname*</label>
+                                                    <input type="text" id="CustSurn" name="CustSurn" style="background-color: rgb(75,70,70);color: rgb(242,243,245);" value="" class="textInput form-control" placeholder="Surname" required />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="CustEmail" style="color: rgb(242,243,245);">Email* </label>
+                                                    <input type="email" id="CustEmail" name="CustEmail" style="background-color: rgb(75,70,70);color: rgb(242,243,245);" value="" class="keyup-emailform-control" placeholder="Email*" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-group">
+                            <div class="card" style="background-color: rgb(214,182,15);">
+                                <div class="card-body" style="background-color: rgb(48,46,46);">
+                                    <h5 class="mb-0" style="color: rgb(220,185,4);text-align: left;background-color: rgb(44,41,41);"> Next of Kin Details</h5>
+
+                                    <div class="container register-form">
+                                        <div class="form">
+                                            <div class="form-content">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="NextName" style="color: rgb(242,243,245);">Name and Surname*</label>
+                                                            <input type="text" id="NextName" name="NextName" style="background-color: rgb(75,70,70);color: rgb(242,243,245);" class="textInput form-control" placeholder="Your Name *" value="" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="NextPhoneNum" style="color: rgb(242,243,245);">Phone number*</label>
+                                                            <input type="text" name="NextPhoneNum" id="NextPhoneNum" style="background-color: rgb(75,70,70);color: rgb(242,243,245);" class="form-control" placeholder="Phone number *" value="" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" style="background-color:red" data-dismiss="modal">Cancel</a>
+                <input type="reset" value="Add Customer" style="background-color: rgb(207,152,10); color: black" class="btn btn-success" id="AddCustomer" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="StockDescriptin">
+    <div class="modal-dialog" style="background-color: rgb(44,41,41); width: 900px ">
+        <div class="modal-content" style="background-color: rgb(44,41,41);width: 900px">
+
+            <div class="modal-header">
+                <h5 class="mb-0" style="background-color: rgb(44,41,41);color: rgb(220,185,4); font-size: 45px; text-align: left;">Available Stock Description</h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+
+            </div>
+            <div class="modal-body" style="border-color: rgb(207,152,10);">
+                <div class="card" style="background-color: rgb(222,187,3);">
+                    <div class="card-body" style="border-color: rgb(207,152,10);background-color: rgb(44,41,41);">
+                        <div class="container register-form">
+                            <div class="form">
+                                <div class="container">
+                                    <p>Enter stock type to search the specific </p>
+                                    <table id="dt-basic-checkbox" style="color: white ; width:100%" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>StockDescriptionID</th>
+                                                <th>Stock Type</th>
+                                                <th>Size</th>
+                                                <th>Colour</th>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                </div>
+                    </div>
+                </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-default" style="background-color:red" data-dismiss="modal">Cancel</a>
+                        <input type="reset" value="Select Description" style="background-color: rgb(207,152,10); color: black" class="btn btn-success" id="SelectDescription" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!---    Stock Barcode-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body style="border-color: rgb(208,164,7);color:white;background-color:black">
+    <nav class="navbar navbar-light navbar-expand-md navbar-fixed-top navigation-clean-button" style="color:aliceblue">
+        <div class="container" style="color:aliceblue">
+            <div><a class="navbar-brand" href="#"><span>GradStockUp </span></a><button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button></div>
+        </div>
+    </nav>
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="~/Home/Index">Home </a></li>
+                <li class="sidebar-brand"><a href="#">Bulk Transaction </a></li>
+                <li class="sidebar-brand"><a href="#">Low Stock notification</a></li>
+            </ul>
+        </div>
+
+        <div class="page-content-wrapper">
+            <div class="container-fluid">
+                <form id="AddItemsListFrm">
+                    <a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars" style="height: 22px;"></i>hide</a>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <h1 style="text-align: center;color: rgb(217,174,24);background-color: #000000;">Customer Transaction </h1>
+                            </div>
+                            <div class="card" style="background-color: rgb(222,187,3);">
+                                <div class="card-header" style="border-color: rgb(225,190,4);background-color: rgb(41,41,41);">
+                                    <h5 class="mb-0" style="color: rgb(220,185,4);font-size: 45px;text-align: left;">Customer Details</h5>
+                                </div>
+                                <div class="card-body" style="border-color: rgb(207,152,10);background-color: rgb(44,41,41);">
+                                    <div class="input-group" style="width: 684px;">
+                                        <div class="input-group-prepend"><span class="input-group-text">Customer ID</span></div><input type="text" id="SearchCus" class="form-control" style="background-color: rgb(75,70,70);color: rgb(242,243,245);" />
+                                        <div class="input-group-append"><button class="btn" type="button" style="background-color: #eaa800;">Search</button></div>
+                                    </div>
+
+                                    <button class="btn text-justify" href="#" data-toggle="modal" data-target="#myModal" type="button" id="AddCustomer" style="background-color: #eaa800;text-align: center;margin-left: 556px;margin-top: 6px;">Add Customer</button>
+                                    <div class="card-group">
+                                        <div class="card" style="background-color: rgb(214,182,15);">
+                                            <div class="card-body" style="background-color: rgb(48,46,46);">
+                                                <table id="tCustomer" style="color: white" class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>ID</th>
+                                                            <th>CustomerID</th>
+                                                            <th>Customer Name</th>
+                                                            <th>Customer Surname</th>
+                                                            <th>Phone Number</th>
+                                                            <th>Email</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbody">
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card" style="background-color: rgb(41,41,41);">
+                                        <div class="card-header" style="border-color: rgb(225,190,4);background-color: rgb(41,41,41);">
+                                            <h5 class="mb-0" style="color: rgb(220,185,4);font-size: 45px;text-align: left;">Order Details</h5>
+                                        </div>
+                                        <div class="card-body" style="border-color: rgb(207,152,10);background-color: rgb(44,41,41);">
+                                            <div class="card-group">
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="card" style="background-color: rgb(209,177,13);">
+                                                        <div class="card-body" style="background-color: rgb(41,41,41);">
+                                                            <h4 class="card-title" style="color: rgb(247,247,247);">Institution Details</h4>
+                                                            <div class="container">
+                                                                <div >
+                                                                    <div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6" style="border-color: gold;border-style:solid;  border-right:none; border-width:1.4px">
+                                                                                <div class="form-group">
+                                                                                    <h8 class="card-title" style="padding-left: 0px;color: rgb(246,247,248);">Establishment</h8>
+                                                                                    <select id="Establishment" disabled>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6" style="border-color: gold;border-style:solid; border-left:none;border-width:1.4px">
+                                                                                <div class="form-group">
+                                                                                    <h8 class="card-title" style="color: rgb(240,242,244);">Institution</h8>
+                                                                                    <select id="Institutes" name="Institutes" style="background-color: black" disabled>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6" style="border-color: gold;border-style:solid;border-right:none; border-width:1.4px">
+                                                                                <div class="form-group">
+                                                                                    <h8 class="card-title" style="padding-left: 0px;color: rgb(246,247,248);">Faculty</h8>
+                                                                                    <select id="Faculty" name="Faculty" disabled>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6" style="border-color: gold;border-style:solid; border-left:none;border-width:1.4px">
+                                                                                <div class="form-group">
+                                                                                    <h8 class="card-title" style="color: rgb(240,242,244);">Qualification Type</h8>
+                                                                                    <select id="QualType" name="QualType" disabled>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6" style="border-color: gold;border-style:solid;  border-left:none;border-width:1.4px">
+                                                                                <div class="form-group">
+                                                                                    <h8 class="card-title" style="color: rgb(240,242,244);">Date of Function</h8>
+                                                                                    <input type="date" name="DateFunction " style="width:inherit" id="DateFunction" disabled />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6" style=" border-color: gold;border-style: solid;border-right: none;border-width: 1.4px">
+                                                                                <div class="form-group">
+                                                                                    <h8 class="card-title" style="padding-left: 0px;color: rgb(246,247,248);">Head Circumference</h8>
+                                                                                    <select id="HeadCircum" name="HeadCircum" style="background-color: rgb(48,46,46);color: rgb(242,243,245);" disabled>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6" style="border-color: gold;border-style:solid; border-left:none; border-width:1.4px">
+                                                                                <div class="form-group">
+                                                                                    <h8 class="card-title" style="padding-left: 0px;color: rgb(246,247,248);">Height</h8>
+                                                                                    <select id="Height" name="Height" style="background-color: rgb(75,70,70);color: rgb(242,243,245);" disabled>
+                                                                                    </select>
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="col-md-6" style="border-color: gold;border-style:solid; border-left:none; border-width:1.4px">
+                                                                                <div class="form-group">
+                                                                                    <h8 class="card-title" style="padding-left: 0px;color: rgb(246,247,248);">Hood</h8>
+                                                                                    <select id="Hood" name="Hood" style="background-color: rgb(75,70,70);color: rgb(242,243,245);" disabled>
+                                                                                    </select>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <a class="btn btn-primary " role="button" id="DisplayOutFit" style="width: 146px;margin-top: 21px;margin-left:450px;margin-bottom: 0px;padding-bottom: 7px;background-color: #9c7206;">Display OutFit</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="card" style="background-color: rgb(206,175,15);border-style: solid;">
+                                                        <div class="card-body" style="background-color: rgb(41,41,41);">
+                                                            <h4 class="card-title" style="color: rgb(243,247,251);">OutFit Details</h4>
+                                                            <div class="card-body">
+                                                                <table style="width:100%" class="outlined">
+                                                                    <thead>
+
+                                                                    </thead>
+                                                                    <tbody id="tRequested">
+                                                                    </tbody>
+
+
+                                                                </table>
+                                                                <h4>Scan Stock item </h4>
+
+                                                                <div class="input-group">
+
+                                                                    <div class="input-group-prepend"><span class="input-group-text">Barcode</span></div><input type="text" id="stockBarcode" class="form-control" style="background-color: rgb(75,70,70);color: rgb(242,243,245);" />
+                                                                       <div class="input-group-append">
+                                                                               <button style="background-color: #eaa800;"  onclick="openModal()" id="DisplayItem" type="submit" class="btn btn-primary">Search Item</button> 
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="card-group">
+                                    <div class="card" style="background-color: rgb(42,42,42);">
+                                        <div class="card-body">
+
+                                            <h4 class="card-title" style="color: rgb(227,236,245);">Your Cart</h4>
+                                            <div class="table-responsive" style="background-color: #363636; color:white;border-color: rgb(246,180,9);">
+                                                <table class="table table-bordered" style="color:white;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="border rounded-0 shadow-sm" style="color: rgb(246,180,9);">Stock ID</th>
+                                                            <th class="border rounded-0 shadow-sm" style="color:rgb(246,180,9);border-color: rgb(246,180,9);">Stock Type</th>
+                                                            <th class="border rounded-0 shadow-sm" style="color:rgb(246,180,9);">Stock Size</th>
+                                                            <th class="border rounded-0 shadow-sm" style="color: rgb(246,180,9);">Colour</th>
+                                                            <th class="border rounded-0 shadow-sm" style="color:rgb(246,180,9);">Department(Rental/Retail)</th>
+                                                            <th class="border rounded-0 shadow-sm" style="color:rgb(246,180,9);">Price</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="CartDetails" style="color:white;">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="input-group" style="width: 309px;margin-left: 634px;background-color: #282727;margin-top: 0px;padding-top: 0px;color: rgb(250,253,255);">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" style="background-color: rgb(154,154,154);padding-top: 4px;margin-top: 1px;">Total Cost</span>
+                                                </div>
+                                                <input class="form-control" type="text" id="Total" style="width: 75px;background-color: rgb(47,45,45);color: rgb(227,230,231);" />
+                                            </div>
+                                            <a class="btn btn-primary text-uppercase" role="button" id="SubmitOrder" style="width: 146px;margin-top: 21px;margin-left: 651px;margin-bottom: 0px;padding-bottom: 7px;background-color: #9c7206;">Submit</a>
+                                            <button href="~/Home/Index" class="btn text-center justify-content-center align-items-center align-content-center align-self-center mr-auto align-items-md-center" type="button" style="background-color: rgb(216,74,56);padding: 13px;background-position: left;width: 103px;margin-top: -41px;margin-left: 838px;height: 40px;margin-right: 0px;padding-top: 7px;margin-bottom: 1px;">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

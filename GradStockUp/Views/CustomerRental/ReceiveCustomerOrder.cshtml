@@ -1,0 +1,983 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ReceiveCustomerOrder</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/select2.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.select.min.js" type="text/javascript"></script>
+    <link href="~/Content/DataTables/css/select.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/css/select2.min.css" rel="stylesheet" />
+    <script src="~/Scripts/Sidebar-Menu.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="~/Content/css/Sidebar-Menu-1.css" />
+    <link rel="stylesheet" href="~/Content/css/Sidebar-Menu.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js">
+    </script>
+    @Html.ActionLink("Home", "CashierHome", "Home", null, new { @class = "navbar-brand", @style = "font-family: comic sans;  color:Gold;" })
+    <style>
+        /* Main tabs */
+
+
+        nav > .nav.nav-tabs {
+            border-color: darkgoldenrod;
+            color: #fff;
+            background: #272e38;
+            border-radius: 0;
+        }
+
+        nav > div a.nav-item.nav-link,
+        nav > div a.nav-item.nav-link.active {
+            border: none;
+            padding: 18px 25px;
+            color: #fff;
+            background: #272e38;
+            border-radius: 0;
+        }
+
+        nav > div a.nav-item.nav-link.active:after {
+            content: "";
+            position: relative;
+            bottom: -60px;
+            left: -10%;
+            border: 15px solid transparent;
+            border-top-color: darkgoldenrod;
+        }
+
+        .tab-content {
+            background-color: black;
+            line-height: 25px;
+            border: 1px solid;
+            border-color:goldenrod;
+            border-top: 5px solid #e74c3c;
+            border-bottom: 5px solid #e74c3c;
+            padding: 30px 25px;
+        }
+
+        nav > div  a.nav-item.nav-link:hover,
+        nav > div   a.nav-item.nav-link:focus {
+            border: none;
+            background-color: darkgoldenrod;
+            color: #fff;
+            border-radius: 0;
+            transition: background 0.20s linear;
+        }
+    </style>
+    <script>
+        $(document).ready(function (e) {
+            $('.nav-tabs > a').click(function () {
+                if ($(this).hasClass('disabled')) {
+                    return false;
+                } else {
+                    var linkIndex = $(this).parent().index() - 1;
+                    $('.nav-tabs').each(function (index, item) {
+                        $(item).attr('rel-index', index - linkIndex);
+                    });
+                }
+            });
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-full-width",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+            /*Retrieve Customer Order */
+            $("#SearchCustomerOrder").click(function () {
+
+                var customerRentalID = $("#CustomerRentalID").val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getCustomerOrder",
+                    data: { 'customerRentalID': customerRentalID },
+                    success: function (data) {
+                        $("#CustName").val = data[0].CustName;
+                        $("#CustName").attr("value", data[0].CustName)
+                        $("#OrderDate").attr("value", data[0].OrderDate)
+                        $("#RentID").attr("value", data[0].RentId)
+                        $("#ItemsReturned").attr("value", data[0].Items)
+
+                        $("#ReturnBody").empty();
+                        $.getJSON('/Scripts/ReturnedItems.json', function (res) {
+                            var trHTML = '';
+
+                            $.each(res, function (i, item) {
+                                trHTML += '<tr><td>' + item.StockType + '</td><td>' + item.StockSize + '</td><td>' + item.StockColour + '</td><td>' + item.State + '</td><td>' + item.Match + '</td></tr>';
+                            });
+                            $("#ReturnBody").append(trHTML);
+
+
+                        });
+
+                        if (data[0].OrderProcess == true) {
+                            toastr.info('Order has been processed before');
+                            $(".tab-content *").attr("disabled", true)
+
+                        }
+                        toastr.info('Order Retrieved scan the returned items to complete the order')
+
+                    }
+                });
+            });
+
+            $("#AddToCart").click(function () {
+
+                var barCode = $("#stockBarcode").val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getStockItem",
+                    dataType: "Json",
+                    data: { 'barCode': barCode },
+                    success: function (data) {
+                        if (data == "Description Different") {
+                            toastr.error("Item did not match any item in the requested list");
+                        }
+                        else
+                            if (data == "Item belongs to a different transaction") {
+                                toastr.error('Item did not match any item in the requested list')
+
+                            }
+                            else {
+
+                                var trHTML = '';
+                                $.each(data, function (i, item) {
+
+                                    trHTML += '<tr><td>' + item.Bar + '</td><td>' + item.StckTy + '</td><td>' + item.stckSize + '</td><td>' + item.StckCOlour + '</td><td>' + item.TransType + '</td><td>' + parseFloat(item.StckPrice).toFixed(2) + '</td></tr>';
+                                });
+                                $("#CartDetails").append(trHTML);
+                            }
+
+
+                    }
+
+                });
+            });
+            $("#RetrieveStock").click(function () {
+                var barcode = $("#StockBarcode").val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/CaptureItem",
+                    dataType: "Json",
+                    data: { 'barCode': barcode },
+                    success: function (data) {
+                        if (data == "failed") {
+
+                            toastr.error('Stock item does not belong or was not placed for this transaction')
+
+                        }
+                        else
+                            if (data == "NoItem") {
+
+                                toastr.error('Barcode not registered within Organization!!')
+                            }
+                            else {
+                                $("#stockBarcode").attr("value", data[0].Bar);
+                                $("#StockType").attr("value", data[0].Stype)
+                                $("#Colour").attr("value", data[0].clr)
+                                $("#Size").attr("value", data[0].Siz)
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/CustomerRental/getState",
+                                    dataType: "Json",
+                                    data: "{}",
+                                    success: function (data) {
+                                        var s = "";
+                                        $.each(data, function (i, item) {
+                                            s = '<option value="' + item.StID + '">' + item.desc + '</option>';
+                                            $("#ItemState").append(s);
+                                        });
+                                        Open();
+
+                                    }
+                                })
+                            }
+                    }
+                });
+            });
+
+            $("#SaveChanges").click(function () {
+                var State = $("#ItemState").val();
+                var Barcode = $("#stockBarcode").val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/UpdateReceivedStock",
+                    dataType: "Json",
+                    data: { 'state': State, 'Bar': Barcode },
+                    success: function (data) {
+                        if (data == "ItemCaptured") {
+
+                            $("#ReturnBody").empty();
+                            $.getJSON('/Scripts/ReturnedItems.json', function (res) {
+                                var trHTML = '';
+
+                                $.each(res, function (i, item) {
+                                    trHTML += '<tr><td>' + item.StockType + '</td><td>' + item.StockSize + '</td><td>' + item.StockColour + '</td><td>' + item.State + '</td><td>' + item.Match + '</td></tr>';
+                                });
+                                $("#ReturnBody").append(trHTML);
+                                $('#StockModel').modal('show');
+                                toastr.success('The item has been updated succesfully in the table')
+
+                            });
+                        }
+                        else
+                            toastr.error("Failed to update the item");
+
+
+                    }
+                })
+
+
+            });
+
+            $("#CompleteOrder").click(function () {
+
+                $.getJSON('/Scripts/ReturnedItems.json', function (res) {
+                    var trHTML = '';
+                    var count = 0;
+                    $.each(res, function (i, item) {
+
+                        if (item.Match == "Not Returned") {
+                            trHTML += '<tr><td>' + item.StockType + '</td><td>' + item.StockSize + '</td><td>' + item.StockColour + '</td></tr>';
+                            count += 1;
+                        }
+                    });
+
+
+                    if (count != 0) {
+                        $("#OutStandingBody").empty();
+                        $("#OutStandingBody").append(trHTML);
+                        $('#ScanItemModal').modal('show');
+                    }
+                    else {
+                        $.getJSON('/Scripts/ReturnedItems.json', function (res) {
+                            $("#SummaryTable").empty();
+                            var trHTML = '';
+                            var ItemsReturned = 0;
+                            var ItemsRented = 0;
+                            var PayPrice = 0.0;
+                            var AmountDue = 0.0;
+                            var DamageCount = 0;
+                            $.each(res, function (i, item) {
+                              
+                                if (item.Match == "Matched") {
+                                    PayPrice += parseFloat(item.Price);;
+                                    ItemsReturned += 1;
+                                }
+                                if (item.State != 1)
+                                    DamageCount += 1;
+                                trHTML += '<tr><td>' + item.StockType + '</td><td>' + item.StockSize + '</td><td>' + item.StockColour + '</td> <td>' + item.Price + '</td> <td>' + item.Match + '</td></tr>';
+                                ItemsRented += 1;
+                                AmountDue += parseFloat(item.Price);
+                            });
+
+
+                            $("#ReturnedId").attr("value", ItemsReturned);
+                            $("#RentedID").attr("value", ItemsRented);
+                            $("#AmountID").attr("value", parseFloat(AmountDue).toFixed(2));
+                            $("#PayAmount").attr("value", parseFloat(PayPrice).toFixed(2));
+                            $("#SummaryTable").append(trHTML);
+                            $("#DamagedID").attr("value", DamageCount)
+
+                        });
+
+                    }
+
+                });
+            });
+
+            $("#Proceed").click(function () {
+
+                $.getJSON('/Scripts/ReturnedItems.json', function (res) {
+                    $("#SummaryTable").empty();
+                    var trHTML = '';
+                    var ItemsReturned = 0;
+                    var ItemsRented = 0;
+                    var PayPrice = 0.0;
+                    var AmountDue = 0.0;
+                    var DamageCount = 0;
+                    $.each(res, function (i, item) {
+
+                        if (item.Match == "Matched") {
+                            PayPrice += parseFloat(item.Price);;
+                            ItemsReturned += 1;
+                        }
+                        if (item.State != "Good")
+                            DamageCount += 1;
+                        trHTML += '<tr><td>' + item.StockType + '</td><td>' + item.StockSize + '</td><td>' + item.StockColour + '</td> <td>' + item.Price + '</td> <td>' + item.Match + '</td></tr>';
+                        ItemsRented += 1;
+                        AmountDue += parseFloat(item.Price);
+                    });
+
+
+                    $("#ReturnedId").attr("value", ItemsReturned);
+                    $("#RentedID").attr("value", ItemsRented);
+                    $("#AmountID").attr("value", parseFloat(AmountDue).toFixed(2));
+                    $("#PayAmount").attr("value", parseFloat(PayPrice).toFixed(2));
+                    $("#SummaryTable").append(trHTML);
+                    $("#DamagedID").attr("value", DamageCount)
+                    $('#ScanItemModal').modal('hide');
+                    toastr.error('The Price of outstanding items will be deducted from the refund!!');
+
+
+                });
+
+
+
+            });
+
+            $("#Refund").change(function () {
+
+                $("#SubmitOrder").attr("disabled", false);
+
+                if ($("#Refund").val() == 2) {
+
+                    $("#Bank").attr("disabled", false);
+                    $.ajax({
+                        type: "GET",
+                        url: "/CustomerRental/getBanks",
+                        dataType: "Json",
+                        data: "{}",
+                        success: function (data) {
+                            var s = "";
+
+
+                            for (var k = 0; k < data.length; k++) {
+                                s += '<option value="' + data[k].BnkID + '">' + data[k].BnkName + '</option>';
+
+                            }
+
+                            $("#Bank").append(s);
+                        }
+
+
+
+                    });
+
+                }
+                else {
+
+                    $("#Bank").attr("disabled", true);
+
+                }
+
+
+
+            });
+
+
+            $("#Bank").on("change", function () {
+
+                var BankID = $("#Bank").val();
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/getBranchCode",
+                    dataType: "Json",
+                    data: { 'BankName': BankID },
+                    success: function (data) {
+
+                        $("#BranchCode").attr("value", data);
+                    }
+                });
+
+
+            });
+
+            $("#ReserveLater").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/ReserveLater",
+                    dataType: "Json",
+                    data: "{}",
+                    success: function (data) {
+                        $('#ScanItemModal').modal('hide');
+                        toastr.success('The returned items have been placed, please remember to complete the order within  96 hours')
+                        setTimeout(() => { window.location.href = "/CustomerRental/ReceiveCustomerOrder"; }, 5000);
+
+                    }
+
+
+
+                });
+
+
+            });
+
+
+            $("#SubmitOrder").click(function () {
+                if ($("#Refund").val() == 2) {
+
+                    var Ac = $("#AccNumber").val();
+                    if (ValidateAccount(Ac)) {
+                        alert("Proceed");
+
+                    }
+                }
+                var customerRentalID = $("#CustomerRentalID").val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/CustomerRental/SubmitReceivedItems",
+                    dataType: "Json",
+                    data: { 'CustomerRentalID': customerRentalID },
+                    success: function (data) {
+                        $('#ScanItemModal').modal('hide');
+                        toastr.success('Process completed successfully')
+                        setTimeout(() => { window.location.href = "/CustomerRental/ReceiveCustomerOrder"; }, 5000);
+
+                    }
+
+
+
+                });
+
+
+            });
+
+            $("#Cancel").click(function () {
+
+
+                window.location.href = "/CustomerRental/ReceiveCustomerOrder";
+                toastr.info('Process has been cancelled')
+            });
+
+            $('#step-1-next').click(function () {
+                // Check values here
+                var isValid = true;
+
+                if ($("#RentID").val().length == 0 || $("#RentID").val() == "") {
+                    isValid = false;
+                    toastr.error("Please search for an order before proceeding !!");
+
+                }
+                if (isValid) {
+
+
+                    $.getJSON('/Scripts/ReturnedItems.json', function (res) {
+                        var trHTML = '';
+                        var count = 0;
+                        $.each(res, function (i, item) {
+
+                            if (item.Match == "Not Returned") {
+                                trHTML += '<tr><td>' + item.StockType + '</td><td>' + item.StockSize + '</td><td>' + item.StockColour + '</td></tr>';
+                                count += 1;
+                            }
+                        });
+
+
+                        if (count != 0) {
+                            $("#OutStandingBody").empty();
+                            $("#OutStandingBody").append(trHTML);
+                            $('#ScanItemModal').modal('show');
+                        }
+                        else {
+                            $.getJSON('/Scripts/ReturnedItems.json', function (res) {
+                                $("#SummaryTable").empty();
+                                var trHTML = '';
+                                var ItemsReturned = 0;
+                                var ItemsRented = 0;
+                                var PayPrice = 0.0;
+                                var AmountDue = 0.0;
+                                var DamageCount = 0;
+                                $.each(res, function (i, item) {
+
+                                    if (item.Match == "Matched") {
+                                        PayPrice += parseFloat(item.Price).toFixed(2);
+                                        ItemsReturned += 1;
+                                    }
+                                    if (item.State != 1)
+                                        DamageCount += 1;
+                                    trHTML += '<tr><td>' + item.StockType + '</td><td>' + item.StockSize + '</td><td>' + item.StockColour + '</td> <td>' + parseFloat(item.Price).toFixed(2) + '</td> <td>' + item.Match + '</td></tr>';
+                                    ItemsRented += 1;
+                                    AmountDue += parseFloat(item.Price).toFixed(2);
+                                });
+
+
+                                $("#ReturnedId").attr("value", ItemsReturned);
+                                $("#RentedID").attr("value", ItemsRented);
+                                $("#AmountID").attr("value", parseFloat(AmountDue).toFixed(2));
+                                $("#PayAmount").attr("value", parseFloat(PayPrice).toFixed(2));
+                                $("#SummaryTable").append(trHTML);
+                                $("#DamagedID").attr("value", DamageCount)
+
+                            });
+
+                        }
+
+                    });
+                    $('#step2').removeClass('disabled').click();
+                }
+            });
+        });
+        function Open() {
+
+            $('#StockModel').modal('show');
+
+        }
+
+        function ValidateAccount(AccNumber) {
+
+            if (AccNumber.length < 10 && AccNumber.length > 13)
+                return false;
+            else
+                return true;
+        }
+
+
+
+
+        /* <td class="border rounded-0"><select class="form-control" style="background-color: rgb(42,42,42);color: rgb(233,235,237);"><optgroup label="State"><option value="12" selected>Good</option><option value="13">WriteOff</option></optgroup></select></td>*/
+
+    </script>
+</head>
+<!-- Central Modal Medium -->
+<div class="modal fade" id="centralModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel"> <strong>Warning!</strong></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="alert alert-warning">
+                   Are you sure you want to cancel, Captured data will be removed!!
+                </div>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" id="Cancel" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!-- Central Modal Medium -->
+<div class="modal fade" tabindex="-1" role="dialog" id="StockModel">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color: rgb(44,41,41);">
+            <div class="modal-header">
+                <h1 class="modal-title" style="color:goldenrod">Scanned Items</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+            </div>
+            <div class="modal-body" style="border-color: rgb(207,152,10);background-color: rgb(44,41,41); color:whitesmoke;">
+                <div class="container">
+                    <div class="form">
+                        <div class="form-content">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4 class="card-title">Retrieved item</h4>
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text" style="background-color: rgb(19,21,23);color: rgb(242,244,247); width:100px">Barcode:</span></div><input type="text" id="stockBarcode" class="form-control" style="background-color: rgb(78,75,75);color: rgb(249,252,255);" />
+
+                                    </div>
+                                    <div class="input-group" style="padding-top: 5px">
+                                        <div class="input-group-prepend"><span class="input-group-text" style="background-color: rgb(19,21,23);color: rgb(242,244,247); width:100px">Stock Type:</span></div><input type="text" id="StockType" class="form-control" style="background-color: rgb(78,75,75);color: rgb(249,252,255);" />
+
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text" style="background-color: rgb(19,21,23);color: rgb(242,244,247);width:100px">Colour:</span></div><input type="text" id="Colour" class="form-control" style="background-color: rgb(78,75,75);color: rgb(249,252,255);" />
+
+                                    </div>
+                                    <div class="input-group" style="padding-top: 5px">
+                                        <div class="input-group-prepend"><span class="input-group-text" style="background-color: rgb(19,21,23);color: rgb(242,244,247);width:100px">Size:</span></div><input type="text" id="Size" class="form-control" style="background-color: rgb(78,75,75);color: rgb(249,252,255);" />
+
+                                    </div>
+                                    <div class="input-group" style="padding-top: 5px">
+                                        <div class="input-group-prepend"><span class="input-group-text" style="background-color: rgb(19,21,23);color: rgb(242,244,247);width:100px">Stock State:</span></div>
+                                        <select class="form-control" id="ItemState" name="ItemState" style="background-color: rgb(48,46,46);color: rgb(242,243,245);">
+                                            <option value="0" selected disabled> Select State</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" style="background-color: darkred; color:black" data-dismiss="modal">Close</button>
+                <button type="button" id="SaveChanges" style="background-color: darkgoldenrod; color:black" class="btn btn-primary">Capture Item</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="ScanItemModal">
+    <div class="modal-dialog modal-dialog-centered"  style="background-color: rgb(44,41,41);">
+        <div class="modal-content" style="background-color: rgb(44,41,41);">
+
+            <div class="modal-header">
+                <h5 class="mb-0" style="background-color: rgb(44,41,41);color: rgb(220,185,4); font-size: 45px; text-align: left;">OutStanding Items</h5>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+
+            </div>
+            <div class="modal-body" style="border-color: rgb(207,152,10);">
+                <div class="card" style="background-color: rgb(222,187,3);">
+                    <form id="CustomerAddForm">
+                        <div class="card-body" style="background-color: rgb(44,41,41);">
+                            <div class="container register-form">
+                                <div class="form">
+                                    <div class="form-content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card-body">
+                                                    <table class="table" id="OutStandingItems" style="color: rgb(239,241,243);">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="border rounded-0 shadow-sm" style="color: rgb(239,241,243);">Stock Type</th>
+                                                                <th class="border rounded-0 shadow-sm" style="color: rgb(228,229,230);">Stock Size</th>
+                                                                <th class="border rounded-0 shadow-sm" style="color: rgb(225,228,230);">Colour</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="OutStandingBody" style="color: rgb(239,241,243);">
+                                                        </tbody>
+                                                    </table>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" style="background-color:red" data-dismiss="modal">Cancel</a>
+                <input type="reset" value="Reserve for later" style="background-color: rgb(207,152,10); color: black" class="btn btn-success" id="ReserveLater" />
+                <input type="reset" value="Proceed with outstanding Items" style="background-color: rgb(207,152,10); color: black" class="btn btn-success" id="Proceed" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<body style="background-color:black;">
+
+    <div id="wrapper" style="background: #323030;">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="#">GradStockUp</a></li>
+                <li><a href="#">Customer Transaction</a></li>
+                <li><a href="#">Return Rented Items</a></li>
+                <li><a href="#">Bulk Transaction </a></li>
+            </ul>
+        </div>
+        <div class="page-content-wrapper">
+            <div class="container-fluid">
+                <a class="btn btn-link" role="button" id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars"></i></a>
+
+                <div>
+                    <h1 style="color: rgb(217,157,4);"><span style="text-decoration: underline;"> Customer Order </span></h1>
+                </div>
+
+
+                <div >
+                    <div>
+                        <div>
+                            <nav>
+
+                          
+                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    
+                                   
+                                        <div class="liner"></div>
+                                 
+                                            <a  rel-index="0" class="nav-item nav-link active" data-toggle="tab" href="#step-1" role="tab" aria-controls="step-1" aria-selected="true">Retrieve Customer</a>
+                                            <a  rel-index="1" class="nav-item nav-link disabled" data-toggle="tab" id="step2" href="#step-2" role="tab" aria-controls="nav-profile" aria-selected="false">Order Details</a>
+                                
+                        
+                                  
+                                </div>
+                            </nav>
+                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="background-color:black">
+                                <div class="tab-pane fade show active" id="step-1" role="tabpanel" aria-labelledby="step-1">
+                                    <div class="card" style="color: rgb(224,188,0);background: rgb(41,41,41);">
+                                        <div class="card-header" style="background: rgb(25,24,24);border-style: solid;">
+                                            <h5 class="mb-0">Search Customer </h5>
+                                        </div>
+                                        <div class="card-body" style="background: rgb(41,41,41);  margin-right: 2px; margin-left:2px">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span class="input-group-text" style="background: rgb(39,41,42);color: rgb(241,241,240);">Customer Rental ID</span></div><input type="text" class="form-control" id="CustomerRentalID" style="background: rgb(61,59,59);color: rgb(240,242,244);" />
+                                                <div class="input-group-append">  <input type="reset" value="Search" style="background-color: rgb(207,152,10); color: black" class="btn btn-success" id="SearchCustomerOrder" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card" style="color: rgb(224,188,0);background: rgb(41,41,41);">
+                                        <div class="card-header" style="background: rgb(25,24,24);border-style: solid;">
+                                            <h5 class="mb-0">Customer Details</h5>
+                                        </div>
+                                        <div class="card-body" style="background: rgb(41,41,41); margin-right: 2px; margin-left:2px">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span class="input-group-text" style="background: rgb(39,41,42);color: rgb(241,241,240);">Customer full Names </span></div><input type="text" id="CustName" class="form-control" style="background: rgb(61,59,59);color: rgb(240,242,244);" disabled />
+                                                <div class="input-group-append"></div>
+                                            </div>
+                                            <div class="input-group" style="margin-top: 5px;">
+                                                <div class="input-group-prepend"><span class="input-group-text" style="background: rgb(39,41,42);color: rgb(241,241,240);">Customer Order Date</span></div><input type="text" id="OrderDate" class="form-control" style="background: rgb(61,59,59);color: rgb(240,242,244);" disabled />
+                                                <div class="input-group-append"></div>
+                                            </div>
+                                            <div class="input-group" style="margin-top: 4px;">
+                                                <div class="input-group-prepend"><span class="input-group-text" style="background: rgb(39,41,42);color: rgb(241,241,240);">No of Items Rented   </span></div><input type="text" id="ItemsReturned" class="form-control" style="background: rgb(61,59,59);color: rgb(240,242,244);" disabled />
+                                                <div class="input-group-append"></div>
+                                            </div>
+                                            <div class="input-group" style="margin-top: 5px;">
+                                                <div class="input-group-prepend"><span class="input-group-text" style="background: rgb(39,41,42);color: rgb(241,241,240);">Customer Rental ID   </span></div><input type="text" id="RentID" class="form-control" style="background: rgb(61,59,59);color: rgb(240,242,244);" disabled />
+                                                <div class="input-group-append"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card" style="color: rgb(224,188,0);background: rgb(41,41,41);">
+                                        <div class="card-header" style="background: rgb(25,24,24);border-style: solid;">
+                                            <h5 class="mb-0">Order Details</h5>
+                                        </div>
+                                        <div class="card-body" style="background: rgb(41,41,41); margin-right: 2px; margin-left:2px">
+                                            <div>
+                                                <h4>Scan Stock item </h4>
+                                                <div class="card-body" style="background: rgb(41,41,41);">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span class="input-group-text" style="background: rgb(39,41,42);color: rgb(241,241,240);">Barcode :</span></div><input type="text" class="form-control" id="StockBarcode" style="background: rgb(61,59,59);color: rgb(240,242,244);" />
+                                                        <div class="input-group-append">
+                                                            <input type="button" value="Search" style="background-color: rgb(207,152,10); color: black" class="btn btn-success" id="RetrieveStock" />
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table class="table" id="ReturnedItemsTbl" style="color: rgb(239,241,243);">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="border rounded-0 shadow-sm" style="color: rgb(239,241,243);">Stock Type</th>
+                                                                <th class="border rounded-0 shadow-sm" style="color: rgb(228,229,230);">Stock Size</th>
+                                                                <th class="border rounded-0 shadow-sm" style="color: rgb(225,228,230);">Colour</th>
+                                                                <th class="border rounded-0 shadow-sm" style="color: rgb(235,238,242);">State</th>
+                                                                <th class="border rounded-0 shadow-sm" style="color: rgb(221,225,229);">Match</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="ReturnBody" style="color: rgb(239,241,243);">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button id="step-1-next" style="background-color: #eaa800;color:black" class="btn btn-lg btn-primary nextBtn pull-right">Proceed</button>
+
+                              
+                                </div>
+                                <div class="tab-pane fade" id="step-2" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div>
+                                        <div class="card" style="background-color: rgb(206,175,15);border-style: solid;">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Returned Items</h5>
+                                            </div>
+                                            <div class="card-body" style="background-color: rgb(41,41,41);">
+
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-4 col-sm-3">
+
+                                                            <table class="table table-bordered" id="OutFitTable" style="color:white;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="border rounded-0 shadow-sm" style="color: rgb(246,180,9);">Stock Type</th>
+                                                                        <th class="border rounded-0 shadow-sm" style="color:rgb(246,180,9);">Size</th>
+                                                                        <th class="border rounded-0 shadow-sm" style="color:rgb(246,180,9);">Colour</th>
+                                                                        <th class="border rounded-0 shadow-sm" style="color:rgb(246,180,9);">Price</th>
+                                                                        <th class="border rounded-0 shadow-sm" style="color: rgb(246,180,9);">Match</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="SummaryTable" style="color:white;">
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="card" style="background-color: rgb(206,175,15);border-style: solid;">
+                                            <div class="card-header">
+                                                <h4>Order Details</h4>
+                                            </div>
+                                            <div class="card-body" style="background-color: rgb(41,41,41);">
+
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend"><span class="input-group-text" style="background: rgb(39,41,42);color: rgb(241,241,240); width:215px; ">Number of Returned items</span></div><input type="text" id="ReturnedId" class="form-control" style="background: rgb(61,59,59);color: rgb(240,242,244);" disabled />
+                                                            <div class="input-group-append"></div>
+                                                        </div>
+                                                        <div class="input-group" style="margin-top: 5px;">
+                                                            <div class="input-group-prepend"><span class="input-group-text" style="background: rgb(39,41,42);color: rgb(241,241,240); width:215px;">Number of Rented items</span></div><input type="text" id="RentedID" class="form-control" style="background: rgb(61,59,59);color: rgb(240,242,244);" disabled />
+                                                            <div class="input-group-append"></div>
+                                                        </div>
+                                                        <div class="input-group" style="margin-top: 4px;">
+                                                            <div class="input-group-prepend"><span class="input-group-text" style="background: rgb(39,41,42);color: rgb(241,241,240); width:215px;">Amount Due: </span></div><input type="text" id="AmountID" class="form-control" style="background: rgb(61,59,59);color: rgb(240,242,244);" disabled />
+                                                            <div class="input-group-append"></div>
+                                                        </div>
+                                                        <div class="input-group" style="margin-top: 5px;">
+                                                            <div class="input-group-prepend"><span class="input-group-text" style="background: rgb(39,41,42);color: rgb(241,241,240); width:215px;">Damaged Items:  </span></div><input type="text" id="DamagedID" class="form-control" style="background: rgb(61,59,59);color: rgb(240,242,244);" disabled />
+                                                            <div class="input-group-append"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="card" style="background-color: rgb(206,175,15);border-style: solid;">
+                                            <div class="card-header">
+                                                <h4>Payment</h4>
+                                            </div>
+                                            <div class="card-body" style="background-color: rgb(41,41,41);">
+
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-md-6" style="border-color: gold;border-style:solid; border-width:1.4px">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <h8 style="padding-left: 0px;color: rgb(246,247,248);"> Refund Details</h8>
+                                                                    <hr />
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-prepend"><span class="input-group-text" style="background-color: black; color:whitesmoke; width:153px">Refund Method: </span></div>
+                                                                                <select class="form-control" id="Refund" name="Size" style="background-color: rgb(48,46,46);color: rgb(242,243,245);">
+                                                                                    <option value="0" selected disabled> Select Refund</option>
+                                                                                    <option value="1"> Cash</option>
+                                                                                    <option value="2"> EFT</option>
+                                                                                </select>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-prepend"><span class="input-group-text" style="background-color: black; color:whitesmoke; width:153px">Amount to be Paid: </span></div><input type="text" id="PayAmount" class="form-control" style="background-color:rgb(41,41,41);color: rgb(242,243,245);" disabled />
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6" style="border-color: gold;border-style:solid; border-width:1.4px">
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <h8 style="padding-left: 0px;color: rgb(246,247,248);"> Banking Details</h8>
+                                                                    <hr />
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-prepend"><span class="input-group-text" style="background-color: black; color:whitesmoke; width:153px">Bank Name: </span></div>
+                                                                                <select class="form-control" id="Bank" name="Bank" style="background-color: rgb(48,46,46);color: rgb(242,243,245);">
+                                                                                    <option value="0" selected disabled> Select Bank</option>
+
+                                                                                </select>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-prepend"><span class="input-group-text" style="background-color: black; color:whitesmoke;width:153px ">Account Number: </span></div><input type="text" id="AccNumber" class="form-control" style="background-color:rgb(41,41,41);color: rgb(242,243,245);" />
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-prepend"><span class="input-group-text" style="background-color: black; color:whitesmoke;width:153px">Branch Code: </span></div><input type="text" id="BranchCode" class="form-control" style="background-color:rgb(41,41,41);color: rgb(242,243,245);" />
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="card" style="background-color: rgb(206,175,15);border-style: solid;">
+                                            <div class="card-body" style="background-color: rgb(41,41,41);">
+
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div style="padding-top: 10px; padding-bottom:15px; margin-left: 200px">
+                                                            <input type="button" style="background-color: #eaa800; color:black" value="Submit Order" id="SubmitOrder" class="btn btn-primary" disabled />
+
+                                                            <button type="button" style="background-color: crimson; color:black" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#centralModal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+</html>

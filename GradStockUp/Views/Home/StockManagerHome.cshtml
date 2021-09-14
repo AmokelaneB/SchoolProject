@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GradStockUp</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            /*background-color: #eee;*/
+            font-family: "Lato", sans-serif;
+                    
+            background-size: cover
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="w3-top">
+
+        <div class="w3-bar w3-black w3-card">
+            <a href="#" class="w3-bar-item w3-button">Home</a>
+
+            <div class="w3-dropdown-hover w3-hide-small">
+                <button class="w3-padding-large w3-button" title="Employees">Manage stock <i class="fa fa-caret-down"></i></button>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                    <a href="~/Stock/Create" class="w3-bar-item w3-button">Add new stock</a>
+                    <a href="~/Stock/Index" class="w3-bar-item w3-button">Update stock details</a>
+                    <a href="~/Stock/Transfer" class="w3-bar-item w3-button">Transfer stock</a>
+                    <a href="~/Stock/Transfer" class="w3-bar-item w3-button">Send stock to/from laundry</a>
+      
+                </div>
+            </div>
+
+            <div class="w3-dropdown-hover w3-hide-small">
+                <button class="w3-padding-large w3-button" title="More">Supplier order <i class="fa fa-caret-down"></i></button>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                    <a href="~/SupplierOrder/PlaceSupplierOrder" class="w3-bar-item w3-button">Place order to supplier</a>
+                    <a href="~/SupplierOrder/SuccessSupplierOrder" class="w3-bar-item w3-button">Search for supplier order</a>
+                  
+
+                </div>
+            </div>
+
+            <a href="~/Reports/SupplierOrder.cshtml" class="w3-bar-item w3-button w3-padding-large">View supplier order reports</a>
+            <a onclick="location.href='@Url.Action("Help", "Home")'" class="w3-bar-item w3-button w3-padding-large">Help</a>
+
+
+
+
+        </div>
+        <p style="text-align:center;color:black; font-size:25px;font-family:Marker Felt, fantasy;font-variant: small-caps;">
+            Welcome back-stock manager!
+        </p>
+    </div>
+
+    <div style="height:600px;width:700px;margin:0 auto; margin-top:140px;">
+        @Html.Raw(Model.Render())
+    </div>
+
+    
+</body>
+</html>

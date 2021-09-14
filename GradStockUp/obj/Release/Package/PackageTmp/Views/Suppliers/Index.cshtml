@@ -1,0 +1,85 @@
+﻿@model IEnumerable<GradStockUp.Models.Supplier>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+<h2>Suppliers</h2>
+
+<p>
+    <a href="@Url.Action("Create","Suppliers")" class="btn btn-default"><i class="fa fa-plus"></i>  Create New </a>
+</p>
+<table class="table table-striped table-hover table-condensed table-responsive table-hover" id="SupplierTable">
+    <thead class="table-heading">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ADDRESS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PHONENUMBER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMAIL)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ADDRESS)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PHONENUMBER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EMAIL)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Suppliers", new { id = item.SupplierID})" class="btn btn-default"><i class="fa fa-pencil"></i>Edit</a>
+                    <a onclick="Delete(@item.SupplierID)" class="btn btn-default"><i class="fa fa-trash"></i>  Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+        $(function () {
+            var errorMessage = '@TempData["ErrorMessage"]'
+                    if (errorMessage != '')
+                        alertify.error(errorMessage);
+        });
+         function Delete(id) {
+            alertify.confirm('GradStockUp','Are You Sure to Delete this Record ?',function(){
+                window.location.href  = '@Url.Action("Delete", "Suppliers")/'+id;
+            },null );
+        }
+    </script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+        function activateJQueryTable() {
+            $("#SupplierTable").DataTable();
+        }
+        $(function () {
+            activateJQueryTable();
+        }
+        );
+
+    </script>
+}

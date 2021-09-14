@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-GradStockUp-20200928114015.mdf;Initial Catalog=aspnet-GradStockUp-20200928114015;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\pablo\\Documents\\Academics\\INF\ 370\\Exam\\Old\\GradStockUp\\GradStockUp\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="GradStockUpEntities-Web.config Connection String" description="GradStockUpEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.GradStockUp.csdl|res://*/Models.GradStockUp.ssdl|res://*/Models.GradStockUp.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=tcp:gradstockupdb.database.windows.net;initial catalog=GradStockUp;persist security info=True;user id=Compadres;password=GradStockUp2020!;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\pablo\\Documents\\Academics\\INF\ 370\\Exam\\Old\\GradStockUp\\GradStockUp\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='GradStockUpEntities']/@connectionString" />
+  </parameter>
+</parameters>

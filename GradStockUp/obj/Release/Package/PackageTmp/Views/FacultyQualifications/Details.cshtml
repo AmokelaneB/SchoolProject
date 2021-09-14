@@ -1,0 +1,44 @@
+﻿@model GradStockUp.Models.FacultyQualification
+
+@{
+    ViewBag.Title = "Details";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Details</h2>
+
+<div>
+    <h4>FacultyQualification</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Faculty.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Faculty.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Institution.InstitutionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Institution.InstitutionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QualificationType.QualificationType1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QualificationType.QualificationType1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

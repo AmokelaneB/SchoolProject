@@ -1,0 +1,35 @@
+﻿@model GradStockUp.Models.Size
+@{
+    ViewBag.Title = "CreateSizeStockType";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>New <span class="spans">Size</span></h2>
+
+<form action="/Sizes/CreateSizeStockType" method="post">
+    <div>
+        @Html.LabelFor(model => model.SizeDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+        <input name="Size" type="text" class="form-control" placeholder="Enter Size Description" id="Size" />
+    </div>
+    <div style="padding-top:1rem">
+        @Html.LabelFor(model => model.StockTypes, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.DropDownList("StockTypeID", null, htmlAttributes: new { @class = "form-control" })
+
+    </div>
+   
+    <br />
+    <hr />
+    <input type="submit" value="Create Size" />
+</form>
+<div style="padding: 2rem">
+    <div class="row">
+        <div class="col-sm-4">
+            <a href=" @Url.Action("Index","Sizes")" class="btn btn-warning" style="color:whitesmoke" ><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Sizes </a>
+        </div>
+        <div class="col-md-4">
+            <a href=" @Url.Action("CreateStockTypeSize","StockTypes")" class="btn btn-warning" style="color:whitesmoke"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Add New Stock Type </a>
+        </div>
+    </div>
+</div>
+

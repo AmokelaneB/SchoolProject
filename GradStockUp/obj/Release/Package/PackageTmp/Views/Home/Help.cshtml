@@ -1,0 +1,378 @@
+﻿
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: steelblue;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .accordion {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+        }
+
+            .active, .accordion:hover {
+                background-color: #ccc;
+            }
+
+            .accordion:after {
+                content: '\002B';
+                color: #777;
+                font-weight: bold;
+                float: right;
+                margin-left: 5px;
+            }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+
+        /*form tree view*/
+        ul, #myUL {
+            list-style-type: none;
+        }
+
+        .caret {
+            cursor: pointer;
+            user-select: none;
+        }
+
+            .caret::before {
+                content: "\25B6";
+                color: black;
+                display: inline-block;
+                margin-right: 6px;
+            }
+
+        .caret-down::before {
+            transform: rotate(90deg);
+        }
+
+        .nested {
+            /*display:none;*/
+            background-color: white;
+        }
+
+        .active {
+            display: block;
+        }
+
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 12px;
+            background-repeat: no-repeat;
+            width: 50%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <br />
+    <br />
+    <br />
+    <h1 style="text-align:center;color:white;font-variant: small-caps;">How can we help you?</h1>
+
+
+
+    <div style="margin-left:530px;
+            margin-right:auto;">
+
+        <input type="text" id="myInput" placeholder="Describe your issue..." name="search2" onkeyup="myFunction()">
+
+
+        <button style="
+            width: 10%;
+            padding: 10px;
+            background: #2196F3;
+            color: white;
+            font-size: 17px;
+            border: 1px solid grey;
+            border-left: none;
+            cursor: pointer;"
+                type="submit">
+            <i class="fa fa-search"></i>
+        </button>
+
+        <br />
+        <br />
+        <br />
+    </div>
+
+    <div>
+
+        <button class="accordion">
+            Get started with GradStockUp
+        </button>
+        <div class="panel">
+            @*help 1*@
+            <ul id="myUL">
+                <li class="caret">
+                    <span>Create an account</span>
+                    <ul class="nested" id="nested">
+                        <li>1. Open your computer, open GradStockUp</li>
+                        <li>2. At the bottom of the login page, click > <b>Create an account</b></li>
+                        <li>3. Fill in all the required details, click > <b>Register</b></li>
+                    </ul>
+
+                </li>
+            </ul>
+            <br />
+
+
+            @*help 2*@
+            <ul id="myUL">
+                <li class="caret">
+                    <span>Sign out of your GradStockUp account</span>
+                    <ul class="nested" id="nested1">
+                        <li>1. Open your computer, open GradStockUp</li>
+                        <li>2. At the top right corner, click > <b>Log out</b></li>
+                    </ul>
+
+                </li>
+            </ul>
+            <br />
+        </div>
+
+        <button class="accordion">
+            Fix problems
+        </button>
+        <div class="panel">
+            @*help 3*@
+            <ul id="myUL">
+                <li class="caret">
+                    <span>Fix connection errors</span>
+                    <ul class="nested" id="nested2">
+                        <li>1. Make sure your internet connection is stable</li>
+                        <li>2. Check for typos in your input</li>
+                        <li>3. Contact GradStockUp technical team at: <b>gradstockup@gmail.com</b></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <br />
+            @*help 3*@
+            <ul id="myUL">
+                <li class="caret">
+                    <span>Report system problems</span>
+                    <ul class="nested" id="nested3">
+                        <li>1. Email GradStockUp technical team at: <b>gradstockup@gmail.com</b></li>
+                        <li>2. Call the technical team at:<b>(012) 377 0000</b></li>
+
+                    </ul>
+                </li>
+            </ul>
+
+            <br />
+        </div>
+
+        <button class="accordion">
+            What can you do on GradStockUp
+        </button>
+        <div class="panel">
+            @*help 4*@
+            <ul id="myUL">
+                <li class="caret">
+                    <span>The admin can do the following:</span>
+                    <ul class="nested" id="num4">
+                        <li>1. Create and manage user profiles</li>
+                        <li>2. Add and maintain data needed by the system</li>
+                        <li>3. View company related reports by clicking:<b>VIEW REPORTS</b> on the navigation pane</li>
+                    </ul>
+
+                </li>
+            </ul>
+            <br />
+            @*help 5*@
+            <ul id="myUL">
+                <li class="caret">
+                    <span>The front store assistant can do the following:</span>
+                    <ul class="nested" id="num5">
+                        <li>1. Create and manage their own account</li>
+                        <li>2. Carry out sales or rentals</li>
+                        <li>3. Carry out attire returns from customer</li>
+                    </ul>
+
+                </li>
+            </ul>
+
+            <br />
+            @*help 6*@
+            <ul id="myUL">
+                <li class="caret">
+                    <span>The back store manager can do the following:</span>
+                    <ul class="nested" id="num6">
+                        <li>1. Create and manage data about stock</li>
+                        <li>2. Carry out bulk sales or rentals</li>
+                        <li>3. Carry out bulk attire returns from customers</li>
+                    </ul>
+                    <br />
+                </li>
+            </ul>
+            <br />
+
+        </div>
+        <script>
+            //for search
+            function myFunction() {
+                // Declare variables
+                var input, filter, ul, li, a, i, txtValue;
+                input = document.getElementById("myInput");
+                filter = input.value;
+                ul = document.getElementById("nested");
+                li = ul.getElementsByTagName("li");
+
+                ul1 = document.getElementById("nested1");
+                li1 = ul1.getElementsByTagName("li");
+
+                ul2 = document.getElementById("nested2");
+                li2 = ul2.getElementsByTagName("li");
+
+                ul3 = document.getElementById("nested3");
+                li3 = ul3.getElementsByTagName("li");
+
+                ul4 = document.getElementById("num4");
+                li4 = ul1.getElementsByTagName("li");
+
+                ul5 = document.getElementById("num5");
+                li5 = ul1.getElementsByTagName("li");
+
+                ul6 = document.getElementById("num6");
+                li6 = ul1.getElementsByTagName("li");
+
+                // Loop through all list items, and hide those who don't match the search query
+                for (i = 0; i < li.length; i++) {
+                    a = li[i];
+                    txtValue = a.textContent || a.innerText;
+                    if (txtValue.indexOf(filter) > -1) {
+                        li[i].style.display = "";
+                    } else {
+                        li[i].style.display = "none";
+                    }
+                }
+                //1
+                for (i = 0; i < li1.length; i++) {
+                    a = li1[i];
+                    txtValue = a.textContent || a.innerText;
+                    if (txtValue.indexOf(filter) > -1) {
+                        li1[i].style.display = "";
+                    } else {
+                        li1[i].style.display = "none";
+                    }
+                }
+                //2
+                for (i = 0; i < li2.length; i++) {
+                    a = li2[i];
+                    txtValue = a.textContent || a.innerText;
+                    if (txtValue.indexOf(filter) > -1) {
+                        li2[i].style.display = "";
+                    } else {
+                        li2[i].style.display = "none";
+                    }
+                }
+                //3
+                for (i = 0; i < li3.length; i++) {
+                    a = li3[i];
+                    txtValue = a.textContent || a.innerText;
+                    if (txtValue.indexOf(filter) > -1) {
+                        li3[i].style.display = "";
+                    } else {
+                        li3[i].style.display = "none";
+                    }
+                }
+                //4
+                for (i = 0; i < li4.length; i++) {
+                    a = li4[i];
+                    txtValue = a.textContent || a.innerText;
+                    if (txtValue.indexOf(filter) > -1) {
+                        li4[i].style.display = "";
+                    } else {
+                        li4[i].style.display = "none";
+                    }
+                }
+                //5
+                for (i = 0; i < li5.length; i++) {
+                    a = li5[i];
+                    txtValue = a.textContent || a.innerText;
+                    if (txtValue.indexOf(filter) > -1) {
+                        li5[i].style.display = "";
+                    } else {
+                        li5[i].style.display = "none";
+                    }
+                }
+
+                //6
+                for (i = 0; i < li6.length; i++) {
+                    a = li6[i];
+                    txtValue = a.textContent || a.innerText;
+                    if (txtValue.indexOf(filter) > -1) {
+                        li6[i].style.display = "";
+                    } else {
+                        li6[i].style.display = "none";
+                    }
+                }
+
+            }
+        </script>
+
+        <script>
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+                    } else {
+                        panel.style.maxHeight = panel.scrollHeight + "px";
+                    }
+                });
+            }
+
+            //for help content
+            var toggler = document.getElementsByClassName("caret");
+
+            for (i = 0; i < toggler.length; i++) {
+                toggler[i].addEventListener("click", function () {
+                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                    this.classList.toggle("caret-down");
+                });
+            }
+
+        </script>
+
+    </div>
+    <br />
+    <br />
+    <button onclick="location.href='@Url.Action("CashierHome", "Home")'" style="float:right; font-size:20px;">CLOSE</button>
+</body>
+</html> 

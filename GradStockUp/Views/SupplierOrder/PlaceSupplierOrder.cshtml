@@ -1,0 +1,362 @@
+﻿
+@{
+    ViewBag.Title = "PlaceSupplierOrder";
+}
+
+<style>
+    body {
+        background-color: black;
+        color: white;
+    }
+
+    #Header {
+        text-align: center;
+    }
+
+    #NewOrder {
+        text-align: center;
+    }
+
+    #PlaceOrd {
+        text-align: right;
+        float: right;
+    }
+
+    #btnSave {
+        float: right;
+        text-align: right;
+    }
+
+    #SelectItem {
+        text-align: center;
+    }
+
+    #bt1 {
+        text-align: right;
+        float: right;
+    }
+
+    .error {
+        display: none;
+        color: red;
+        border-radius: 3px;
+        padding: 1% 20%;
+        top: -110%;
+        left: 31%;
+        background-color: aliceblue;
+    }
+
+    .error2 {
+        display: none;
+        color: red;
+        border-radius: 3px;
+        padding: 1% 20%;
+        top: -110%;
+        left: 31%;
+        background-color: aliceblue;
+    }
+
+    .ResetCart {
+        float: inherit;
+        text-align: right;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/SizeStockTypeLink.js"></script>
+<script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#btnSave").click(function () {
+                AddSupplierOrderRecords();
+                $("#quantity").numeric();
+                $('#myForm input[type="number"]').blur(function () {
+                    if (!$(this).val()) {
+                        $(this).addClass("error");
+                    } else {
+                        $(this).removeClass("error");
+                    }
+                });
+                {
+                    if (!$(this).val()) {
+                        $(this).parents('p').addClass('warning');
+                    }
+                }
+            });
+        $("#PlaceOrd").click(function () {
+
+            SaveSupplierOrderRecords();
+
+
+        });
+    });
+
+    function AddSupplierOrderRecords() {
+        if ($('#sizesDropdown').val() == -1 || $('#sizesDropdown').val() == undefined) {
+            toastr.error('Error: Size is invalid, Please ensure that you provide valid Size input');
+            //alert("Error: Cart is Empty, Please add an item to cart")
+            //prompt("Error: Cart is Empty, Please add an item to cart");
+        }
+        else
+        if ($('#quantity').val() == "" || $('#quantity').val() == undefined)
+        {
+            //$('.error2').text('Error: Quantity is invalid, Please ensure that you provide valid Quantity input');
+
+            toastr.error('Error: Quantity is invalid, Please ensure that you provide valid Quantity input');
+
+        }
+
+        else {
+            var StudentRecords = "<tr><td>" + $("#StkType option:selected").text() + "</td><td>" + $("#colorr option:selected").text() +
+                "</td><td>" + $("#sizesDropdown option:selected").text() + "</td><td>" + $("#quantity").val()
+                + "</td></tr>";
+            $("#tableSupplierOrderRecords").last().append(StudentRecords);
+            //$('.error').fadeOut("slow");
+            //$('.error2').fadeOut("slow");
+        }
+
+    }
+    function SaveSupplierOrderRecords() {
+
+        var listofSupplierOrderDetailModels = new Array();
+
+        var listOfItems = new Array();
+        $("#tableSupplierOrderRecords").find("tr:gt(0)").each(function () {
+            var StockType = $(this).find("td:eq(0)").text();
+            var Coloour = $(this).find("td:eq(1)").text();
+            var Size = $(this).find("td:eq(2)").text();
+            var Quantity = $(this).find("td:eq(3)").text();
+
+            var supplier = $('#supplier option:selected').text();
+
+            var SupplierOrderModel = { };
+            SupplierOrderModel.StockType = StockType;
+            SupplierOrderModel.Colour = Coloour;
+            SupplierOrderModel.Size = Size;
+            SupplierOrderModel.Quantity = Quantity;
+            SupplierOrderModel.SupplierName = supplier;
+
+            console.log(SupplierOrderModel);
+
+            listofSupplierOrderDetailModels.push(SupplierOrderModel);
+            listOfItems.push(SupplierOrderModel);
+
+
+
+            //alert(StockType + " " + Coloour + " "
+            //    + Size + " " + Quantity) + " Supplier " + supplier;
+        });
+        if (listofSupplierOrderDetailModels == "" || listofSupplierOrderDetailModels== undefined)
+        {
+            //$('.error').text('Error: Cart is Empty, Please add an item to cart');
+            //$('.error').fadeIn("slow");
+            toastr.error('Error: Cart is Empty, Please add an item to cart');
+            //alert("Error: Cart is Empty, Please add an item to cart")
+            //prompt("Error: Cart is Empty, Please add an item to cart");
+        }
+
+        else
+        {
+
+            $.ajax({
+                async: true,
+                type: 'POST',
+                //dataType: 'JSON',
+                contentType: 'application/json; charset=utf-8',
+                url: '/SupplierOrder/PlaceSupplierOrder',
+                data: JSON.stringify(listofSupplierOrderDetailModels),
+                success: function (data) {
+                    $.ajax({
+                        url: '/SupplierOrder/SuccessSupplierOrder',
+                        type: 'POST'
+                    });
+                    window.location.href = '/SupplierOrder/SuccessSupplierOrder/';
+                },
+                error: function () {
+                    alert("An Error occurred")
+                }
+            });
+
+        }
+        //$("#StkType").change(function () {
+
+            //    $.ajax({
+            //        type: "GET",
+            //        url: "/Home/GetSize",
+            //        data: "{}",
+            //        success: function (data) {
+            //            var s = '<option value="-1">Please Select Size</option>';
+            //            for (var i = 0; i < data.length; i++) {
+            //                if (data[i].StockTypeID2 == $("#StkType").val())
+            //                    s += '<option value="' + data[i].ID + '">' + data[i].SizeDesc + '</option>';
+            //            }
+            //            $("#sizesDropdown").html(s);
+            //        }
+            //    });
+            //});
+
+
+            //$('#StkType').change(function () {
+            //    var StockTypeID = $("StkType").val();
+            //    $.ajax({
+            //        type: "GET",
+            //        url: "/Home/GetSize",
+            //        data: { "StockType": StockTypeID },
+            //        success: function (data) {
+            //            var s = '';
+            //            $("#sizer").empty();
+            //            for (var i = 0; i < data.length; i++) {
+            //                if (data[i].StockTypeID == StockTypeID)
+            //                    s += '<option value = "' + data[i].StockTypeID + ''
+            //            }
+            //        }
+            //    })
+            //})
+            //function Remove(button) {
+            //    //Determine the reference of the Row using the Button.
+            //    var row = $(button).closest("TR");
+            //    var name = $("TD", row).eq(0).html();
+            //    if (confirm("Do you want to delete: " + name)) {
+            //        //Get the reference of the Table.
+            //        var table = $("#tableStudentRecords")[0];
+
+            //        //Delete the Table row using it's Index.
+            //        table.deleteRow(row[0].rowIndex);
+            //    }
+            //};
+        }
+</script>
+
+<body>
+
+    @Html.ActionLink("Home", "CashierHome", "Home", null, new { @class = "navbar-brand", @style = "font-family: comic sans;  color:Gold;" })
+    <h3 id="NewOrder">Place Supplier Order</h3>
+    <br />
+    <br />
+    @*1. Supplier Email Dropdown*@
+    <p>Select Supplier</p>
+    @{
+        var Types = (List<GradStockUp.Models.Supplier>)ViewData["Types"];
+    }
+    <form method="post"
+          action="Index" id="MyForm">
+        <select id="supplier" name="supplier">
+            @foreach (var item in Types)
+            {
+                <option value=@item.SupplierID>@item.SupplierName</option>
+            }
+        </select>
+
+        <h5 id="SelectItem">Add Stock Item to Cart</h5>
+        <hr />
+
+
+
+        <table>
+            <tr>
+                <td>
+                    Stock Type
+                </td>
+                <td>
+                    @*2. Stock Type Dropdown*@
+                    @{
+                        var StockTypes = (List<GradStockUp.Models.StockType>)ViewData["StkTypes"];
+                    }
+                    <select id="StkType" name="StkType">
+                        @foreach (var item in StockTypes)
+                        {
+                            <option value=@item.StockTypeID>@item.DESCRIPTION</option>
+                        }
+                    </select>
+
+                </td>
+
+                <td>
+                    Colour
+                </td>
+                <td>
+                    @*3. Colour Dropdown*@
+                    @{
+                        var Colours = (List<GradStockUp.Models.Colour>)ViewData["Colours"];
+                    }
+                    <select id="colorr" name="colorr">
+                        @foreach (var item in Colours)
+                        {
+                            <option value=@item.ColourID>@item.ColourName</option>
+                        }
+                    </select>
+
+                </td>
+
+                <td>
+                    Size
+                </td>
+                <td>
+                    @*4. Size Dropdown*@
+                    <select class="dropdown" id="sizesDropdown" name="sizesDropdown"></select>
+                </td>
+
+                <td>
+                    Quantity
+                </td>
+                <td>
+                    @*@Html.TextBoxFor(m => m.Qty, new { @type = "number" })*@
+                    <input type="number" min="1" value="" name="quantity" id="quantity" />
+                </td>
+            <tr>
+                <td id="bt1">
+                    <input type="button" id="btnSave" class="btn btn-warning" value="Add Item to Cart" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <hr />
+    <br />
+    <center><label id="Error2" class="error2"></label></center>
+    <br />
+    <h4 id="Header">Cart Items</h4>
+    @if (ViewBag.Error != null)
+    {
+        <h3 style="color:red">@ViewBag.Error</h3>
+    }
+    else
+    {
+        <table class="table-bordered" style="width:100%" id="tableSupplierOrderRecords">
+            <thead>
+                <tr>
+                    @*<th>
+                            Subject
+                        </th>
+                        <th>
+                            Marks
+                        </th>*@
+
+                    <th>
+                        Stock Type
+                    </th>
+                    <th>
+                        Colour
+                    </th>
+                    <th>
+                        Size
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        <br />
+        <center><label id="Error" class="error"></label></center>
+
+
+        <input class="btn btn-success"
+               type="button" id="PlaceOrd"
+               value="Place Supplier Order" /> <a class="btn btn-danger" id="ResetCart" href="@Url.Action("PlaceSupplierOrder")">Clear Cart</a>
+
+    }
+
+    <hr />
+</body>

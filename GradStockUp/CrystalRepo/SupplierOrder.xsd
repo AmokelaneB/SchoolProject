@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="SupplierOrder" targetNamespace="http://tempuri.org/SupplierOrder.xsd" xmlns:mstns="http://tempuri.org/SupplierOrder.xsd" xmlns="http://tempuri.org/SupplierOrder.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="SupplierOrder" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="SupplierOrder" msprop:Generator_UserDSName="SupplierOrder">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="SupplierOrder" msprop:Generator_TableClassName="SupplierOrderDataTable" msprop:Generator_TableVarName="tableSupplierOrder" msprop:Generator_TablePropName="_SupplierOrder" msprop:Generator_RowDeletingName="SupplierOrderRowDeleting" msprop:Generator_RowChangingName="SupplierOrderRowChanging" msprop:Generator_RowEvHandlerName="SupplierOrderRowChangeEventHandler" msprop:Generator_RowDeletedName="SupplierOrderRowDeleted" msprop:Generator_UserTableName="SupplierOrder" msprop:Generator_RowChangedName="SupplierOrderRowChanged" msprop:Generator_RowEvArgName="SupplierOrderRowChangeEvent" msprop:Generator_RowClassName="SupplierOrderRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SupplierOrderID" msprop:Generator_ColumnVarNameInTable="columnSupplierOrderID" msprop:Generator_ColumnPropNameInRow="SupplierOrderID" msprop:Generator_ColumnPropNameInTable="SupplierOrderIDColumn" msprop:Generator_UserColumnName="SupplierOrderID" type="xs:int" />
+              <xs:element name="SupplierName" msprop:Generator_ColumnVarNameInTable="columnSupplierName" msprop:Generator_ColumnPropNameInRow="SupplierName" msprop:Generator_ColumnPropNameInTable="SupplierNameColumn" msprop:Generator_UserColumnName="SupplierName" type="xs:string" minOccurs="0" />
+              <xs:element name="StockDescription" msprop:Generator_ColumnVarNameInTable="columnStockDescription" msprop:Generator_ColumnPropNameInRow="StockDescription" msprop:Generator_ColumnPropNameInTable="StockDescriptionColumn" msprop:Generator_UserColumnName="StockDescription" type="xs:string" minOccurs="0" />
+              <xs:element name="TotalCost" msprop:Generator_ColumnVarNameInTable="columnTotalCost" msprop:Generator_ColumnPropNameInRow="TotalCost" msprop:Generator_ColumnPropNameInTable="TotalCostColumn" msprop:Generator_UserColumnName="TotalCost" type="xs:double" minOccurs="0" />
+              <xs:element name="OrderStatus" msprop:Generator_ColumnVarNameInTable="columnOrderStatus" msprop:Generator_ColumnPropNameInRow="OrderStatus" msprop:Generator_ColumnPropNameInTable="OrderStatusColumn" msprop:Generator_UserColumnName="OrderStatus" type="xs:string" minOccurs="0" />
+              <xs:element name="Quantity" msprop:Generator_ColumnVarNameInTable="columnQuantity" msprop:Generator_ColumnPropNameInRow="Quantity" msprop:Generator_ColumnPropNameInTable="QuantityColumn" msprop:Generator_UserColumnName="Quantity" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:SupplierOrder" />
+      <xs:field xpath="mstns:SupplierOrderID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

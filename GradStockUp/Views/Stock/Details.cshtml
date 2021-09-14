@@ -1,0 +1,85 @@
+﻿@model GradStockUp.Models.Stock
+
+@{
+    ViewBag.Title = "Details";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1 style="color:goldenrod"> Stock Item Details</h1>
+
+
+<div>
+    <h4>Stock</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockBarcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockBarcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BarcodeImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BarcodeImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.DESCRIPTION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location.DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location.DESCRIPTION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status.StatusDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status.StatusDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockDescription.StockDescriptionID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockDescription.StockDescriptionID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockState.STATE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockState.STATE)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StockID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

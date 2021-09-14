@@ -1,0 +1,40 @@
+﻿@model GradStockUp.Models.QualificationType
+@{
+    ViewBag.Title = "CreateNewQualificationQType";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>New <span class="spans"> Qualification Type</span></h2>
+<hr />
+<form action="/QualificationTypes/CreateNewQualificationQType" method="post">
+    <div>
+        @Html.LabelFor(model => model.QualificationType1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <input name="QualificationTypeName" type="text" class="form-control" placeholder="Enter Qualification Type Name" id="QualificationType" />
+
+    </div>
+    <div style="padding-top:3rem">
+        @Html.LabelFor(model => model.Qualifications, htmlAttributes: new { @class = "control-label col-md-2" })
+        @foreach (var qualifications in ViewBag.Qualifications)
+        {
+            <ul class="col-md-offset-2">
+
+                <li> <input class="btn btn-default" type="checkbox" name="QualificationIDs" value="@qualifications.QualificationID" />@qualifications.QualificationName</li>
+
+            </ul>
+        }
+    </div>
+    <br />
+    <hr />
+    <input type="submit" value="Create New Qualification Type" />
+</form>
+<div style="padding: 2rem">
+    <div class="row">
+        <div class="col-sm-4">
+            <a href=" @Url.Action("Index","QualificationTypes")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Qualification Types </a>
+        </div>
+        <div class="col-md-4">
+            <a href=" @Url.Action("Create","Qualifications")" class="btn btn-default"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Add New Qualification </a>
+        </div>
+    </div>
+</div>

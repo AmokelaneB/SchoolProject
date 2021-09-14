@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Run</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/select2.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.select.min.js" type="text/javascript"></script>
+    <link href="~/Content/DataTables/css/select.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/css/select2.min.css" rel="stylesheet" />
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <script>
+        $(document).ready(function () {
+
+            $('select').select2({
+                width: '100%', allowClear: true
+            });
+            var table = $('#dt-basic-checkbox').DataTable({
+                "ajax": {
+                    "url": "/Stock/loadData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "space" },
+                    { "data": "ID" },
+                    { "data": "StockType" },
+                    { "data": "Size" },
+                    { "data": "ColourName" }
+
+                ],
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }],
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                },
+                "pageLength": 5
+            });
+            var selectedData;
+            $('#dt-basic-checkbox').on('click', 'tr', function () {
+                selectedData = table.row(this).data();
+            });
+            $("#SaveStock").on('click', function () {
+                var Department = $("#department").val();
+                var location = $("#location").val();
+
+                $.ajax({
+
+                    url: "/Stock/SaveStock",
+                    data: { 'ID': selectedData.ID, 'Location': location, 'Department': Department, "StockType": selectedData.StockType },
+                    type: "GET",
+                    cache: false,
+                    success: function (SavingStatus) {
+                        var Img = "Images/" + SavingStatus;
+
+                        alert("BarCode Generated , please print the barcode an attach it to the item");
+                    }
+                })
+            });
+            $.ajax({
+                type: "GET",
+                url: "/Stock/getStockType",
+                data: "{}",
+                success: function (data) {
+                    var s = '< option value = "-1" > Please Select a StockType</option> ';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value = "' + data[i].StockTypeID + '" > ' + data[i].Description + '</option > ';
+                    }
+                    $("#StockTypes").html(s);
+                }
+            });
+
+
+            $('#StockTypes').change(function () {
+                var StockTypeID = $("#StockTypes").val();
+                $.ajax({
+                    type: "GET",
+                    url: "/Stock/getSize",
+                    data: { "StockType": StockTypeID },
+                    success: function (data) {
+                        var s = ' ';
+                        $("#Sizes").empty();
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].stockTypeID == StockTypeID)
+                                s += '<option value = "' + data[i].ID + '" > ' + data[i].SizeDesc + '</option > ';
+                        }
+                        $("#Sizes").html(s);
+
+
+                    }
+                });
+         
+                $.ajax({
+                    type: "GET",
+                    url: "/Stock/getColour",
+                    data: "{}",
+                    success: function (data) {
+                        var s = '< option value = "-1" > Please Select a StockType</option> ';
+                        for (var i = 0; i < data.length; i++) {
+
+                            s += '<option value = "' + data[i].ID + '" > ' + data[i].Description + '</option > ';
+                        }
+                        $("#Colours").html(s);
+
+                    }
+                });
+            });
+
+            $("#btnSubmit").on("click", function () {
+
+                var StockTypeID = $("#StockTypes").val();
+                var SizeID = $("#Sizes").val();
+                var ColourID = $("#Colours").val();
+                var Rthresh = $("#RentalThresh").val();
+                var Rethresh = $("#RetailThresh").val();
+                $.ajax({
+                    type: "GET",
+                    url: "/Stock/SaveDescription",
+                    data: { "StockTypeID": StockTypeID, "SizeID": SizeID, "ColourID": ColourID, "Rthresh": Rthresh, "Rethresh": Rethresh },
+                    success: function (data) {
+                        table.ajax.reload();
+
+
+                    }
+                });
+            });
+
+
+
+
+        });
+
+    </script>
+
+</head>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color:black">
+
+            <div class="modal-header">
+                <h3 class="modal-title">Add Stock Description</h3>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="StockType">Choose the StockType:</label>
+                    <select id="StockTypes">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Sizes">Choose the Stock Size:</label>
+                    <select id="Sizes">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Colour">Choose the Stock Colour:</label>
+                    <select id="Colours">
+                    </select>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text">Rental Threshold:</span></div><input type="text" id="RentalThresh" class="form-control" style="background-color: rgb(42,42,42);" />
+                    <div class="input-group-append"></div>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text">Retail Threshold:</span></div><input type="text"  id="RetailThresh" class="form-control" style="background-color: rgb(42,42,42);"/>
+                    <div class="input-group-append"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                <input type="reset" value="Submit" class="btn btn-success" id="btnSubmit" />
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<body>
+    <form >
+        <h1 style="color: rgb(200,144,2);background-color: #5f5b5b;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Add Stock Item</h1>
+        <div class="card" style="background-color: rgb(170,134,5);">
+            <div class="card-header" style="background-color: rgba(35,35,35,0.97);border-color: rgb(168,112,4);color: rgb(241,242,242);">
+            </div>
+            <div class="card-body" style="background-color: rgb(41,41,41);color: white">
+                <div class="container">
+
+                    <h2>Select Stock Description</h2>
+                    <p>Enter stock type to search the specific </p>
+                    <table id="dt-basic-checkbox" style="color: white" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>StockDescriptionID</th>
+                                <th>Stock Type</th>
+                                <th>Size</th>
+                                <th>Colour</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add new Stock Description</a>
+            </div>
+        </div>
+        <div class="card" style="background-color: rgb(170,134,5);">
+            <div class="card-header" style="background-color: rgba(35,35,35,0.97);border-color: rgb(168,112,4);color: rgb(241,242,242);">
+                <h5 class="mb-0">Stock Details</h5>
+            </div>
+            <div class="card-body" style="background-color: rgb(41,41,41)">
+                <div class="card-group" style="background-color: #9d8505;">
+                    <div class="card" style="background-color: rgb(41,41,41);border-color: rgb(171,126,12);">
+                        <div class="card-body">
+                            <h4 class="card-title" style="color: rgb(186,145,0);">Stock Location&nbsp;</h4>
+                            <p class="card-text" style="font-size: 9px;font-style: oblique;color: rgb(240,241,242);">Where the stock item will be placed.either in the front or back shelves</p><select id="location" class="custom-select chosen" required="" style="color: #232323;"><option value="1">Front shelves</option><option value="2">Back Shelves</option></select>
+                        </div>
+                    </div>
+                    <div class="card" style="background-color: rgb(41,41,41);border-color: rgb(157,123,4);">
+                        <div class="card-body">
+                            <h4 class="card-title" style="color: rgb(184,145,7);">Stock Department</h4>
+                            <p class="card-text" style="font-size: 9px;font-style: oblique;color: rgb(219,225,231);">Rental or Retail</p><select id="department" class="custom-select chosen" required="" style="color: #232323;"><option value="1">Retail</option><option value="2">Rental</option></select>
+                        </div>
+                    </div>
+                </div><input class="btn" id="SaveStock" type="button" style="margin-right: 14px;background-color: #a38107;margin-top: 8px;" value="Save" &nbsp; /><button class="btn" type="button" style="background-color: rgb(195,68,13);margin-top: 8px;">Cancel</button>
+            </div>
+            <div id="imgDiv">
+
+            </div>
+
+        </div>
+    </form>
+</body>
+
+</html>

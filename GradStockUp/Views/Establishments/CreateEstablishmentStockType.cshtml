@@ -1,0 +1,60 @@
+﻿@model GradStockUp.Models.Establishment
+@{
+    ViewBag.Title = "CreateEstablishmentStockType";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Add New <span class="spans">Establishment</span></h2>
+
+<hr />
+
+<form action="/Establishments/CreateEstablishmentStockType" method="post">
+    <div>
+        @Html.LabelFor(model => model.EstaName, htmlAttributes: new { @class = "control-label col-md-2" })
+       <input name="EstaName" type="text" class="form-control" placeholder="Establishment Name"  id="Esta"/> 
+    </div>
+    <hr />
+    <div style="padding-top:1rem">
+        @Html.LabelFor(model => model.StockTypes, htmlAttributes: new { @class = "control-label col-md-2" })
+        @foreach (var stockTypes in ViewBag.StockTypes)
+        {
+            <ul class="col-md-offset-2">
+                <li> <input type="checkbox" name="StockTypeIDs" value="@stockTypes.StockTypeID" />@stockTypes.DESCRIPTION</li>
+            </ul>
+        }
+    </div>
+    <hr />
+    <div style="padding-top:2rem">
+        @Html.LabelFor(model => model.Institutions, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        @foreach (var institution in ViewBag.Institutions)
+
+        {
+            <ul class="col-md-offset-2">
+                <li class="table-striped">
+                    <input  type="checkbox" name="InstitutionIDs" value="@institution.InstitutionID" />@institution.InstitutionName
+                </li>
+            </ul>
+        }
+    </div>
+    <hr />
+
+    <div class="col-md-offset-2"><input  class="btn btn-default" type="submit" value="Create Establishment" /></div>
+</form>
+<div style="padding: 2rem">
+    <div class="row">
+        <div class="col-sm-4">
+            <a href=" @Url.Action("Index","Establishments")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Establishments </a>
+        </div>
+        <div class="col-md-4">
+            <a href=" @Url.Action("Create","StockTypes")" class="btn btn-default"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Add New Stock Type </a>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+
+    </script>
+    
+    }

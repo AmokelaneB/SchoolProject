@@ -1,0 +1,373 @@
+﻿@model GradStockUp.Models.Qualification
+
+@{
+    ViewBag.Title = "Create";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h1>Create Qualification</h1>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Qualification</h4>
+        <hr />
+        <div class="container">
+            <div class="row">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.QualificationName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.QualificationName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.QualificationName, "", new { @class = "text-danger", @id = "QualificationName" })
+                    </div>
+                </div>
+              
+
+
+            </div>
+            <div class="row">
+
+                <div class="card" style=" border-color: gold;border-style: solid;">
+                    <div class="card-body">
+                        <h4 class="card-title" style="padding-left: 13px">Stock Type Details</h4>
+                        <div class="col-md-6" style="border-color: gold;border-style:solid; border-width:1.4px">
+                            <div class="form-group" style="padding-top:10px">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Stock Type</label>
+                                    <div class="col-md-10">
+                                        <select id='StockType' class="form-control">
+                                            <option value='0' selected disabled>Select StockType...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Colour: </label>
+                                    <div class="col-md-10">
+                                        <select id='Colour' class="form-control">
+                                            <option value='0' selected disabled>Select Colour...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-md-10">
+                                        <input type="button" id="AddToListStockType" value="Assign Colour" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="border-color: gold;border-style:solid; border-width:1.4px">
+                            <div>
+                                <h4> Selected Stock Items</h4>
+                                <ul id="stockItems">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="card" style=" border-color: gold;border-style: solid;">
+                    <div class="card-body">
+                        <h4 class="card-title" style="padding-left: 13px">Institution Details</h4>
+                        <div class="col-md-6" style="border-color: gold;border-style:solid; border-width:1.4px">
+                            <div class="form-group" style="padding-top:10px">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Insitution: </label>
+                                    <div class="col-md-10">
+                                        <select id='SelectedInstitute' class="form-control">
+                                            <option value='0' selected disabled>Select Institute...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="Faculities" style="padding-left: 10px">
+                                    <div class="col-md-10">
+                                        <h4> Faculties</h4>
+                                        <hr />
+                                        <div id="FacContent">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-md-10">
+                                        <input type="button" id="AddToList" value="Assign" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="border-color: gold;border-style:solid; border-width:1.4px">
+                            <div>
+                                <h4> Selected Institutions</h4>
+                                <ul id="myUL">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" id="AddQualification" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href=" @Url.Action("Index","Qualifications")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Qualifications </a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/Qualifications/getStockType",
+                data: "{}",
+                success: function (data) {
+                    var s = '< option value ="ff">  </option > ';
+                    for (var i = 0; i < data.length; i++) {
+
+                        s += '<option value ="' + data[i].StckTypeID + '">'+ data[i].description + '</option > ';
+                    }
+                    $("#StockType").append(s);
+                    $("#StockType").attr("Disabled", false);
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "/Qualifications/getColour",
+                data: "{}",
+                success: function (data) {
+
+
+                    var s = '< option value ="0" selected>Select Colour...  </option > ';
+                    for (var i = 0; i < data.length; i++) {
+
+                        s += '<option   value ="' + data[i].EstaID + '">' + data[i].Description + '</option > ';
+                    }
+
+                    $("#Colour").append(s);
+
+
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/Qualifications/getInstitution",
+                data: "{}",
+                success: function (data) {
+                    var s = '< option value ="0" selected>Select Institution...  </option > ';
+                    for (var i = 0; i < data.length; i++) {
+
+                        s += '<option  value = "' + data[i].InstID + '">' + data[i].description + '</option>';
+                    }
+
+                    $("#SelectedInstitute").append(s);
+
+
+                }
+            });
+
+            $("#SelectedInstitute").on("change", function () {
+
+                var InstituteID = $("#SelectedInstitute").val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Qualifications/GetFaculties",
+                    data: "{}",
+                    success: function (data) {
+                        $("#FacContent").empty();
+                        var s = "";
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].InstID == InstituteID)
+                                s += '<input type="checkbox" value="' + data[i].description + '" id="' + data[i].FacID + '" name="MyCheckBox"/><label>' + data[i].description + '</label><br/>';
+
+                        }
+                        $("#FacContent").append(s);
+
+                    }
+
+
+                })
+
+
+            });
+
+            $("#AddQualification").on("click", function () {
+                var QualificationName = $("#QualificationName").val();
+                $.ajax({
+                    type: "GET",
+                    url: "/Qualifications/AddQualification",
+                    data: { "QualName": QualificationName},
+                    success: function (data) {
+
+                        window.location.href = "/Qualifications/Index";
+                    }
+
+                })
+
+            });
+
+
+
+        });
+
+        /*SELECTED STOCK ITEMS*/
+        function UploadStock() {
+
+            $.getJSON('/Scripts/StockTypeList.json', function (res) {
+                $("#stockItems").empty();
+                $.each(res, function (i, item) {
+                    var s = '<li> <span class="arrow fas fa-angle-double-down" style="font-size:20px" id="Tree">' + item.stockType + '</span><a id="delteStock" value="' + item.stockType + '" href="#" class="fas fa-trash" style="font - size: 36px">Remove</a>';
+                    s += '<ul class="nested">';
+                    var ls = "";
+                        ls += '<li> Item Colour: ' + item.colour + '</li>';
+                    s += ls;
+                    s += ' </ul></li>';
+                    $("#stockItems").append(s);
+                });
+
+            });
+
+        }
+        $(document).on("click", "#AddToListStockType", e => {
+  
+            var StckType = $("#StockType option:selected").text();
+            var Colour = $("#Colour option:selected").text();
+
+            $.get("/Qualifications/SaveToListStock", $.param({ stockType: StckType, ColourName: Colour }, true), function (data) { UploadStock(); });
+
+
+        });
+        $(document).on("click", "#Tree", e => {
+            var toggler = document.getElementsByClassName("arrow");
+            var i;
+
+            for (i = 0; i < toggler.length; i++) {
+                toggler[i].addEventListener("click", function () {
+                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                    this.classList.toggle("arrow-down");
+                });
+            }
+        });
+        $(document).on("click", "#delteStock", function () {
+
+            $.get("/Qualifications/DeleteFromStockList", $.param({ stckType: $(this).attr("value") }, true), function (data) { UploadStock(); });
+
+        });
+
+
+        /********************** */
+        function UploadList() {
+     
+            $.getJSON('/Scripts/QualificationList.json', function (res) {
+                $("#myUL").empty();
+                $.each(res, function (i, item) {
+                    var s = '<li> <span class="arrow fas fa-angle-double-down" style="font-size:20px" id="TreeHead">' + item.University + '</span><a id="delte" value="' + item.University + '" href="#" class="fas fa-trash" style="font - size: 36px">Remove</a>';
+                    s += '<ul class="nested">';
+                    var ls = "";
+                    $.each(item.fac, function (i, facul) {
+                        
+                        ls += '<li>' + facul + '</li>';
+                    });
+                    s += ls;
+                    s += ' </ul></li>';
+                    $("#myUL").append(s);
+                });
+
+            });
+
+        }
+        $(document).on("click", "#AddToList", e => {
+            var favorite = [];
+            $.each($("input:checked"), function () {
+                favorite.push($(this).val());
+            });
+            var InstituteID = $("#SelectedInstitute option:selected").text();
+         
+                          
+            $.get("/Qualifications/SaveToList", $.param({ data: favorite, Univ: InstituteID }, true), function (data) { UploadList(); });
+         
+
+        });
+        $(document).on("click", "#TreeHead", e => {
+            var toggler = document.getElementsByClassName("arrow");
+            var i;
+
+            for (i = 0; i < toggler.length; i++) {
+                toggler[i].addEventListener("click", function () {
+                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                    this.classList.toggle("arrow-down");
+                });
+            }
+        });
+        $(document).on("click", "#delte", function () {
+     
+            $.get("/Qualifications/DeleteFromList", $.param({ Univ: $(this).attr("value") }, true), function (data) { UploadList(); });
+         
+        });
+    </script>
+    <style>
+        ul, #myUL {
+            list-style-type: none;
+        }
+
+        #myUL {
+            margin: 0;
+            padding: 0;
+        }
+
+        .caret {
+            cursor: pointer;
+            -webkit-user-select: none; /* Safari 3.1+ */
+            -moz-user-select: none; /* Firefox 2+ */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none;
+        }
+
+            .caret::before {
+                content: "\25B6";
+                color: black;
+                display: inline-block;
+                margin-right: 6px;
+            }
+
+        .caret-down::before {
+            -ms-transform: rotate(90deg); /* IE 9 */
+            -webkit-transform: rotate(90deg); /* Safari */
+             transform: rotate(90deg);
+        }
+
+        .nested {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+    </style>
+
+}

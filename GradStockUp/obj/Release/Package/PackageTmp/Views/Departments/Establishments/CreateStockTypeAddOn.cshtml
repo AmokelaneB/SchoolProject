@@ -1,0 +1,41 @@
+﻿@model GradStockUp.Models.Establishment
+@{
+    ViewBag.Title = "CreateStockTypeAddOn";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Establishment <span class="spans">Stock Type Add-On</span>  </h2>
+
+<hr />
+<form action="/Establishments/CreateStockTypeAddOn" method="post">
+    <div>
+        @Html.LabelFor(model => model.EstaName, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.DropDownList("EstablishmentID", null, htmlAttributes: new { @class = "form-control" })
+
+    </div>
+    <hr />
+    <div style="padding-top:1rem">
+        @Html.LabelFor(model => model.StockTypes, htmlAttributes: new { @class = "control-label col-md-2" })
+        @foreach (var stockTypes in ViewBag.StockTypes)
+        {
+            <ul class="col-md-offset-2">
+                <li> <input type="checkbox" name="StockTypeIDs" value="@stockTypes.StockTypeID" />@stockTypes.DESCRIPTION</li>
+            </ul>
+        }
+    </div>
+    <hr />
+
+    <div class="col-md-offset-1" style="padding-top: 3rem"> <input type="submit" value="Add-On Stock Type" /></div>
+</form>
+<div style="padding-top:2rem">
+    <div class="row">
+        <div class="col-sm-4">
+            <a href=" @Url.Action("Index","Establishments")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Establishmens </a>
+        </div>
+        <div class="col-md-4">
+            <a href=" @Url.Action("CreateStockTypeSize","Stocktypes")" class="btn btn-default"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Add New Stock Type </a>
+        </div>
+    </div>
+</div>
+

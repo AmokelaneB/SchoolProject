@@ -1,0 +1,77 @@
+﻿@model GradStockUp.Models.StockType
+@{
+    ViewBag.Title = "CreateStockTypeSize";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" />
+
+<h2>New <span class="spans">Stock Type</span></h2>
+
+<form action="/StockTypes/CreateStockTypeSize" method="post">
+    <div>
+        @Html.LabelFor(model => model.DESCRIPTION, htmlAttributes: new { @class = "control-label col-md-2" })
+        <input name="StockTypeD" type="text" class="form-control" placeholder="Enter Stock Type Description" id="StockType" />
+
+    </div>
+    <div style="padding-top:1rem">
+        @Html.LabelFor(model => model.Sizes, htmlAttributes: new { @class = "control-label col-md-2" })
+        @foreach (var sizes in ViewBag.Sizes)
+        {
+            <ul class="col-md-offset-2">
+                <span class="col-sm-3" style="padding:1rem">
+                    <ul class="">
+
+                        <li> <input type="checkbox" name="SizeIDs" value="@sizes.SizeID" />@sizes.SizeDescription</li>
+
+                    </ul>
+                </span>
+            </ul>
+        }
+    </div>
+    <br />
+    <hr />
+    <div style="padding-top:20rem">
+        @Html.LabelFor(model => model.Establishments, htmlAttributes: new { @class = "control-label col-md-2" })
+        @foreach (var establishment in ViewBag.Establishments)
+        {
+            <ul class="col-md-offset-2">
+                <li> <input type="checkbox" name="EstablishmentIDs" value="@establishment.EstablishmentID" />@establishment.EstaName</li>
+            </ul>
+        }
+    </div>
+    <br />
+    <hr />
+    <input class="btn btn-default" type="submit" value="Create Stock Type" />
+</form>
+<div style="padding: 2rem">
+    <div class="row">
+        <div class="col-sm-4">
+            <a href=" @Url.Action("Index","StockTypes")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Stock Types </a>
+        </div>
+        <div class="col-md-4">
+            <a href=" @Url.Action("Create","Sizes")" class="btn btn-default"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Add New Size </a>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                toastr.success(successMessage);
+        });
+        $(function () {
+            var errorMessage = '@TempData["ErrorMessage"]'
+                    if (errorMessage != '')
+                        toastr.error(errorMessage);
+        });
+         function Delete(id) {
+            alertify.confirm('GradStockUp','Are You Sure to Delete this Record ?',function(){
+                window.location.href  = '@Url.Action("Delete", "Sizes")/'+id;
+            },null );
+        }
+    </script>
+}

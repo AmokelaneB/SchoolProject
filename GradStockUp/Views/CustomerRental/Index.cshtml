@@ -1,0 +1,74 @@
+﻿@model IEnumerable<GradStockUp.Models.CustomerRental>
+
+@{
+    Layout = null;
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AmountPaid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Delivery.DeliveryAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderStatu.DESCRIPTION)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentMethod.Description)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AmountPaid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Delivery.DeliveryAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderStatu.DESCRIPTION)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentMethod.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CustomerRentalID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CustomerRentalID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CustomerRentalID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>

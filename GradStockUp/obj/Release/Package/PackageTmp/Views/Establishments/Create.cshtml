@@ -1,0 +1,72 @@
+﻿@model GradStockUp.Models.Establishment
+
+@{
+    ViewBag.Title = "Create";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Establishment</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.EstaName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EstaName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EstaName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div style="padding-top:1rem">
+        @Html.LabelFor(model => model.StockTypes, htmlAttributes: new { @class = "control-label col-md-2" })
+        @foreach (var stockTypes in ViewBag.StockTypes)
+        {
+            <ul class="col-md-offset-2">
+
+                <li> <input type="checkbox" name="StockTypeIDs" value="@stockTypes.StockTypeID" />@stockTypes.DESCRIPTION</li>
+
+            </ul>
+        }
+    </div>
+    <div style="padding-top:2rem">
+        @Html.LabelFor(model => model.Institutions, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        @foreach (var institution in ViewBag.Institutions)
+
+        {
+            <ul class="col-md-offset-2">
+                <span class="col-sm-4">
+                    <ul>
+                        <li class="table-striped">
+                            <input type="checkbox" name="InstitutionIDs" value="@institution.InstitutionID" />@institution.InstitutionName
+                        </li>
+                    </ul>
+
+                </span>
+            </ul>
+        }
+    </div>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    <a href=" @Url.Action("Index","Establishments")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Establishments </a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

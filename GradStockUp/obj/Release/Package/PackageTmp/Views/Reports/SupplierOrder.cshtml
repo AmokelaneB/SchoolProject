@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "SupplierOrder";
+}
+<style>
+    body{
+        background-color:black;
+        color:white;
+    }
+</style>
+<body>
+    @Html.ActionLink("Home", "StockManager", "Home", null, new { @class = "navbar-brand", @style = "font-family: comic sans;  color:Gold;" })
+    <center><h2>Generate Supplier Order Report</h2></center>
+    <br />
+
+    <hr />
+    <center><h5>1. General Supplier Order Report</h5></center>
+    <br />
+    <br />
+    <a class="btn btn-danger" href="@Url.Action("ExportSupplierOrderReport")">Download PDF Report</a>
+    <hr />
+    <br />
+    <br />
+    <br />
+    <br />
+    <hr />
+    <center><h5>2. Supplier Order Report For Specified Supplier</h5></center>
+    <br />
+    <br />
+    <label>Select a Supplier</label>
+    <br />    @using (Html.BeginForm("DownloadSupOrderRpt", "Reports", FormMethod.Post))
+    {
+        var Types = (List<GradStockUp.Models.Supplier>)ViewData["Suppliers"];
+
+        <select id="supplier" name="supplier">
+            @foreach (var item in Types)
+            {
+                <option value=@item.SupplierID>@item.SupplierName</option>
+            }
+        </select>
+        <br />
+        <br />
+        <input type="submit" value="Download PDF Report" class="btn btn-danger" />
+
+    }
+
+</body>
+

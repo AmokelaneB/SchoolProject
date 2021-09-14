@@ -1,0 +1,83 @@
+﻿@model IEnumerable<GradStockUp.Models.BackOrder>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+<h2>Back Order </h2>
+
+<p>
+    <a href="@Url.Action("Create","BackOrder")" class="btn btn-default"><i class="fa fa-plus"></i>  Create New </a>
+</p>
+<table class="table table-striped table-hover table-condensed table-responsive table-hover" id="BackOrders">
+    <thead class="table-heading">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.QuantityOutstanding)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BackOrderStatu.BackOrderDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierOrder.SupplierOrderID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuantityOutstanding)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BackOrderStatu.BackOrderDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierOrder.SupplierOrderID)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "BackOrders", new { id = item.BackOrderID})" class="btn btn-default"><i class="fa fa-pencil"></i>Edit</a>
+                    <a onclick="Delete(@item.BackOrderID)" class="btn btn-default"><i class="fa fa-trash"></i>  Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+        $(function () {
+            var errorMessage = '@TempData["ErrorMessage"]'
+                    if (errorMessage != '')
+                        alertify.error(errorMessage);
+        });
+
+         function Delete(id) {
+            alertify.confirm('GradStockUp','Are You Sure to Delete this Record ?',function(){
+                window.location.href  = '@Url.Action("Delete", "BackOrders")/'+id;
+            },null );
+        }
+    </script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+        function activateJQueryTable() {
+            $("#BackOrders").DataTable();
+        }
+        $(function () {
+            activateJQueryTable();
+        }
+        );
+
+    </script>
+}

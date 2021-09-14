@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "CreateStockTypeSize";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Create Institution Faculty</h2>
+
+
+<form action="/InstitutionFaculties/CreateInstitutionFaculty" method="post">
+
+
+    Stock Type :  @Html.DropDownList("StockTypeID", "")
+
+    @foreach (var size in ViewBag.Sizes)
+    {
+        <ul>
+            <span class="col-sm-4" style="padding:2rem">
+                <ul>
+                    <li class="table-striped" style="font:bold">
+                        <input id="Establishment" type="checkbox" name="SizeID" value="@size.SizeID" />@size.SizeDescription
+                    </li>
+                </ul>
+            </span>
+        </ul>
+    }
+
+
+    <div class="row">
+        <div class="col-md-offset-3"></div>
+        <input style="left: 50%" type="submit" value="Assign Faculty Colours" />
+
+        <div style="padding-top: 2rem" class="col-md-3">
+
+            <a href=" @Url.Action("Index","InstitutionFaculties")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Institution Faculties </a>
+        </div>
+    </div>
+
+
+</form>
+

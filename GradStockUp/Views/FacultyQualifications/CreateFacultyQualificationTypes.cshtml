@@ -1,0 +1,96 @@
+﻿@model GradStockUp.Models.FacultyQualification
+@{
+    ViewBag.Title = "CreateFacultyQualificationTypes";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Institution <span class="spans">Faculty, Qualification </span></h2>
+
+
+<form action="/FacultyQualifications/CreateFacultyQualificationTypes" method="post">
+    <div>
+        @Html.LabelFor(model => model.Institution, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.DropDownList("InstitutionID", null, htmlAttributes: new { @class = "form-control", id = "Institutes" })
+
+
+    </div>
+
+    @foreach (var qualification in ViewBag.Qualifications)
+    {
+        <ul>
+            <li class="table-striped">
+                <input type="checkbox" name="QualificationIDs" value="@qualification.QualificationID" />@qualification.QualificationName
+
+                <ul>
+                    @foreach (var faculty in ViewBag.Faculties)
+                    {
+
+                        <li> <input type="checkbox" name="FacultyIDs" value="@faculty.FacultyID" />@faculty.Description</li>
+                    }
+
+                </ul>
+            </li>
+        </ul>
+    }
+
+
+    <input type="submit" value="Assign Faculty Qualification" />
+</form>
+<div>
+    <a href=" @Url.Action("Index","FacultyQualifications")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Faculty Qualification Types </a>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+        $(function () {
+            var errorMessage = '@TempData["ErrorMessage"]'
+                    if (errorMessage != '')
+                        alertify.error(errorMessage);
+        });
+         function Delete(id) {
+            alertify.confirm('GradStockUp','Are You Sure to Delete this Record ?',function(){
+                window.location.href  = '@Url.Action("Delete", "Establishments")/'+id;
+            },null );
+        }
+    </script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+        function activateJQueryTable() {
+            $("#EstablishmentTable").DataTable();
+        }
+        $(function () {
+            activateJQueryTable();
+        }
+        );
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+
+
+            //$('#Institutes').on("change", function () {
+            //    $("#QualType").empty();
+            //    $('#Faculty').attr("Disabled", false);
+            //    $.ajax({
+            //        type: "GET",
+            //        url: "/FacultyQualifications/getFaculties",
+            //        data: "{}",
+            //        success: function (data) {
+
+            //            var s = '< option value ="ff">  </option > ';
+            //            for (var i = 0; i < data.length; i++) {
+            //                if (data[i].InstID == $("#Institutes").val())
+            //                    s += '<option  style="background-color: black" value = "' + data[i].FacID + '" > ' + data[i].description + '</option > ';
+            //            }
+            //            $("#Faculty").html(s);
+            //            $('#Faculty').attr("Disabled", false);
+
+            //        }
+            //    });
+            //});
+    </script>
+}

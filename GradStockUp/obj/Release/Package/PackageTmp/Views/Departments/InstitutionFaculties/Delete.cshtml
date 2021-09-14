@@ -1,0 +1,51 @@
+﻿@model GradStockUp.Models.InstitutionFaculty
+
+@{
+    ViewBag.Title = "Delete";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>InstitutionFaculty</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Colour.ColourName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Colour.ColourName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Faculty.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Faculty.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Institution.InstitutionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Institution.InstitutionName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

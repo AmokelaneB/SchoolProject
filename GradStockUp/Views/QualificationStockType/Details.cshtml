@@ -1,0 +1,42 @@
+﻿@model GradStockUp.Models.QualificationStockType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>QualificationStockType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Colour.ColourName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Colour.ColourName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Qualification.QualificationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Qualification.QualificationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockType.DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockType.DESCRIPTION)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

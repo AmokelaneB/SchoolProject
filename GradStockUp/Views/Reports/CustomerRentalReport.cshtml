@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "CustomerRentalReport";
+}
+
+
+<style>
+    body {
+        background-color: black;
+        color: white;
+    }
+</style>
+<body>
+    @Html.ActionLink("Home", "CashierHome", "Home", null, new { @class = "navbar-brand", @style = "font-family: comic sans;  color:Gold;" })
+    <hr />
+    <center><h5>Customer Rental Report</h5></center>
+    <br />
+    <br />
+    <a class="btn btn-danger" href="@Url.Action("ExportCustomerRentalPDF")">Download PDF Report</a>
+    <br />
+</body>

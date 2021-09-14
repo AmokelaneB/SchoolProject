@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "SuccessSupplierOrder";
+}
+
+<style>
+    body {
+        background-color: black;
+        color: white;
+    }
+</style>
+<body>
+    @Html.ActionLink("Home", "StockManagerHome", "Home", null, new { @class = "navbar-brand", @style = "font-family: comic sans;  color:Gold;" })
+    <hr />
+    <h4>Your Order has been Successfully placed</h4>
+    <div>
+        @Html.ActionLink("Return to Place Supplier Order", "PlaceSupplierOrder")
+
+    </div>
+    <hr />
+
+</body>
+

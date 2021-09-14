@@ -1,0 +1,75 @@
+﻿@model IEnumerable<GradStockUp.Models.Bank>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+<h2>Banks</h2>
+
+<p>
+    <a href="@Url.Action("Create","Banks")" class="btn btn-default"><i class="fa fa-plus"></i>Create New </a>
+</p>
+<table class="table table-striped" id="BankTable">
+    <thead class="table-heading">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BankName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BranchCode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BankName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BranchCode)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Banks", new { id = item.BankID})" class="btn btn-default"><i class="fa fa-pencil"></i>Edit</a>
+                    <a onclick="Delete(@item.BankID)" class="btn btn-default"><i class="fa fa-trash"></i>  Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                toastr.success(successMessage);
+        });
+        $(function () {
+            var errorMessage = '@TempData["ErrorMessage"]'
+                    if (errorMessage != '')
+                        toastr.error(errorMessage);
+        });
+         function Delete(id) {
+            alertify.confirm('GradStockUp','Are You Sure to Delete this Record ?',function(){
+                window.location.href  = '@Url.Action("Delete", "Banks")/'+id;
+            },null );
+        }
+    </script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+        function activateJQueryTable() {
+            $("#BankTable").DataTable();
+        }
+        $(function () {
+            activateJQueryTable();
+        }
+        );
+
+    </script>
+}

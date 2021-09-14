@@ -1,0 +1,91 @@
+﻿@model GradStockUp.Models.StockDescription
+
+@{
+    ViewBag.Title = "Delete";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h1>Delete Stock Description</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>StockDescription</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RENTALSTOCKLEVEL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RENTALSTOCKLEVEL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RETAILSTOCKLEVEL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RETAILSTOCKLEVEL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RETAILTHRESHOLD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RETAILTHRESHOLD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RENTALTHRESHOLD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RENTALTHRESHOLD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FLAG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FLAG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Colour.ColourName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Colour.ColourName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Size.SizeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Size.SizeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockType.DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockType.DESCRIPTION)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

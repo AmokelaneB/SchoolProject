@@ -1,0 +1,163 @@
+﻿@model GradStockUp.Models.RegisterViewModel
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+        <style>
+            body {
+                background: black;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .form-control {
+                border: none;
+                border-bottom: 3px solid dodgerblue;
+                background: black;
+                color: white;
+                border-radius: 0px;
+            }
+
+            .row {
+                width: 60%;
+                margin-top: 50px;
+                border: 3px solid orange;
+                border-radius: 14px;
+                height: auto;
+            }
+
+            form h2 {
+                color: white;
+            }
+
+
+
+            .checkbox span {
+                color: white;
+            }
+
+            .checkbox {
+                float: left;
+            }
+
+            button {
+                float: right;
+                width: 120px;
+            }
+
+
+            h2 {
+                font-size: 15px;
+            }
+
+            input[type=text] {
+                font-size: 13px;
+            }
+
+            input[type=password] {
+                font-size: 13px;
+            }
+
+            input[type=email] {
+                font-size: 13px;
+            }
+
+            button {
+                width: 80px;
+                height: 30px;
+                float: right;
+                font-size: 10px;
+                margin-bottom: 10px;
+            }
+
+            .checkbox {
+                display: inline;
+            }
+        </style>
+        <script>
+
+            function confirmation() {
+
+                setTimeout(function () {
+                    toastr.success("Please click on the confirmation link before login");
+                }, 2000);
+                return true;
+            }
+
+
+
+
+
+        </script>
+    </head>
+
+<!------ Include the above in your HEAD tag ---------->
+<body style="background-color: black">
+
+    <div class="container">
+        <div class="row">
+       
+            <div class="col-xs-12 col-sm-12 col-md-12" style="color:white; border-color:goldenrod;border-width:thick ; align-content:center;align-items:center">
+
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", onsubmit = "return confirmation()" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <h1 style="color:gold; text-align:center">New user Account</h1>
+                    <hr />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label", @Style = "background-color: black; color: white" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @Style = "background-color: black; color: white" })
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                   
+                        @Html.LabelFor(m => m.EmplID, new { @class = "col-md-2 control-label", @Style = "background-color: black; color: white" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.EmplID, new { @class = "form-control", @Style = "background-color: black; color: white" })
+                            <Label style="color:red">@ViewBag.ErrorMessage</Label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label", @Style = "background-color: black; color: white" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @Style = "background-color: black; color: white" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label", @Style = "background-color: black; color: white" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @Style = "background-color: black; color: white" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @Style = "background-color: black; color: white" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" style="background-color:goldenrod;" id="RegisterBtn" class="btn btn-default" value="Register" />
+                            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                        </div>
+                    </div>
+                }
+
+            </div>
+           
+        </div>
+    </div>
+</body>
+
+

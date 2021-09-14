@@ -1,0 +1,50 @@
+﻿@model GradStockUp.Models.INSTITUTIONLINE
+@{
+    ViewBag.Title = "CreateInstitutionLine";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Create Institution Faculty</h2>
+
+
+<form action="/INSTITUTIONlINEs/CreateInstitutionLine" method="post">
+    @Html.LabelFor(model => model.Institution, htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.DropDownList("InstitutionID", null, htmlAttributes: new { @class = "form-control", id = "Institutes" })
+    <div style="padding-top:1rem">
+        @Html.LabelFor(model => model.Establishment, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.DropDownList("EstablishmentID", null, htmlAttributes: new { @class = "form-control" })
+    </div>
+
+
+
+    <div style="padding-top:1rem">
+        @Html.LabelFor(model => model.StockType, htmlAttributes: new { @class = "control-label col-md-2" })
+        <ul>
+            @foreach (var stocktype in ViewBag.StockTypes)
+            {
+                <ul class="col-md-offset-2">
+                    <li class="table-striped">
+                        <input type="checkbox" name="StockTypeIDs" value="@stocktype.StockTypeID" />@stocktype.DESCRIPTION
+                    </li>
+                </ul>
+
+
+            }
+        </ul>
+    </div>
+    <input type="submit" value="Assign Faculty Type Stock Types" />
+</form>
+<div style="padding: 2rem">
+    <div class="row">
+        <div class="col-sm-3">
+            <a href=" @Url.Action("Index","INSTITUTIONlINEs")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Establishments </a>
+        </div>
+        <div class="col-md-3">
+            <a href=" @Url.Action("Create","StockTypes")" class="btn btn-default"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Add New Stock Type </a>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+    </div>
+</div>

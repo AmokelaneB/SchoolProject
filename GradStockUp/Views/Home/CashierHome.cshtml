@@ -1,0 +1,66 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GradStockUp</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            /*background-color: #eee;*/
+            font-family: "Lato", sans-serif;
+         
+            background-size: cover
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-black w3-card">
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">Home</a>
+            <div class="w3-dropdown-hover w3-hide-small">
+                <button class="w3-padding-large w3-button" title="Employees">Point of sale <i class="fa fa-caret-down"></i></button>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                    <a href="~/Customers/Index" class="w3-bar-item w3-button">Manage customer</a>
+                    <a href="~/CustomerRental/Create" class="w3-bar-item w3-button">Buy/Rent out attire</a>
+                    <a href="~/CustomerRental/BulkTransaction" class="w3-bar-item w3-button">Bulk rent out/purchase</a>
+                    <a href="~/CustomerRental/ReceiveCustomerOrder" class="w3-bar-item w3-button">Return attires</a>
+                    <a href="~/Stock/Transfer" class="w3-bar-item w3-button">Transfer attire</a>
+                    <a href="~/OnlineOrder/Index" class="w3-bar-item w3-button">Transfer attire</a>
+                </div>
+            </div>
+
+            @*<div class="w3-dropdown-hover w3-hide-small">
+            <button class="w3-padding-large w3-button" title="More">SUPPLIER ORDER <i class="fa fa-caret-down"></i></button>
+            <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                <a href="#" class="w3-bar-item w3-button">Place order to supplier</a>
+                <a href="#" class="w3-bar-item w3-button">Search for supplier order</a>
+                <a href="#" class="w3-bar-item w3-button">Receive order from supplier</a>
+
+            </div>
+        </div>
+
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">VIEW SUPPLIER ORDER REPORTS</a>*@
+
+            <a onclick="location.href='@Url.Action("Help", "Home")'" class="w3-bar-item w3-button w3-padding-large">Help</a>
+
+        </div>
+        <p style="text-align:center;color:black; font-size:25px;font-family:Marker Felt, fantasy;font-variant: small-caps;">
+            Welcome!
+        </p>
+    </div>
+
+    <div style="height:600px;width:700px;margin:0 auto; margin-top:140px;">
+        @Html.Raw(Model.Render())
+    </div>
+
+   
+</body>
+</html>

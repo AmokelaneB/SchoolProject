@@ -1,0 +1,63 @@
+﻿@model GradStockUp.Models.Organization
+
+@{
+    ViewBag.Title = "Details";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>@Model.Name</h2>
+<h4>Organization Details </h4>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Contact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contact)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistrationNO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegistrationNO)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Customers)
+        </dt>
+
+
+        @foreach (var item in Model.Customers)
+        {
+            <dd>
+
+                <div>@item.CustomerSurname @item.CustomerName</div>
+
+
+            </dd>
+        }
+    </dl>
+</div>
+<p>
+    <div class="col-md-offset-2">
+        <a href="@Url.Action("Edit", "Organizations", new { id = Model.OrganizationID})" class="btn btn-default"><i class="fa fa-pencil"></i>Edit</a>
+    </div>
+
+    <div>
+        <a href=" @Url.Action("Index","Organizations")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Institutions </a>
+    </div>
+</p>

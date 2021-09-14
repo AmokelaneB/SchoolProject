@@ -1,0 +1,40 @@
+﻿@model GradStockUp.Models.QualificationType
+
+@{
+    ViewBag.Title = "Details";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h1>@Model.QualificationType1</h1>
+<h4>Details</h4>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Qualifications)
+        </dt>
+
+
+        @foreach (var item in Model.Qualifications)
+        {
+            <dd>
+
+                <div>@item.QualificationName</div>
+
+
+            </dd>
+        }
+    </dl>
+</div>
+<p>
+    <div class="col-md-offset-2">
+        <a href="@Url.Action("Edit", "QualificationTypes", new { id = Model.QualificationTypeID})" class="btn btn-default"><i class="fa fa-pencil"></i>Edit</a>
+    </div>
+
+    <div>
+        <a href=" @Url.Action("Index","QualificationTypes")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Qualification Types </a>
+    </div>
+</p>

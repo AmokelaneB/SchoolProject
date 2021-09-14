@@ -1,0 +1,66 @@
+﻿@model GradStockUp.Models.Price
+
+@{
+    ViewBag.Title = "Details";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h1>@Model.StockType.DESCRIPTION</h1>
+
+<div>
+    <h4>Price</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RetailPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RetailPrice)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RentalPrice)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceDate)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Establishment.EstaName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Establishment.EstaName)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Institution.InstitutionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Institution.InstitutionName)
+        </dd>
+        <hr />
+
+    </dl>
+</div>
+<p>
+    <div class="col-md-offset-2">
+        <a href="@Url.Action("Edit", "Prices", new { id = Model.PriceID})" class="btn btn-default"><i class="fa fa-pencil"></i>Edit</a>
+    </div>
+
+    <div>
+        <a href=" @Url.Action("Index","Prices")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> Prices </a>
+    </div>
+</p>

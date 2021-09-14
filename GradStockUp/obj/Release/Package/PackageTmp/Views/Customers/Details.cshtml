@@ -1,0 +1,78 @@
+﻿@model GradStockUp.Models.Customer
+
+@{
+    ViewBag.Title = "Details";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>@Model.CustomerName  @Model.CustomerSurname</h2>
+<h4>Edit</h4>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IDnumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDnumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NextoFKin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NextoFKin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kinPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kinPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Organization.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Organization.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CustomerID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

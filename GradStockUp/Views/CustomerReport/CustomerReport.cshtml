@@ -1,0 +1,58 @@
+﻿
+@model NewReports.Reports.CustomerModel
+@using System.Data;
+<style>
+
+    body{
+        background-color:black;
+        color:white;
+    }
+</style>
+<body>
+    <center>
+<h2>Customer Report</h2>
+        <br />
+</center>
+<div>
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Address</th>
+            <th>ID Number</th>
+            <th>Email</th>
+            <th>Phone Number (+27)</th>
+            <th>Next of Kin's Name</th>
+            <th>Next of Kin's Phone Number (+27)</th>
+        </tr>
+        @* Display each row of the Product table in the ViewModel, which is a CriticalStockModel dataset *@
+        @foreach (DataRow row in Model.Customer.Rows)
+        {
+    <tr>
+        <td>@row[0]</td>
+        <td>@row[1]</td>
+        <td>@row[2]</td>
+        <td>@row[3]</td>
+        <td>@row[4]</td>
+        <td>@row[5]</td>
+        <td>@row[6]</td>
+        <td>@row[7]</td>
+        <td>@row[8]</td>
+
+
+
+
+    </tr>
+        }
+    </table>
+
+</div>
+<div>
+
+    <a class="btn btn-danger" href="@Url.Action("ExportSimplePDF")">Download PDF Report</a>
+    <a class="btn btn-primary" href="@Url.Action("ExportSimpleWord")">Download Word Document Report</a>
+
+
+</div>
+</body>

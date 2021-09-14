@@ -1,0 +1,614 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GradStockUpModelStoreContainer" CdmEntityContainer="GradStockUpEntities">
+    <EntitySetMapping Name="AppUsers">
+      <EntityTypeMapping TypeName="GradStockUpModel.AppUser">
+        <MappingFragment StoreEntitySet="AppUsers">
+          <ScalarProperty Name="AppUserID" ColumnName="AppUserID" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="EmplyID" ColumnName="EmplyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BackOrders">
+      <EntityTypeMapping TypeName="GradStockUpModel.BackOrder">
+        <MappingFragment StoreEntitySet="BackOrder">
+          <ScalarProperty Name="BackOrderID" ColumnName="BackOrderID" />
+          <ScalarProperty Name="BackOrderStatusID" ColumnName="BackOrderStatusID" />
+          <ScalarProperty Name="SupplierOrderID" ColumnName="SupplierOrderID" />
+          <ScalarProperty Name="QuantityOutstanding" ColumnName="QuantityOutstanding" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BackOrderLines">
+      <EntityTypeMapping TypeName="GradStockUpModel.BackOrderLine">
+        <MappingFragment StoreEntitySet="BackOrderLine">
+          <ScalarProperty Name="StockDescriptionID" ColumnName="StockDescriptionID" />
+          <ScalarProperty Name="BackOrderID" ColumnName="BackOrderID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BackOrderStatus">
+      <EntityTypeMapping TypeName="GradStockUpModel.BackOrderStatu">
+        <MappingFragment StoreEntitySet="BackOrderStatus">
+          <ScalarProperty Name="BackOrderStatusID" ColumnName="BackOrderStatusID" />
+          <ScalarProperty Name="BackOrderDescription" ColumnName="BackOrderDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Banks">
+      <EntityTypeMapping TypeName="GradStockUpModel.Bank">
+        <MappingFragment StoreEntitySet="Bank">
+          <ScalarProperty Name="BankID" ColumnName="BankID" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CheckInLaundries">
+      <EntityTypeMapping TypeName="GradStockUpModel.CheckInLaundry">
+        <MappingFragment StoreEntitySet="CheckInLaundry">
+          <ScalarProperty Name="CheckInLaundryID" ColumnName="CheckInLaundryID" />
+          <ScalarProperty Name="CheckInDate" ColumnName="CheckInDate" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Colours">
+      <EntityTypeMapping TypeName="GradStockUpModel.Colour">
+        <MappingFragment StoreEntitySet="Colour">
+          <ScalarProperty Name="ColourID" ColumnName="ColourID" />
+          <ScalarProperty Name="ColourName" ColumnName="ColourName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="GradStockUpModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerSurname" ColumnName="CustomerSurname" />
+          <ScalarProperty Name="CustAddress" ColumnName="CustAddress" />
+          <ScalarProperty Name="IDnumber" ColumnName="IDnumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="NextoFKin" ColumnName="NextoFKin" />
+          <ScalarProperty Name="kinPhone" ColumnName="kinPhone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerRentals">
+      <EntityTypeMapping TypeName="GradStockUpModel.CustomerRental">
+        <MappingFragment StoreEntitySet="CustomerRental">
+          <ScalarProperty Name="CustomerRentalID" ColumnName="CustomerRentalID" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="OrderStatusID" ColumnName="OrderStatusID" />
+          <ScalarProperty Name="DeliveryID" ColumnName="DeliveryID" />
+          <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+          <ScalarProperty Name="OrderDateTime" ColumnName="OrderDateTime" />
+          <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerRentalLines">
+      <EntityTypeMapping TypeName="GradStockUpModel.CustomerRentalLine">
+        <MappingFragment StoreEntitySet="CustomerRentalLine">
+          <ScalarProperty Name="StockID" ColumnName="StockID" />
+          <ScalarProperty Name="CustomerRentalID" ColumnName="CustomerRentalID" />
+          <ScalarProperty Name="PriceID" ColumnName="PriceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Deliveries">
+      <EntityTypeMapping TypeName="GradStockUpModel.Delivery">
+        <MappingFragment StoreEntitySet="Delivery">
+          <ScalarProperty Name="DeliveryID" ColumnName="DeliveryID" />
+          <ScalarProperty Name="DeliveryStatusID" ColumnName="DeliveryStatusID" />
+          <ScalarProperty Name="DeliveryDateTime" ColumnName="DeliveryDateTime" />
+          <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeliveryStatus">
+      <EntityTypeMapping TypeName="GradStockUpModel.DeliveryStatu">
+        <MappingFragment StoreEntitySet="DeliveryStatus">
+          <ScalarProperty Name="DeliveryStatusID" ColumnName="DeliveryStatusID" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="GradStockUpModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents">
+      <EntityTypeMapping TypeName="GradStockUpModel.Document">
+        <MappingFragment StoreEntitySet="Document">
+          <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+          <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+          <ScalarProperty Name="DocumentDateTime" ColumnName="DocumentDateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="GradStockUpModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmplyID" ColumnName="EmplyID" />
+          <ScalarProperty Name="EmployeeTypeID" ColumnName="EmployeeTypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmployeeAddress" ColumnName="EmployeeAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeTypes">
+      <EntityTypeMapping TypeName="GradStockUpModel.EmployeeType">
+        <MappingFragment StoreEntitySet="EmployeeType">
+          <ScalarProperty Name="EmployeeTypeID" ColumnName="EmployeeTypeID" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Establishments">
+      <EntityTypeMapping TypeName="GradStockUpModel.Establishment">
+        <MappingFragment StoreEntitySet="Establishment">
+          <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+          <ScalarProperty Name="EstaName" ColumnName="EstaName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="GradStockUpModel.Event">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Faculties">
+      <EntityTypeMapping TypeName="GradStockUpModel.Faculty">
+        <MappingFragment StoreEntitySet="Faculty">
+          <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FacultyQualifications">
+      <EntityTypeMapping TypeName="GradStockUpModel.FacultyQualification">
+        <MappingFragment StoreEntitySet="FacultyQualification">
+          <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+          <ScalarProperty Name="QualificationID" ColumnName="QualificationID" />
+          <ScalarProperty Name="InstitutionID" ColumnName="InstitutionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Institutions">
+      <EntityTypeMapping TypeName="GradStockUpModel.Institution">
+        <MappingFragment StoreEntitySet="Institution">
+          <ScalarProperty Name="InstitutionID" ColumnName="InstitutionID" />
+          <ScalarProperty Name="InstitutionName" ColumnName="InstitutionName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InstitutionFaculties">
+      <EntityTypeMapping TypeName="GradStockUpModel.InstitutionFaculty">
+        <MappingFragment StoreEntitySet="InstitutionFaculty">
+          <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+          <ScalarProperty Name="InstitutionID" ColumnName="InstitutionID" />
+          <ScalarProperty Name="ColourID" ColumnName="ColourID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="INSTITUTIONLINEs">
+      <EntityTypeMapping TypeName="GradStockUpModel.INSTITUTIONLINE">
+        <MappingFragment StoreEntitySet="INSTITUTIONLINE">
+          <ScalarProperty Name="StockTypeID" ColumnName="StockTypeID" />
+          <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+          <ScalarProperty Name="InstitutionID" ColumnName="InstitutionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InstitutionLineQualifications">
+      <EntityTypeMapping TypeName="GradStockUpModel.InstitutionLineQualification">
+        <MappingFragment StoreEntitySet="InstitutionLineQualification">
+          <ScalarProperty Name="StockTypeID" ColumnName="StockTypeID" />
+          <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+          <ScalarProperty Name="InstitutionID" ColumnName="InstitutionID" />
+          <ScalarProperty Name="QualificationID" ColumnName="QualificationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LaundryLines">
+      <EntityTypeMapping TypeName="GradStockUpModel.LaundryLine">
+        <MappingFragment StoreEntitySet="LaundryLine">
+          <ScalarProperty Name="StockID" ColumnName="StockID" />
+          <ScalarProperty Name="CheckInLaundryID" ColumnName="CheckInLaundryID" />
+          <ScalarProperty Name="StockStatusID" ColumnName="StockStatusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="GradStockUpModel.Location">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OnlineOrders">
+      <EntityTypeMapping TypeName="GradStockUpModel.OnlineOrder">
+        <MappingFragment StoreEntitySet="OnlineOrder">
+          <ScalarProperty Name="OnlineOrderID" ColumnName="OnlineOrderID" />
+          <ScalarProperty Name="OrderItem" ColumnName="OrderItem" />
+          <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="OrderStatusID" ColumnName="OrderStatusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderStatus">
+      <EntityTypeMapping TypeName="GradStockUpModel.OrderStatu">
+        <MappingFragment StoreEntitySet="OrderStatus">
+          <ScalarProperty Name="OrderStatusID" ColumnName="OrderStatusID" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Organizations">
+      <EntityTypeMapping TypeName="GradStockUpModel.Organization">
+        <MappingFragment StoreEntitySet="Organization">
+          <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="RegistrationNO" ColumnName="RegistrationNO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Outfits">
+      <EntityTypeMapping TypeName="GradStockUpModel.Outfit">
+        <MappingFragment StoreEntitySet="Outfit">
+          <ScalarProperty Name="OutfitID" ColumnName="OutfitID" />
+          <ScalarProperty Name="StockTypeID" ColumnName="StockTypeID" />
+          <ScalarProperty Name="InstitutionID" ColumnName="InstitutionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PaymentMethods">
+      <EntityTypeMapping TypeName="GradStockUpModel.PaymentMethod">
+        <MappingFragment StoreEntitySet="PaymentMethod">
+          <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prices">
+      <EntityTypeMapping TypeName="GradStockUpModel.Price">
+        <MappingFragment StoreEntitySet="Price">
+          <ScalarProperty Name="PriceID" ColumnName="PriceID" />
+          <ScalarProperty Name="RetailPrice" ColumnName="RetailPrice" />
+          <ScalarProperty Name="StockTypeID" ColumnName="StockTypeID" />
+          <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+          <ScalarProperty Name="InstitutionID" ColumnName="InstitutionID" />
+          <ScalarProperty Name="RentalPrice" ColumnName="RentalPrice" />
+          <ScalarProperty Name="PriceDate" ColumnName="PriceDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseOrders">
+      <EntityTypeMapping TypeName="GradStockUpModel.PurchaseOrder">
+        <MappingFragment StoreEntitySet="PurchaseOrder">
+          <ScalarProperty Name="PurchaseOrderID" ColumnName="PurchaseOrderID" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="OrderStatusID" ColumnName="OrderStatusID" />
+          <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+          <ScalarProperty Name="DeliveryID" ColumnName="DeliveryID" />
+          <ScalarProperty Name="OrderDateTime" ColumnName="OrderDateTime" />
+          <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseOrderLines">
+      <EntityTypeMapping TypeName="GradStockUpModel.PurchaseOrderLine">
+        <MappingFragment StoreEntitySet="PurchaseOrderLine">
+          <ScalarProperty Name="PurchaseOrderID" ColumnName="PurchaseOrderID" />
+          <ScalarProperty Name="StockID" ColumnName="StockID" />
+          <ScalarProperty Name="PriceID" ColumnName="PriceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Qualifications">
+      <EntityTypeMapping TypeName="GradStockUpModel.Qualification">
+        <MappingFragment StoreEntitySet="Qualification">
+          <ScalarProperty Name="QualificationID" ColumnName="QualificationID" />
+          <ScalarProperty Name="QualificationName" ColumnName="QualificationName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QualificationStockTypes">
+      <EntityTypeMapping TypeName="GradStockUpModel.QualificationStockType">
+        <MappingFragment StoreEntitySet="QualificationStockType">
+          <ScalarProperty Name="QualificationID" ColumnName="QualificationID" />
+          <ScalarProperty Name="ColourID" ColumnName="ColourID" />
+          <ScalarProperty Name="StockTypeID" ColumnName="StockTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QualificationTypes">
+      <EntityTypeMapping TypeName="GradStockUpModel.QualificationType">
+        <MappingFragment StoreEntitySet="QualificationType">
+          <ScalarProperty Name="QualificationTypeID" ColumnName="QualificationTypeID" />
+          <ScalarProperty Name="QualificationType1" ColumnName="QualificationType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RefundStatus">
+      <EntityTypeMapping TypeName="GradStockUpModel.RefundStatu">
+        <MappingFragment StoreEntitySet="RefundStatus">
+          <ScalarProperty Name="RefundStatusID" ColumnName="RefundStatusID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReturnFromLaundries">
+      <EntityTypeMapping TypeName="GradStockUpModel.ReturnFromLaundry">
+        <MappingFragment StoreEntitySet="ReturnFromLaundry">
+          <ScalarProperty Name="ReturnID" ColumnName="ReturnID" />
+          <ScalarProperty Name="LaundryReturnDate" ColumnName="LaundryReturnDate" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReturnLines">
+      <EntityTypeMapping TypeName="GradStockUpModel.ReturnLine">
+        <MappingFragment StoreEntitySet="ReturnLine">
+          <ScalarProperty Name="ReturnID" ColumnName="ReturnID" />
+          <ScalarProperty Name="StockID" ColumnName="StockID" />
+          <ScalarProperty Name="CheckInLaundryID" ColumnName="CheckInLaundryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sizes">
+      <EntityTypeMapping TypeName="GradStockUpModel.Size">
+        <MappingFragment StoreEntitySet="Size">
+          <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+          <ScalarProperty Name="SizeDescription" ColumnName="SizeDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status">
+      <EntityTypeMapping TypeName="GradStockUpModel.Status">
+        <MappingFragment StoreEntitySet="Status">
+          <ScalarProperty Name="StockStatusID" ColumnName="StockStatusID" />
+          <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stocks">
+      <EntityTypeMapping TypeName="GradStockUpModel.Stock">
+        <MappingFragment StoreEntitySet="Stock">
+          <ScalarProperty Name="StockID" ColumnName="StockID" />
+          <ScalarProperty Name="StockStatusID" ColumnName="StockStatusID" />
+          <ScalarProperty Name="StockDescriptionID" ColumnName="StockDescriptionID" />
+          <ScalarProperty Name="StockStateID" ColumnName="StockStateID" />
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+          <ScalarProperty Name="BarcodeImage" ColumnName="BarcodeImage" />
+          <ScalarProperty Name="StockBarcode" ColumnName="StockBarcode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StockDescriptions">
+      <EntityTypeMapping TypeName="GradStockUpModel.StockDescription">
+        <MappingFragment StoreEntitySet="StockDescription">
+          <ScalarProperty Name="StockDescriptionID" ColumnName="StockDescriptionID" />
+          <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+          <ScalarProperty Name="StockTypeID" ColumnName="StockTypeID" />
+          <ScalarProperty Name="ColourID" ColumnName="ColourID" />
+          <ScalarProperty Name="RENTALSTOCKLEVEL" ColumnName="RENTALSTOCKLEVEL" />
+          <ScalarProperty Name="RETAILSTOCKLEVEL" ColumnName="RETAILSTOCKLEVEL" />
+          <ScalarProperty Name="RETAILTHRESHOLD" ColumnName="RETAILTHRESHOLD" />
+          <ScalarProperty Name="RENTALTHRESHOLD" ColumnName="RENTALTHRESHOLD" />
+          <ScalarProperty Name="FLAG" ColumnName="FLAG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StockQualifications">
+      <EntityTypeMapping TypeName="GradStockUpModel.StockQualification">
+        <MappingFragment StoreEntitySet="StockQualification">
+          <ScalarProperty Name="StockTypeID" ColumnName="StockTypeID" />
+          <ScalarProperty Name="QualificationID" ColumnName="QualificationID" />
+          <ScalarProperty Name="ColourID" ColumnName="ColourID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StockReturns">
+      <EntityTypeMapping TypeName="GradStockUpModel.StockReturn">
+        <MappingFragment StoreEntitySet="StockReturn">
+          <ScalarProperty Name="StockReturnID" ColumnName="StockReturnID" />
+          <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+          <ScalarProperty Name="CustomerRentalID" ColumnName="CustomerRentalID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StockReturnLines">
+      <EntityTypeMapping TypeName="GradStockUpModel.StockReturnLine">
+        <MappingFragment StoreEntitySet="StockReturnLine">
+          <ScalarProperty Name="StockReturnID" ColumnName="StockReturnID" />
+          <ScalarProperty Name="StockID" ColumnName="StockID" />
+          <ScalarProperty Name="StockStateID" ColumnName="StockStateID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StockStates">
+      <EntityTypeMapping TypeName="GradStockUpModel.StockState">
+        <MappingFragment StoreEntitySet="StockState">
+          <ScalarProperty Name="StockStateID" ColumnName="StockStateID" />
+          <ScalarProperty Name="STATE" ColumnName="STATE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StockTypes">
+      <EntityTypeMapping TypeName="GradStockUpModel.StockType">
+        <MappingFragment StoreEntitySet="StockType">
+          <ScalarProperty Name="StockTypeID" ColumnName="StockTypeID" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="GradStockUpModel.Supplier">
+        <MappingFragment StoreEntitySet="Supplier">
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+          <ScalarProperty Name="PHONENUMBER" ColumnName="PHONENUMBER" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierOrders">
+      <EntityTypeMapping TypeName="GradStockUpModel.SupplierOrder">
+        <MappingFragment StoreEntitySet="SupplierOrder">
+          <ScalarProperty Name="SupplierOrderID" ColumnName="SupplierOrderID" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="OrderStatusID" ColumnName="OrderStatusID" />
+          <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierOrderLines">
+      <EntityTypeMapping TypeName="GradStockUpModel.SupplierOrderLine">
+        <MappingFragment StoreEntitySet="SupplierOrderLine">
+          <ScalarProperty Name="StockDescriptionID" ColumnName="StockDescriptionID" />
+          <ScalarProperty Name="SupplierOrderID" ColumnName="SupplierOrderID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="GradStockUpModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WriteOffs">
+      <EntityTypeMapping TypeName="GradStockUpModel.WriteOff">
+        <MappingFragment StoreEntitySet="WriteOff">
+          <ScalarProperty Name="WriteOffID" ColumnName="WriteOffID" />
+          <ScalarProperty Name="WriteOffDate" ColumnName="WriteOffDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WriteOffLines">
+      <EntityTypeMapping TypeName="GradStockUpModel.WriteOffLine">
+        <MappingFragment StoreEntitySet="WriteOffLine">
+          <ScalarProperty Name="WriteOffID" ColumnName="WriteOffID" />
+          <ScalarProperty Name="StockID" ColumnName="StockID" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="EstablishmentInstitute" TypeName="GradStockUpModel.EstablishmentInstitute" StoreEntitySet="EstablishmentInstitute">
+      <EndProperty Name="Establishment">
+        <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+      </EndProperty>
+      <EndProperty Name="Institution">
+        <ScalarProperty Name="InstitutionID" ColumnName="InstitutionID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EstablishmentStockTypeLine" TypeName="GradStockUpModel.EstablishmentStockTypeLine" StoreEntitySet="EstablishmentStockTypeLine">
+      <EndProperty Name="Establishment">
+        <ScalarProperty Name="EstablishmentID" ColumnName="EstablishmentID" />
+      </EndProperty>
+      <EndProperty Name="StockType">
+        <ScalarProperty Name="StockTypeID" ColumnName="StockTypeID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="InstitutionFacultyLine" TypeName="GradStockUpModel.InstitutionFacultyLine" StoreEntitySet="InstitutionFacultyLine">
+      <EndProperty Name="Faculty">
+        <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+      </EndProperty>
+      <EndProperty Name="Institution">
+        <ScalarProperty Name="InstitutionID" ColumnName="InstitutionID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="QualificationTypeLine" TypeName="GradStockUpModel.QualificationTypeLine" StoreEntitySet="QualificationTypeLine">
+      <EndProperty Name="Qualification">
+        <ScalarProperty Name="QualificationID" ColumnName="QualificationID" />
+      </EndProperty>
+      <EndProperty Name="QualificationType">
+        <ScalarProperty Name="QualificationTypeID" ColumnName="QualificationTypeID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StockTypeSizeLine" TypeName="GradStockUpModel.StockTypeSizeLine" StoreEntitySet="StockTypeSizeLine">
+      <EndProperty Name="Size">
+        <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+      </EndProperty>
+      <EndProperty Name="StockType">
+        <ScalarProperty Name="StockTypeID" ColumnName="StockTypeID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="getOrganizationByID" FunctionName="GradStockUpModel.Store.getOrganizationByID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GradStockUpModel.getOrganizationByID_Result">
+          <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="RegistrationNO" ColumnName="RegistrationNO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InsertOrganization" FunctionName="GradStockUpModel.Store.InsertOrganization" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="GradStockUpModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="GradStockUpModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="GradStockUpModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="GradStockUpModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GradStockUpModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="GradStockUpModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GradStockUpModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="GradStockUpModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="GradStockUpModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="UpdateCustomer" FunctionName="GradStockUpModel.Store.UpdateCustomer" />
+  </EntityContainerMapping>
+</Mapping>

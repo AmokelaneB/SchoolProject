@@ -1,0 +1,44 @@
+﻿@model GradStockUp.Models.INSTITUTIONLINE
+
+@{
+    ViewBag.Title = "Details";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Details</h2>
+
+<div>
+    <h4>INSTITUTIONLINE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Establishment.EstaName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Establishment.EstaName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Institution.InstitutionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Institution.InstitutionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StockType.DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StockType.DESCRIPTION)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

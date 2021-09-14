@@ -1,0 +1,42 @@
+﻿@model IEnumerable<GradStockUp.Models.Outfit>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Institution.InstitutionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StockType.DESCRIPTION)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Institution.InstitutionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockType.DESCRIPTION)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.OutfitID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.OutfitID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.OutfitID })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,57 @@
+[
+  {
+    "StockBarcode": "183172675515",
+    "StockSize": "75MM",
+    "StockColour": "Turquoise",
+    "Department": "Rental",
+    "Price": "230",
+    "location": "Back Store",
+    "Status": "Available",
+    "StockType": "Hood",
+    "DescriptionID": "4"
+  },
+  {
+    "StockBarcode": "183172675515",
+    "StockSize": "75MM",
+    "StockColour": "Turquoise",
+    "Department": "Rental",
+    "Price": "230",
+    "location": "Back Store",
+    "Status": "Available",
+    "StockType": "Hood",
+    "DescriptionID": "4"
+  },
+  {
+    "StockBarcode": "179125422412",
+    "StockSize": "1.3M",
+    "StockColour": "Black",
+    "Department": "Rental",
+    "Price": "230",
+    "location": "Back Store",
+    "Status": "Available",
+    "StockType": "Gown",
+    "DescriptionID": "3"
+  },
+  {
+    "StockBarcode": "179125422412",
+    "StockSize": "1.3M",
+    "StockColour": "Black",
+    "Department": "Rental",
+    "Price": "230",
+    "location": "Back Store",
+    "Status": "Available",
+    "StockType": "Gown",
+    "DescriptionID": "3"
+  },
+  {
+    "StockBarcode": "179125422412",
+    "StockSize": "1.3M",
+    "StockColour": "Black",
+    "Department": "Rental",
+    "Price": "230",
+    "location": "Back Store",
+    "Status": "Available",
+    "StockType": "Gown",
+    "DescriptionID": "3"
+  }
+]

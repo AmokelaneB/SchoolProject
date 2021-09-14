@@ -1,0 +1,328 @@
+﻿@model IEnumerable<GradStockUp.Models.Customer>
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" />
+<style>
+
+    .hide{
+        display:none;
+    }
+    .span{
+        font:bold;
+        font-weight:bold;
+    }
+</style>
+<br />
+<br />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <h2 class="panel-title pull-left" style="margin-left:10px;">
+                <strong>Order Details</strong>
+            </h2>
+        </div>
+    </div>
+    @Html.ActionLink("Home", "CashierHome", "Home", null, new { @class = "navbar-brand", @style = "font-family: comic sans;  color:Gold;" })
+    <hr />
+    @{
+        Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+    }
+    @if (Model.Count() != 0)
+    {
+        foreach (var item in Model)
+        {
+            <div class="panel-body">
+                <table class="table table-striped table-responsive">
+                    <tbody>
+                        <tr>
+                            <td>Customer Full Name : <span class="span">@item.CustomerName @item.CustomerSurname</span>   </td>
+
+                            <td>Customer Address : @item.CustAddress</td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th>Order Item</th>
+                                            <th>Order Type</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Cost</th>
+                                            <th>Order Status</th>
+                                            <th>Order Date</th>
+
+                                        </tr>
+                                        @{
+                                            var totalBill = 0;
+                                            var TotalCost = 0;
+                                        }
+                                        @foreach (var order in item.OnlineOrders)
+                                        {
+                                            TotalCost = @Convert.ToInt32(order.Price) * @Convert.ToInt32(order.Quantity);
+                                            <tr>
+                                                <td>@order.OrderItem</td>
+                                                <td>@order.OrderType</td>
+                                                <td>@order.Quantity</td>
+                                                <td>@order.Price</td>
+                                                <td>@TotalCost</td>
+                                                <td>@order.OrderStatu.DESCRIPTION</td>
+                                                <td>@order.OrderDate</td>
+                                            </tr>
+                                            totalBill = totalBill + TotalCost;
+                                        }
+                                    </tbody>
+
+                                </table>
+                                <button style="margin-right:10px" class="btn btn-primary pull-left" onclick="ProcessOrder()"><i class="fa fa-barcode" aria-hidden="true"> Process Order</i></button>
+                                <center><button onclick="SendOut(@item.CustomerID)" disabled id="SendOutD" class="btn btn-default"><i class="loadingD fa fa-spinner fa-pulse  fa-fw hide"></i><i class="fa fa-truck" aria-hidden="true"></i> Send For Delivery</button></center>
+
+                                <span class="pull-right" style="margin-right:100px;"><strong>Total Bill :  </strong>R @totalBill</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="panel-body">
+            <h3 style="color:red;">Empty!</h3>
+        </div>
+
+    }
+</div>
+
+
+<div class="modal fade" id="newOrderModal">
+    <div class="modal-dialog modal-lg" style=" width: 900px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4>Scan Order Items</h4>
+            </div>
+            <form id="NewOrderForm">
+                <div class="modal-body">
+
+                    <h4 style="margin-top:10px;color:darkgoldenrod">Order Details</h4>
+                    <hr />
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">
+                                Stock Item Barcode
+                            </label>
+                            <div class="col-md-3">
+                                <input type="text" id="stockBarcode" placeholder="Barcode" class="form-control" autocomplete="off"/>
+                            </div>
+                            <div class="col-md-2 col-lg-offset-3">
+                                <a id="AddToList" class="btn btn-primary">
+                                    <i class="loading fa fa-spinner fa-pulse  fa-fw hide" ></i>
+                                    <span class="btn-text">Add to list</span>
+                                </a>
+                            </div>
+
+                            <table id="OrderDetailsTable" class="table" >
+                                <thead>
+                                    <tr>
+                                        <th class="hide" style="width:30%">Scanned Barcode</th>
+                                        <th style="width:30%">Stock Type</th>
+                                        <th style="width:20%">Size</th>
+                                        <th style="width:15%">Colour</th>
+                                        <th style="width:5%"></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="animated bounceInLeft" id="OrderItemsList"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    <button  data-dismiss="modal" id="ScanComplete" class="btn btn-primary"> <i class="loadingC fa fa-spinner fa-pulse  fa-fw hide"></i><i class="fa fa-check" aria-hidden="true"></i>Complete  </button>
+
+                </div>
+            </form> 
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            $(".btn-default").attr("disabled", true);
+
+            $("#AddToList").click(function () {
+
+
+
+                document.querySelector('#ScanComplete').disabled = true;
+                var barCode = $("#stockBarcode").val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/OnlineOrder/getStockItem",
+                    dataType: "Json",
+                    data: { 'barCode': barCode },
+                    success: function (data) {
+                        if (data == "Description Different") {
+                            alert("Item did not match any item in the requested list");
+                        }
+                        else
+                            if (data == "Barcode does not exist") {
+                                alertify.alert("GradStockUp","Barcode does not exist");
+                            }
+                            else {
+
+                                var trHTML = '';
+                                $.each(data, function (i, item) {
+                                    trHTML += '<tr class= "animated bounceInLeft" ><td class = "hide">' + item.Barcode + '</td><td>' + item.StckTy + '</td><td>' + item.stckSize + '</td><td>' + item.StckCOlour + '</td><td><span class=" delete"><i class="fa fa-trash" aria-hidden="true"></i></span></td></tr>';
+                                });
+                                $("#OrderItemsList").append(trHTML);
+
+                                $("#ScanComplete").attr("disabled", false);
+
+                                $("#stockBarcode").val("");
+                            }
+                    }
+
+                });
+
+
+            });
+            $(document).on("click", ".delete", function (e) {
+                $(this).closest("tr").remove();
+            });
+            $("#ScanComplete").click(function () {
+               
+
+                $(".loadingC").removeClass("hide");
+                $("#AddToList").attr("disabled", true);
+              
+              
+
+
+                setTimeout(function () {
+                    $(".loadingC").addClass("hide");
+                    $("#AddToList").attr("disabled", false);
+                    $(".btn-default").attr("disabled", false);
+                    
+                }, 4000);
+
+                SaveScannedItems()
+
+            });
+             $("#SendForDelivery").click(function () {
+
+
+                 });
+            function CompleteScan() {
+
+                $(".btn-default").attr("disabled", false);
+            }
+            function SaveScannedItems() {
+                var retreveItemDatas = new Array();
+                $("#OrderDetailsTable").find("tr:gt(0)").each(function () {
+                    var Barcode = $(this).find("td:eq(0)").text();
+
+
+                    var Stock = {};
+
+                    Stock.StockBarcode = Barcode;
+
+                    retreveItemDatas.push(Stock)
+                });
+
+                $.ajax({
+                    async: true,
+                    type: "POST",
+                    dataType: "Json",
+                    contentType: "application/json; charset=utf-58",
+                    url: "/OnlineOrder/PostScannedItems",
+                    data: JSON.stringify(retreveItemDatas),
+                    success: function (data) {
+                        if (data == "Scan Complete") {
+                            alertify.alert("GradStockUp", "Scan Complete");
+                            $(".btn-default").attr("disabled", false);
+                        }
+                        else if (data == "No Items scanned") {
+                            alertify.alert("GradStockUp", "There has been a problem. Try again")
+                            $(".btn-default").attr("disabled", true);
+                        }
+                            
+                        
+                    }
+                 
+                });
+    
+            }
+
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+        $(function () {
+            var errorMessage = '@TempData["ErrorMessage"]'
+                    if (errorMessage != '')
+                        alertify.error(errorMessage);
+        });
+            $(document).ready(function () {
+                $("#stockBarcode").on('keyup', function () {
+                    let empty = false;
+
+                    $("#stockBarcode").each(function () {
+                        empty = $(this).val().length == 0;
+                    });
+
+                    if (empty && $("#stockBarcode").val() !=12)
+                        $("#AddToList").attr('disabled', 'disabled');
+                    else
+                        $("#AddToList").attr('disabled', false);
+                });
+            });
+
+            $("#AddToList").on("click", function () {
+                $(".loading").removeClass("hide");
+                $("#AddToList").attr("disabled", true);
+                $(".btn-text").text("Adding to list...");
+
+
+                setTimeout(function () {
+                    $(".loading").addClass("hide");
+                    $("#AddToList").attr("disabled", false);
+                    $(".btn-text").text("Add to list");
+                }, 4000);
+            });
+        });
+
+        $("#SendOutD").on("click", function () {
+            $(".loadingD").removeClass("hide");
+            $("#SendOutD").attr("disabled", true);
+
+
+
+            setTimeout(function () {
+                $(".loadingD").addClass("hide");
+                $("#SendOutD").attr("disabled", false);
+
+            }, 12000);
+        });
+                //Show Modal.
+        function ProcessOrder() {
+            $("#newOrderModal").modal();
+
+            $("#ScanComplete").attr("disabled", true);
+        }
+        function SendOut(id) {
+            alertify.confirm('GradStockUp','Are You Sure to Send Items out for delivery ?',function(){
+                window.location.href  = '@Url.Action("SendforDel", "OnlineOrder")/'+id;
+            }, null);
+
+
+        }
+
+    </script>
+}

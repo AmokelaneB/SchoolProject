@@ -1,0 +1,251 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jspdf.js"></script>
+    <script src="~/Scripts/html2canvas.js"></script>
+    @{
+        @Html.ActionLink("Home", "CashierHome", "Home", null, new { @class = "navbar-brand", @style = "font-family: comic sans;  color:Gold;" })
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <Script>
+        $(document).ready(function () {
+
+            $("#search").on("click", function () {
+
+
+                var barCode = $("#stockBarcode").val();
+                $.ajax({
+                    type: "GET",
+                    url: "/Stock/getStockItem",
+                    data: { 'barCode': barCode },
+                    success: function (data) {
+
+                        if (data == null) {
+
+                            alert("Item not found");
+                        }
+                        else {
+
+                            $.getJSON('/Scripts/StockDescriptions.json', function (res) {
+                                var flag = false;
+                                var trHTML = '';
+                                $.each(res, function (i, item) {
+
+                                    if (item.StockBarcode == data.StockBarcode)
+                                        flag = true;
+                                });
+                                if (flag) {
+                                    var s = '<tr> ';
+                                    s += '<td> ' + data.StockBarcode + '</td> ';
+                                    s += '<td> ' + data.StockType + '</td > ';
+                                    s += '<td> ' + data.Department + '</td > ';
+                                    s += '<td> ' + data.location + '</td > ';
+                                    s += '<td> ' + data.Status + '</td > ';
+                                    s += '</tr>';
+                                    $("#tbody").append(s);
+                                }
+
+                            });
+
+
+                            $("#tDesc").empty();
+                            $.getJSON('/Scripts/Description.json', function (res) {
+                                var trHTML = '';
+                                $.each(res, function (i, item) {
+                                    trHTML += '<tr><td>' + item.DescriptionID + '</td><td>' + item.StockType + '</td><td>' + item.StockSize + '</td><td>' + item.StockColour + '</td><td>' + item.Quantity + '</td></tr>';
+                                });
+                                $("#tDesc").append(trHTML);
+                            });
+
+                        }
+
+                    }
+
+                });
+
+            });
+            var transferType;
+            $("#Transfer").on("change", function () {
+
+                transferType = $("#Transfer").val()
+            });
+            $("#Transfer2").on("change", function () {
+
+                transferType = $("#Transfer2").val()
+            });
+            $("#CompleteTransfer").on("click", function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/Stock/TransferItems",
+                    data: { 'transferType': transferType },
+                    success: function (data) {
+
+
+                        $("#ReportGenerate").attr("Disabled", false);
+
+                    }
+                });
+            })
+
+            $("#ReportGenerate").on("click", function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/Stock/PrepareReport",
+                    data: "{}",
+                    success: function (data) {
+
+                    }
+                });
+            })
+
+
+            $("#Report").on("Click", function () {
+
+                html2canvas($("#StockTransfered"), {
+
+                    onrendered: function (canvas) {
+
+                        var doc = new jsPdf();
+                        doc.save("Transfer.pdf");
+
+                    }
+
+                });
+
+
+            });
+
+            /*  $("#ReportGenerate").on("click", function () {
+                  var doc = new jsPDF('1', 'pt', 'a4', true);
+                  var d = new jsPDF();
+                  $.getJSON('/Scripts/Description.json', function (res) {
+                      doc.text(10, 10, '');
+                      doc.text(10, 10, 'Customer Transaction Details');
+                      doc.text(10, 10, '');
+                      doc.cellInitialize();
+                      $.each(res, function (i, item) {
+                          $.each(item, function (j, cell) {
+
+                              doc.cell(1, 10, 80, 20, cell, i);
+
+                          });
+                      });
+                   //   d.autoTable({ html: '#DescriptionTable' })
+                    //  d.save("Descript.pdf");
+                      doc.save("CustomerReport.pdf");
+                  });
+
+              })*/
+
+
+        });
+    </Script>
+</head>
+
+
+
+<body>
+    <form>
+        <div class="card" style="background-color: rgb(56,54,54);">
+            <div class="card-header">
+                <h5 class="mb-0" style="text-align: center;color: rgb(234,197,5);"><strong>STOCK TRANSFER</strong></h5>
+            </div>
+            <div class="card-body" style="background-color: rgb(44,43,43);">
+                <div class="card-group" style="color: rgb(239,241,243);background-color: #8a8181;border-color: rgb(222,188,8);">
+                    <div class="card">
+                        <div class="card-body" style="background-color: rgb(41,41,41);border-style: solid;border-color: rgb(153,130,9);">
+                            <h4 class="card-title">Scan item</h4>
+                            <p style="font-style: italic;margin-top: -12px;">{hint:  place cursor on the inputbox and scan item}</p>
+                            <div class="input-group">
+                                <div class="input-group-prepend"><span class="input-group-text" style="background-color: rgb(19,21,23);color: rgb(242,244,247);">Barcode</span></div><input type="text" id="stockBarcode" class="form-control" style="background-color: rgb(78,75,75);color: rgb(249,252,255);" />
+                                <div class="input-group-append"><button id="search" class="btn" type="button" style="background-color: #dcbb0e;">Search</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="background-color: #2c2b2b;">
+                <div class="card-group">
+                    <div class="card" style="background-color: rgb(224,188,2);">
+                        <div class="card-body" style="background-color: rgb(41,39,39);color: rgb(233,237,240);">
+                            <h4 class="card-title" style="color: rgb(248,248,248);">Scanned Items</h4>
+                            <table id="dt-basic-checkbox" style="color: white" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Barcode</th>
+                                        <th>Stock Type</th>
+                                        <th>Department</th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card" id="StockTransfered" style="background-color: rgb(224,188,2);">
+                        <div class="card-body" style="background-color: rgb(41,39,39);color: rgb(240,241,243);">
+                            <h4 class="card-title" style="color: rgb(242,240,227);">Stock Description</h4>
+                            <table id="DescriptionTable" style="color: white;" class="table table-bordered ">
+                                <thead>
+                                    <tr>
+
+                                        <th>StockDescriptionID</th>
+                                        <th>Stock Type</th>
+                                        <th>Size</th>
+                                        <th>Colour</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tDesc">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="background-color: #2c2b2b;">
+                <div class="card-group">
+                    <div class="card" style="background-color: rgb(224,188,2);">
+                        <div class="card-group">
+                            <div class="card" style="background-color: rgb(226,192,19);border-color: rgb(227,191,4);">
+                                <div class="card-body" style="background-color: rgb(41,40,40);">
+                                    <h4 class="card-title" style="border-color: rgb(210,178,11);color: rgb(198,157,9);">Department Transfer</h4>
+                                    <select id="Transfer" class="form-control" style="background-color: rgb(42,42,42);color: rgb(233,235,237);"><optgroup label="Department Transfer"><option value="1" selected></option><option value="RetailToRental">Retail to Rental</option></optgroup></select>
+                                </div>
+                            </div>
+                            <div class="card" style="background-color: rgb(206,173,0);border-color: rgb(192,161,1);box-shadow: 2px 0px rgb(215,207,9);">
+                                <div class="card-body" style="border-color: rgb(198,168,7);background-color: rgb(41,39,39);">
+                                    <h4 class="card-title" style="color: rgb(211,166,7);">Location Transfer</h4>
+
+                                    <select id="Transfer2" class="form-control" style="background-color: rgb(42,42,42);color: rgb(233,235,237);">
+                                        <optgroup label="State">
+                                            <option value="1" selected></option>
+                                            <option value="FrontStore">Front Store</option>
+                                            <option value="BackStore">Back Store</option>
+                                            <option value="InLaundry">InLaundry</option>
+                                            <option value="OutLaundry">OutLaundry</option>
+                                        </optgroup>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="background-color: rgb(41,39,39);"><button class="btn" type="button" id="CompleteTransfer" style="color: rgb(0,0,0);background-color: #c8aa0c;">Complete Transfer</button></div>
+                        <div class="card-body" style="background-color: rgb(41,39,39);"><button class="btn" type="button" id="ReportGenerate" style="color: rgb(0,0,0);background-color: #c8aa0c;" disabled>Report Generate</button></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</body>
+</html>

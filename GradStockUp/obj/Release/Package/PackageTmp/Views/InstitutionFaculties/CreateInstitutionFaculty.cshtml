@@ -1,0 +1,86 @@
+﻿@model GradStockUp.Models.InstitutionFaculty
+@{
+    ViewBag.Title = "CreateInstitutionFaculty";
+}
+@{
+    Layout = "~/Views/Shared/Cruds_Layout.cshtml";
+}
+<h2>Create Institution Faculty </h2>
+
+
+<form action="/InstitutionFaculties/CreateInstitutionFaculty" method="post">
+    <div class="form-group">
+        @Html.LabelFor(model => model.InstitutionID, "Institution Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("InstitutionID", null, htmlAttributes: new { @class = "form-control", id = "Institutions" })
+
+        </div>
+    </div>
+    <div style="padding-top:1rem">
+        @foreach (var faculty in ViewBag.Faculties)
+        {
+            <ul class="col-md-offset-2">
+                <span class="col-sm-4" style="padding:1rem">
+                    <ul>
+                        <li class="table-striped" style="font:bold">
+                            <input id="Faculties" type="checkbox" name="FacultyIDs" value="@faculty.FacultyID" />@faculty.Description
+
+                            @foreach (var colour in ViewBag.Colours)
+                            {
+                                <ul><li style="list-style-type:none;"><input id="Colours" type="checkbox" name="ColourIDs" value="@colour.ColourID" />@colour.ColourName</li></ul>
+                            }
+                        </li>
+                    </ul>
+                    <hr />
+                </span>
+
+            </ul>
+        }
+    </div>
+    <div style="padding-top:74rem ; padding-left:4rem">
+        <input class="btn btn-default" type="submit" value="Assign Faculty Colours" />
+    </div>
+
+</form>
+
+
+
+<div style="padding-top: 3rem">
+    <div class="row">
+        <div class="col-sm-4">
+            <a href=" @Url.Action("Index","InstitutionFaculties")" class="btn btn-default"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> View Institution Faculty Colours </a>
+        </div>
+        <div class="col-md-4">
+            <a href=" @Url.Action("Create","Faculties")" class="btn btn-default"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Add New Faculty </a>
+        </div>
+        <div class="col-md-4">
+            <a href=" @Url.Action("Create","Colours")" class="btn btn-default"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Add New Colour </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section scripts{
+    <script>
+        $('#Institutions').on("change", function () {
+
+            $.ajax({
+                type: "GET",
+                url: "/InstitutionFaculties/getFaculties",
+                data: "{}",
+                success: function (data) {
+                    var s = '<ul></ul>';
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].InstID == $("#Institutions").val())
+                            s += '  <ul> <span class="col-sm-4" style="padding:2rem"> <li class="table-striped" style="font:bold"> <input type= "checkbox" value ="' + data[i].FacID + '"  name = " FacultyIDs " /> ' + data[i].description + '</li></ul>';
+                    }
+                    $("#Faculty").html(s);
+                }
+            });
+        });
+
+    </script>
+}
