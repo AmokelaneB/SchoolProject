@@ -1,0 +1,1848 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GradStockUpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AppUsers">
+    <Key>
+      <PropertyRef Name="AppUserID" />
+    </Key>
+    <Property Name="AppUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="200" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="200" />
+    <Property Name="EmplyID" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="BackOrder">
+    <Key>
+      <PropertyRef Name="BackOrderID" />
+    </Key>
+    <Property Name="BackOrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BackOrderStatusID" Type="int" Nullable="false" />
+    <Property Name="SupplierOrderID" Type="int" Nullable="false" />
+    <Property Name="QuantityOutstanding" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BackOrderLine">
+    <Key>
+      <PropertyRef Name="StockDescriptionID" />
+      <PropertyRef Name="BackOrderID" />
+    </Key>
+    <Property Name="StockDescriptionID" Type="int" Nullable="false" />
+    <Property Name="BackOrderID" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BackOrderStatus">
+    <Key>
+      <PropertyRef Name="BackOrderStatusID" />
+    </Key>
+    <Property Name="BackOrderStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BackOrderDescription" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bank">
+    <Key>
+      <PropertyRef Name="BankID" />
+    </Key>
+    <Property Name="BankID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BankName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BranchCode" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CheckInLaundry">
+    <Key>
+      <PropertyRef Name="CheckInLaundryID" />
+    </Key>
+    <Property Name="CheckInLaundryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CheckInDate" Type="datetime" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Colour">
+    <Key>
+      <PropertyRef Name="ColourID" />
+    </Key>
+    <Property Name="ColourID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ColourName" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrganizationID" Type="int" />
+    <Property Name="CustomerName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CustomerSurname" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CustAddress" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="IDnumber" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="NextoFKin" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="kinPhone" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerRental">
+    <Key>
+      <PropertyRef Name="CustomerRentalID" />
+    </Key>
+    <Property Name="CustomerRentalID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="OrderStatusID" Type="int" Nullable="false" />
+    <Property Name="DeliveryID" Type="int" />
+    <Property Name="PaymentMethodID" Type="int" Nullable="false" />
+    <Property Name="OrderDateTime" Type="datetime" Nullable="false" />
+    <Property Name="AmountPaid" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerRentalLine">
+    <Key>
+      <PropertyRef Name="StockID" />
+      <PropertyRef Name="CustomerRentalID" />
+      <PropertyRef Name="PriceID" />
+    </Key>
+    <Property Name="StockID" Type="int" Nullable="false" />
+    <Property Name="CustomerRentalID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="PriceID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Delivery">
+    <Key>
+      <PropertyRef Name="DeliveryID" />
+    </Key>
+    <Property Name="DeliveryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeliveryStatusID" Type="int" Nullable="false" />
+    <Property Name="DeliveryDateTime" Type="datetime" Nullable="false" />
+    <Property Name="DeliveryAddress" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DeliveryStatus">
+    <Key>
+      <PropertyRef Name="DeliveryStatusID" />
+    </Key>
+    <Property Name="DeliveryStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+    </Key>
+    <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DocumentName" Type="varchar" MaxLength="20" />
+    <Property Name="DocumentDateTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmplyID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmplyID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EmployeeTypeID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="EmployeeAddress" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="PicUrl" Type="varchar" MaxLength="250" />
+    <Property Name="UploadImage" Type="image" />
+  </EntityType>
+  <EntityType Name="EmployeeType">
+    <Key>
+      <PropertyRef Name="EmployeeTypeID" />
+    </Key>
+    <Property Name="EmployeeTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Establishment">
+    <Key>
+      <PropertyRef Name="EstablishmentID" />
+    </Key>
+    <Property Name="EstablishmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EstaName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="EstablishmentInstitute">
+    <Key>
+      <PropertyRef Name="EstablishmentID" />
+      <PropertyRef Name="InstitutionID" />
+    </Key>
+    <Property Name="EstablishmentID" Type="int" Nullable="false" />
+    <Property Name="InstitutionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EstablishmentStockTypeLine">
+    <Key>
+      <PropertyRef Name="StockTypeID" />
+      <PropertyRef Name="EstablishmentID" />
+    </Key>
+    <Property Name="StockTypeID" Type="int" Nullable="false" />
+    <Property Name="EstablishmentID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="text" Type="varchar" MaxLength="250" />
+    <Property Name="start_date" Type="date" />
+    <Property Name="end_date" Type="date" />
+  </EntityType>
+  <EntityType Name="Faculty">
+    <Key>
+      <PropertyRef Name="FacultyID" />
+    </Key>
+    <Property Name="FacultyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="FacultyQualification">
+    <Key>
+      <PropertyRef Name="FacultyID" />
+      <PropertyRef Name="QualificationID" />
+      <PropertyRef Name="InstitutionID" />
+    </Key>
+    <Property Name="FacultyID" Type="int" Nullable="false" />
+    <Property Name="QualificationID" Type="int" Nullable="false" />
+    <Property Name="InstitutionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Institution">
+    <Key>
+      <PropertyRef Name="InstitutionID" />
+    </Key>
+    <Property Name="InstitutionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InstitutionName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InstitutionFaculty">
+    <Key>
+      <PropertyRef Name="FacultyID" />
+      <PropertyRef Name="InstitutionID" />
+      <PropertyRef Name="ColourID" />
+    </Key>
+    <Property Name="FacultyID" Type="int" Nullable="false" />
+    <Property Name="InstitutionID" Type="int" Nullable="false" />
+    <Property Name="ColourID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InstitutionFacultyLine">
+    <Key>
+      <PropertyRef Name="FacultyID" />
+      <PropertyRef Name="InstitutionID" />
+    </Key>
+    <Property Name="FacultyID" Type="int" Nullable="false" />
+    <Property Name="InstitutionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="INSTITUTIONLINE">
+    <Key>
+      <PropertyRef Name="StockTypeID" />
+      <PropertyRef Name="EstablishmentID" />
+      <PropertyRef Name="InstitutionID" />
+    </Key>
+    <Property Name="StockTypeID" Type="int" Nullable="false" />
+    <Property Name="EstablishmentID" Type="int" Nullable="false" />
+    <Property Name="InstitutionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InstitutionLineQualification">
+    <Key>
+      <PropertyRef Name="StockTypeID" />
+      <PropertyRef Name="EstablishmentID" />
+      <PropertyRef Name="InstitutionID" />
+      <PropertyRef Name="QualificationID" />
+    </Key>
+    <Property Name="StockTypeID" Type="int" Nullable="false" />
+    <Property Name="EstablishmentID" Type="int" Nullable="false" />
+    <Property Name="InstitutionID" Type="int" Nullable="false" />
+    <Property Name="QualificationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LaundryLine">
+    <Key>
+      <PropertyRef Name="StockID" />
+      <PropertyRef Name="CheckInLaundryID" />
+      <PropertyRef Name="StockStatusID" />
+    </Key>
+    <Property Name="StockID" Type="int" Nullable="false" />
+    <Property Name="CheckInLaundryID" Type="int" Nullable="false" />
+    <Property Name="StockStatusID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="LocationID" />
+    </Key>
+    <Property Name="LocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="OnlineOrder">
+    <Key>
+      <PropertyRef Name="OnlineOrderID" />
+    </Key>
+    <Property Name="OnlineOrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderItem" Type="varchar" MaxLength="250" />
+    <Property Name="OrderType" Type="varchar" MaxLength="250" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Size" Type="varchar" MaxLength="50" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="OrderDate" Type="date" />
+    <Property Name="OrderStatusID" Type="int" />
+  </EntityType>
+  <EntityType Name="OrderStatus">
+    <Key>
+      <PropertyRef Name="OrderStatusID" />
+    </Key>
+    <Property Name="OrderStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Organization">
+    <Key>
+      <PropertyRef Name="OrganizationID" />
+    </Key>
+    <Property Name="OrganizationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Contact" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="RegistrationNO" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Outfit">
+    <Key>
+      <PropertyRef Name="OutfitID" />
+    </Key>
+    <Property Name="OutfitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StockTypeID" Type="int" Nullable="false" />
+    <Property Name="InstitutionID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaymentMethod">
+    <Key>
+      <PropertyRef Name="PaymentMethodID" />
+    </Key>
+    <Property Name="PaymentMethodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Price">
+    <Key>
+      <PropertyRef Name="PriceID" />
+    </Key>
+    <Property Name="PriceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RetailPrice" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="StockTypeID" Type="int" Nullable="false" />
+    <Property Name="EstablishmentID" Type="int" Nullable="false" />
+    <Property Name="InstitutionID" Type="int" Nullable="false" />
+    <Property Name="RentalPrice" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="PriceDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PurchaseOrder">
+    <Key>
+      <PropertyRef Name="PurchaseOrderID" />
+    </Key>
+    <Property Name="PurchaseOrderID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="OrderStatusID" Type="int" Nullable="false" />
+    <Property Name="PaymentMethodID" Type="int" Nullable="false" />
+    <Property Name="DeliveryID" Type="int" />
+    <Property Name="OrderDateTime" Type="datetime" Nullable="false" />
+    <Property Name="AmountPaid" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderLine">
+    <Key>
+      <PropertyRef Name="PurchaseOrderID" />
+      <PropertyRef Name="StockID" />
+      <PropertyRef Name="PriceID" />
+    </Key>
+    <Property Name="PurchaseOrderID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="StockID" Type="int" Nullable="false" />
+    <Property Name="PriceID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Qualification">
+    <Key>
+      <PropertyRef Name="QualificationID" />
+    </Key>
+    <Property Name="QualificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QualificationName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QualificationType">
+    <Key>
+      <PropertyRef Name="QualificationTypeID" />
+    </Key>
+    <Property Name="QualificationTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QualificationType" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QualificationTypeLine">
+    <Key>
+      <PropertyRef Name="QualificationID" />
+      <PropertyRef Name="QualificationTypeID" />
+    </Key>
+    <Property Name="QualificationID" Type="int" Nullable="false" />
+    <Property Name="QualificationTypeID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RefundStatus">
+    <Key>
+      <PropertyRef Name="RefundStatusID" />
+    </Key>
+    <Property Name="RefundStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ReturnFromLaundry">
+    <Key>
+      <PropertyRef Name="ReturnID" />
+    </Key>
+    <Property Name="ReturnID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LaundryReturnDate" Type="datetime" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReturnLine">
+    <Key>
+      <PropertyRef Name="ReturnID" />
+      <PropertyRef Name="StockID" />
+      <PropertyRef Name="CheckInLaundryID" />
+    </Key>
+    <Property Name="ReturnID" Type="int" Nullable="false" />
+    <Property Name="StockID" Type="int" Nullable="false" />
+    <Property Name="CheckInLaundryID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Size">
+    <Key>
+      <PropertyRef Name="SizeID" />
+    </Key>
+    <Property Name="SizeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SizeDescription" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="StockStatusID" />
+    </Key>
+    <Property Name="StockStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusDescription" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Stock">
+    <Key>
+      <PropertyRef Name="StockID" />
+    </Key>
+    <Property Name="StockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StockStatusID" Type="int" Nullable="false" />
+    <Property Name="StockDescriptionID" Type="int" Nullable="false" />
+    <Property Name="StockStateID" Type="int" Nullable="false" />
+    <Property Name="LocationID" Type="int" Nullable="false" />
+    <Property Name="DepartmentID" Type="int" Nullable="false" />
+    <Property Name="ImageName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BarcodeImage" Type="image" Nullable="false" />
+    <Property Name="StockBarcode" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StockDescription">
+    <Key>
+      <PropertyRef Name="StockDescriptionID" />
+    </Key>
+    <Property Name="StockDescriptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SizeID" Type="int" Nullable="false" />
+    <Property Name="StockTypeID" Type="int" Nullable="false" />
+    <Property Name="ColourID" Type="int" Nullable="false" />
+    <Property Name="RENTALSTOCKLEVEL" Type="int" Nullable="false" />
+    <Property Name="RETAILSTOCKLEVEL" Type="int" Nullable="false" />
+    <Property Name="RETAILTHRESHOLD" Type="int" Nullable="false" />
+    <Property Name="RENTALTHRESHOLD" Type="int" Nullable="false" />
+    <Property Name="FLAG" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StockQualification">
+    <Key>
+      <PropertyRef Name="StockTypeID" />
+      <PropertyRef Name="QualificationID" />
+      <PropertyRef Name="ColourID" />
+    </Key>
+    <Property Name="StockTypeID" Type="int" Nullable="false" />
+    <Property Name="QualificationID" Type="int" Nullable="false" />
+    <Property Name="ColourID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StockReturn">
+    <Key>
+      <PropertyRef Name="StockReturnID" />
+    </Key>
+    <Property Name="StockReturnID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReturnDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StockReturnLine">
+    <Key>
+      <PropertyRef Name="StockReturnID" />
+      <PropertyRef Name="StockID" />
+      <PropertyRef Name="CustomerRentalID" />
+      <PropertyRef Name="StockStateID" />
+    </Key>
+    <Property Name="StockReturnID" Type="int" Nullable="false" />
+    <Property Name="StockID" Type="int" Nullable="false" />
+    <Property Name="CustomerRentalID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="StockStateID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StockState">
+    <Key>
+      <PropertyRef Name="StockStateID" />
+    </Key>
+    <Property Name="StockStateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="STATE" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="StockType">
+    <Key>
+      <PropertyRef Name="StockTypeID" />
+    </Key>
+    <Property Name="StockTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="StockTypeSizeLine">
+    <Key>
+      <PropertyRef Name="StockTypeID" />
+      <PropertyRef Name="SizeID" />
+    </Key>
+    <Property Name="StockTypeID" Type="int" Nullable="false" />
+    <Property Name="SizeID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ADDRESS" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="PHONENUMBER" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="EMAIL" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierOrder">
+    <Key>
+      <PropertyRef Name="SupplierOrderID" />
+    </Key>
+    <Property Name="SupplierOrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierID" Type="int" Nullable="false" />
+    <Property Name="OrderStatusID" Type="int" Nullable="false" />
+    <Property Name="TotalCost" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierOrderLine">
+    <Key>
+      <PropertyRef Name="StockDescriptionID" />
+      <PropertyRef Name="SupplierOrderID" />
+    </Key>
+    <Property Name="StockDescriptionID" Type="int" Nullable="false" />
+    <Property Name="SupplierOrderID" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="WriteOff">
+    <Key>
+      <PropertyRef Name="WriteOffID" />
+    </Key>
+    <Property Name="WriteOffID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WriteOffDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WriteOffLine">
+    <Key>
+      <PropertyRef Name="WriteOffID" />
+      <PropertyRef Name="StockID" />
+    </Key>
+    <Property Name="WriteOffID" Type="int" Nullable="false" />
+    <Property Name="StockID" Type="int" Nullable="false" />
+    <Property Name="Reason" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__AppUsers__EmplyI__7D0E9093">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="AppUsers" Type="Self.AppUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmplyID" />
+      </Principal>
+      <Dependent Role="AppUsers">
+        <PropertyRef Name="EmplyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BackOrder__BackO__4D5F7D71">
+    <End Role="BackOrderStatus" Type="Self.BackOrderStatus" Multiplicity="1" />
+    <End Role="BackOrder" Type="Self.BackOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BackOrderStatus">
+        <PropertyRef Name="BackOrderStatusID" />
+      </Principal>
+      <Dependent Role="BackOrder">
+        <PropertyRef Name="BackOrderStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BackOrder__BackO__4F47C5E3">
+    <End Role="BackOrder" Type="Self.BackOrder" Multiplicity="1" />
+    <End Role="BackOrderLine" Type="Self.BackOrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BackOrder">
+        <PropertyRef Name="BackOrderID" />
+      </Principal>
+      <Dependent Role="BackOrderLine">
+        <PropertyRef Name="BackOrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BackOrder__Stock__503BEA1C">
+    <End Role="StockDescription" Type="Self.StockDescription" Multiplicity="1" />
+    <End Role="BackOrderLine" Type="Self.BackOrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockDescription">
+        <PropertyRef Name="StockDescriptionID" />
+      </Principal>
+      <Dependent Role="BackOrderLine">
+        <PropertyRef Name="StockDescriptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BackOrder__Suppl__4E53A1AA">
+    <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="1" />
+    <End Role="BackOrder" Type="Self.BackOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierOrder">
+        <PropertyRef Name="SupplierOrderID" />
+      </Principal>
+      <Dependent Role="BackOrder">
+        <PropertyRef Name="SupplierOrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Customer__Organi__51300E55">
+    <End Role="Organization" Type="Self.Organization" Multiplicity="0..1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organization">
+        <PropertyRef Name="OrganizationID" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="OrganizationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CustomerR__Custo__5224328E">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="CustomerRental" Type="Self.CustomerRental" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="CustomerRental">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CustomerR__Custo__55F4C372">
+    <End Role="CustomerRental" Type="Self.CustomerRental" Multiplicity="1" />
+    <End Role="CustomerRentalLine" Type="Self.CustomerRentalLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerRental">
+        <PropertyRef Name="CustomerRentalID" />
+      </Principal>
+      <Dependent Role="CustomerRentalLine">
+        <PropertyRef Name="CustomerRentalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CustomerR__Deliv__531856C7">
+    <End Role="Delivery" Type="Self.Delivery" Multiplicity="0..1" />
+    <End Role="CustomerRental" Type="Self.CustomerRental" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Delivery">
+        <PropertyRef Name="DeliveryID" />
+      </Principal>
+      <Dependent Role="CustomerRental">
+        <PropertyRef Name="DeliveryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CustomerR__Order__540C7B00">
+    <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+    <End Role="CustomerRental" Type="Self.CustomerRental" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatus">
+        <PropertyRef Name="OrderStatusID" />
+      </Principal>
+      <Dependent Role="CustomerRental">
+        <PropertyRef Name="OrderStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CustomerR__Payme__55009F39">
+    <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+    <End Role="CustomerRental" Type="Self.CustomerRental" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentMethod">
+        <PropertyRef Name="PaymentMethodID" />
+      </Principal>
+      <Dependent Role="CustomerRental">
+        <PropertyRef Name="PaymentMethodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CustomerR__Stock__56E8E7AB">
+    <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+    <End Role="CustomerRentalLine" Type="Self.CustomerRentalLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stock">
+        <PropertyRef Name="StockID" />
+      </Principal>
+      <Dependent Role="CustomerRentalLine">
+        <PropertyRef Name="StockID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Delivery__Delive__57DD0BE4">
+    <End Role="DeliveryStatus" Type="Self.DeliveryStatus" Multiplicity="1" />
+    <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeliveryStatus">
+        <PropertyRef Name="DeliveryStatusID" />
+      </Principal>
+      <Dependent Role="Delivery">
+        <PropertyRef Name="DeliveryStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Employee__Employ__58D1301D">
+    <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeType">
+        <PropertyRef Name="EmployeeTypeID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="EmployeeTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Establish__Estab__59C55456">
+    <End Role="Establishment" Type="Self.Establishment" Multiplicity="1" />
+    <End Role="EstablishmentInstitute" Type="Self.EstablishmentInstitute" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Establishment">
+        <PropertyRef Name="EstablishmentID" />
+      </Principal>
+      <Dependent Role="EstablishmentInstitute">
+        <PropertyRef Name="EstablishmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Establish__Estab__5BAD9CC8">
+    <End Role="Establishment" Type="Self.Establishment" Multiplicity="1" />
+    <End Role="EstablishmentStockTypeLine" Type="Self.EstablishmentStockTypeLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Establishment">
+        <PropertyRef Name="EstablishmentID" />
+      </Principal>
+      <Dependent Role="EstablishmentStockTypeLine">
+        <PropertyRef Name="EstablishmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Establish__Insti__5AB9788F">
+    <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
+    <End Role="EstablishmentInstitute" Type="Self.EstablishmentInstitute" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institution">
+        <PropertyRef Name="InstitutionID" />
+      </Principal>
+      <Dependent Role="EstablishmentInstitute">
+        <PropertyRef Name="InstitutionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Establish__Stock__5CA1C101">
+    <End Role="StockType" Type="Self.StockType" Multiplicity="1" />
+    <End Role="EstablishmentStockTypeLine" Type="Self.EstablishmentStockTypeLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockType">
+        <PropertyRef Name="StockTypeID" />
+      </Principal>
+      <Dependent Role="EstablishmentStockTypeLine">
+        <PropertyRef Name="StockTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FacultyQu__Facul__5D95E53A">
+    <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+    <End Role="FacultyQualification" Type="Self.FacultyQualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faculty">
+        <PropertyRef Name="FacultyID" />
+      </Principal>
+      <Dependent Role="FacultyQualification">
+        <PropertyRef Name="FacultyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FacultyQu__Insti__5E8A0973">
+    <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
+    <End Role="FacultyQualification" Type="Self.FacultyQualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institution">
+        <PropertyRef Name="InstitutionID" />
+      </Principal>
+      <Dependent Role="FacultyQualification">
+        <PropertyRef Name="InstitutionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FacultyQu__Quali__5F7E2DAC">
+    <End Role="Qualification" Type="Self.Qualification" Multiplicity="1" />
+    <End Role="FacultyQualification" Type="Self.FacultyQualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Qualification">
+        <PropertyRef Name="QualificationID" />
+      </Principal>
+      <Dependent Role="FacultyQualification">
+        <PropertyRef Name="QualificationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Instituti__Colou__607251E5">
+    <End Role="Colour" Type="Self.Colour" Multiplicity="1" />
+    <End Role="InstitutionFaculty" Type="Self.InstitutionFaculty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Colour">
+        <PropertyRef Name="ColourID" />
+      </Principal>
+      <Dependent Role="InstitutionFaculty">
+        <PropertyRef Name="ColourID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__INSTITUTI__Estab__65370702">
+    <End Role="Establishment" Type="Self.Establishment" Multiplicity="1" />
+    <End Role="INSTITUTIONLINE" Type="Self.INSTITUTIONLINE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Establishment">
+        <PropertyRef Name="EstablishmentID" />
+      </Principal>
+      <Dependent Role="INSTITUTIONLINE">
+        <PropertyRef Name="EstablishmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Instituti__Estab__681373AD">
+    <End Role="Establishment" Type="Self.Establishment" Multiplicity="1" />
+    <End Role="InstitutionLineQualification" Type="Self.InstitutionLineQualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Establishment">
+        <PropertyRef Name="EstablishmentID" />
+      </Principal>
+      <Dependent Role="InstitutionLineQualification">
+        <PropertyRef Name="EstablishmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Instituti__Facul__6166761E">
+    <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+    <End Role="InstitutionFaculty" Type="Self.InstitutionFaculty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faculty">
+        <PropertyRef Name="FacultyID" />
+      </Principal>
+      <Dependent Role="InstitutionFaculty">
+        <PropertyRef Name="FacultyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Instituti__Facul__634EBE90">
+    <End Role="Faculty" Type="Self.Faculty" Multiplicity="1" />
+    <End Role="InstitutionFacultyLine" Type="Self.InstitutionFacultyLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faculty">
+        <PropertyRef Name="FacultyID" />
+      </Principal>
+      <Dependent Role="InstitutionFacultyLine">
+        <PropertyRef Name="FacultyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Instituti__Insti__625A9A57">
+    <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
+    <End Role="InstitutionFaculty" Type="Self.InstitutionFaculty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institution">
+        <PropertyRef Name="InstitutionID" />
+      </Principal>
+      <Dependent Role="InstitutionFaculty">
+        <PropertyRef Name="InstitutionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Instituti__Insti__6442E2C9">
+    <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
+    <End Role="InstitutionFacultyLine" Type="Self.InstitutionFacultyLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institution">
+        <PropertyRef Name="InstitutionID" />
+      </Principal>
+      <Dependent Role="InstitutionFacultyLine">
+        <PropertyRef Name="InstitutionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__INSTITUTI__Insti__662B2B3B">
+    <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
+    <End Role="INSTITUTIONLINE" Type="Self.INSTITUTIONLINE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institution">
+        <PropertyRef Name="InstitutionID" />
+      </Principal>
+      <Dependent Role="INSTITUTIONLINE">
+        <PropertyRef Name="InstitutionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Instituti__Insti__690797E6">
+    <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
+    <End Role="InstitutionLineQualification" Type="Self.InstitutionLineQualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institution">
+        <PropertyRef Name="InstitutionID" />
+      </Principal>
+      <Dependent Role="InstitutionLineQualification">
+        <PropertyRef Name="InstitutionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Instituti__Quali__69FBBC1F">
+    <End Role="Qualification" Type="Self.Qualification" Multiplicity="1" />
+    <End Role="InstitutionLineQualification" Type="Self.InstitutionLineQualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Qualification">
+        <PropertyRef Name="QualificationID" />
+      </Principal>
+      <Dependent Role="InstitutionLineQualification">
+        <PropertyRef Name="QualificationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__INSTITUTI__Stock__671F4F74">
+    <End Role="StockType" Type="Self.StockType" Multiplicity="1" />
+    <End Role="INSTITUTIONLINE" Type="Self.INSTITUTIONLINE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockType">
+        <PropertyRef Name="StockTypeID" />
+      </Principal>
+      <Dependent Role="INSTITUTIONLINE">
+        <PropertyRef Name="StockTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Instituti__Stock__6AEFE058">
+    <End Role="StockType" Type="Self.StockType" Multiplicity="1" />
+    <End Role="InstitutionLineQualification" Type="Self.InstitutionLineQualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockType">
+        <PropertyRef Name="StockTypeID" />
+      </Principal>
+      <Dependent Role="InstitutionLineQualification">
+        <PropertyRef Name="StockTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LaundryLi__Check__6BE40491">
+    <End Role="CheckInLaundry" Type="Self.CheckInLaundry" Multiplicity="1" />
+    <End Role="LaundryLine" Type="Self.LaundryLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CheckInLaundry">
+        <PropertyRef Name="CheckInLaundryID" />
+      </Principal>
+      <Dependent Role="LaundryLine">
+        <PropertyRef Name="CheckInLaundryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LaundryLi__Stock__6CD828CA">
+    <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+    <End Role="LaundryLine" Type="Self.LaundryLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stock">
+        <PropertyRef Name="StockID" />
+      </Principal>
+      <Dependent Role="LaundryLine">
+        <PropertyRef Name="StockID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LaundryLi__Stock__6DCC4D03">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="LaundryLine" Type="Self.LaundryLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="StockStatusID" />
+      </Principal>
+      <Dependent Role="LaundryLine">
+        <PropertyRef Name="StockStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Outfit__Institut__70A8B9AE">
+    <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
+    <End Role="Outfit" Type="Self.Outfit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institution">
+        <PropertyRef Name="InstitutionID" />
+      </Principal>
+      <Dependent Role="Outfit">
+        <PropertyRef Name="InstitutionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Outfit__StockTyp__719CDDE7">
+    <End Role="StockType" Type="Self.StockType" Multiplicity="1" />
+    <End Role="Outfit" Type="Self.Outfit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockType">
+        <PropertyRef Name="StockTypeID" />
+      </Principal>
+      <Dependent Role="Outfit">
+        <PropertyRef Name="StockTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Price__Establish__72910220">
+    <End Role="Establishment" Type="Self.Establishment" Multiplicity="1" />
+    <End Role="Price" Type="Self.Price" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Establishment">
+        <PropertyRef Name="EstablishmentID" />
+      </Principal>
+      <Dependent Role="Price">
+        <PropertyRef Name="EstablishmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Price__Instituti__73852659">
+    <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
+    <End Role="Price" Type="Self.Price" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Institution">
+        <PropertyRef Name="InstitutionID" />
+      </Principal>
+      <Dependent Role="Price">
+        <PropertyRef Name="InstitutionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Price__StockType__74794A92">
+    <End Role="StockType" Type="Self.StockType" Multiplicity="1" />
+    <End Role="Price" Type="Self.Price" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockType">
+        <PropertyRef Name="StockTypeID" />
+      </Principal>
+      <Dependent Role="Price">
+        <PropertyRef Name="StockTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__Custo__756D6ECB">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="PurchaseOrder">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__Deliv__76619304">
+    <End Role="Delivery" Type="Self.Delivery" Multiplicity="0..1" />
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Delivery">
+        <PropertyRef Name="DeliveryID" />
+      </Principal>
+      <Dependent Role="PurchaseOrder">
+        <PropertyRef Name="DeliveryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__Order__7755B73D">
+    <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatus">
+        <PropertyRef Name="OrderStatusID" />
+      </Principal>
+      <Dependent Role="PurchaseOrder">
+        <PropertyRef Name="OrderStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__Payme__7849DB76">
+    <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="1" />
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentMethod">
+        <PropertyRef Name="PaymentMethodID" />
+      </Principal>
+      <Dependent Role="PurchaseOrder">
+        <PropertyRef Name="PaymentMethodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__Price__793DFFAF">
+    <End Role="Price" Type="Self.Price" Multiplicity="1" />
+    <End Role="PurchaseOrderLine" Type="Self.PurchaseOrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Price">
+        <PropertyRef Name="PriceID" />
+      </Principal>
+      <Dependent Role="PurchaseOrderLine">
+        <PropertyRef Name="PriceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__Purch__7A3223E8">
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="1" />
+    <End Role="PurchaseOrderLine" Type="Self.PurchaseOrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseOrder">
+        <PropertyRef Name="PurchaseOrderID" />
+      </Principal>
+      <Dependent Role="PurchaseOrderLine">
+        <PropertyRef Name="PurchaseOrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__Stock__7B264821">
+    <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+    <End Role="PurchaseOrderLine" Type="Self.PurchaseOrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stock">
+        <PropertyRef Name="StockID" />
+      </Principal>
+      <Dependent Role="PurchaseOrderLine">
+        <PropertyRef Name="StockID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Qualifica__Quali__7C1A6C5A">
+    <End Role="Qualification" Type="Self.Qualification" Multiplicity="1" />
+    <End Role="QualificationTypeLine" Type="Self.QualificationTypeLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Qualification">
+        <PropertyRef Name="QualificationID" />
+      </Principal>
+      <Dependent Role="QualificationTypeLine">
+        <PropertyRef Name="QualificationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Qualifica__Quali__7D0E9093">
+    <End Role="QualificationType" Type="Self.QualificationType" Multiplicity="1" />
+    <End Role="QualificationTypeLine" Type="Self.QualificationTypeLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QualificationType">
+        <PropertyRef Name="QualificationTypeID" />
+      </Principal>
+      <Dependent Role="QualificationTypeLine">
+        <PropertyRef Name="QualificationTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ReturnLin__Check__7E02B4CC">
+    <End Role="CheckInLaundry" Type="Self.CheckInLaundry" Multiplicity="1" />
+    <End Role="ReturnLine" Type="Self.ReturnLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CheckInLaundry">
+        <PropertyRef Name="CheckInLaundryID" />
+      </Principal>
+      <Dependent Role="ReturnLine">
+        <PropertyRef Name="CheckInLaundryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ReturnLin__Retur__7EF6D905">
+    <End Role="ReturnFromLaundry" Type="Self.ReturnFromLaundry" Multiplicity="1" />
+    <End Role="ReturnLine" Type="Self.ReturnLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReturnFromLaundry">
+        <PropertyRef Name="ReturnID" />
+      </Principal>
+      <Dependent Role="ReturnLine">
+        <PropertyRef Name="ReturnID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ReturnLin__Stock__7FEAFD3E">
+    <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+    <End Role="ReturnLine" Type="Self.ReturnLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stock">
+        <PropertyRef Name="StockID" />
+      </Principal>
+      <Dependent Role="ReturnLine">
+        <PropertyRef Name="StockID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stock__Departmen__00DF2177">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="Stock">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stock__LocationI__01D345B0">
+    <End Role="Location" Type="Self.Location" Multiplicity="1" />
+    <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="LocationID" />
+      </Principal>
+      <Dependent Role="Stock">
+        <PropertyRef Name="LocationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stock__StockDesc__02C769E9">
+    <End Role="StockDescription" Type="Self.StockDescription" Multiplicity="1" />
+    <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockDescription">
+        <PropertyRef Name="StockDescriptionID" />
+      </Principal>
+      <Dependent Role="Stock">
+        <PropertyRef Name="StockDescriptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stock__StockStat__03BB8E22">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Status">
+        <PropertyRef Name="StockStatusID" />
+      </Principal>
+      <Dependent Role="Stock">
+        <PropertyRef Name="StockStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stock__StockStat__04AFB25B">
+    <End Role="StockState" Type="Self.StockState" Multiplicity="1" />
+    <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockState">
+        <PropertyRef Name="StockStateID" />
+      </Principal>
+      <Dependent Role="Stock">
+        <PropertyRef Name="StockStateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StockDesc__Colou__05A3D694">
+    <End Role="Colour" Type="Self.Colour" Multiplicity="1" />
+    <End Role="StockDescription" Type="Self.StockDescription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Colour">
+        <PropertyRef Name="ColourID" />
+      </Principal>
+      <Dependent Role="StockDescription">
+        <PropertyRef Name="ColourID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StockDesc__SizeI__0697FACD">
+    <End Role="Size" Type="Self.Size" Multiplicity="1" />
+    <End Role="StockDescription" Type="Self.StockDescription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Size">
+        <PropertyRef Name="SizeID" />
+      </Principal>
+      <Dependent Role="StockDescription">
+        <PropertyRef Name="SizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StockDesc__Stock__078C1F06">
+    <End Role="StockType" Type="Self.StockType" Multiplicity="1" />
+    <End Role="StockDescription" Type="Self.StockDescription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockType">
+        <PropertyRef Name="StockTypeID" />
+      </Principal>
+      <Dependent Role="StockDescription">
+        <PropertyRef Name="StockTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StockQual__Colou__0880433F">
+    <End Role="Colour" Type="Self.Colour" Multiplicity="1" />
+    <End Role="StockQualification" Type="Self.StockQualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Colour">
+        <PropertyRef Name="ColourID" />
+      </Principal>
+      <Dependent Role="StockQualification">
+        <PropertyRef Name="ColourID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StockQual__Quali__09746778">
+    <End Role="Qualification" Type="Self.Qualification" Multiplicity="1" />
+    <End Role="StockQualification" Type="Self.StockQualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Qualification">
+        <PropertyRef Name="QualificationID" />
+      </Principal>
+      <Dependent Role="StockQualification">
+        <PropertyRef Name="QualificationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StockQual__Stock__0A688BB1">
+    <End Role="StockType" Type="Self.StockType" Multiplicity="1" />
+    <End Role="StockQualification" Type="Self.StockQualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockType">
+        <PropertyRef Name="StockTypeID" />
+      </Principal>
+      <Dependent Role="StockQualification">
+        <PropertyRef Name="StockTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StockRetu__Custo__0B5CAFEA">
+    <End Role="CustomerRental" Type="Self.CustomerRental" Multiplicity="1" />
+    <End Role="StockReturnLine" Type="Self.StockReturnLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerRental">
+        <PropertyRef Name="CustomerRentalID" />
+      </Principal>
+      <Dependent Role="StockReturnLine">
+        <PropertyRef Name="CustomerRentalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StockRetu__Stock__0C50D423">
+    <End Role="StockReturn" Type="Self.StockReturn" Multiplicity="1" />
+    <End Role="StockReturnLine" Type="Self.StockReturnLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockReturn">
+        <PropertyRef Name="StockReturnID" />
+      </Principal>
+      <Dependent Role="StockReturnLine">
+        <PropertyRef Name="StockReturnID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StockRetu__Stock__0D44F85C">
+    <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+    <End Role="StockReturnLine" Type="Self.StockReturnLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stock">
+        <PropertyRef Name="StockID" />
+      </Principal>
+      <Dependent Role="StockReturnLine">
+        <PropertyRef Name="StockID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StockRetu__Stock__0E391C95">
+    <End Role="StockState" Type="Self.StockState" Multiplicity="1" />
+    <End Role="StockReturnLine" Type="Self.StockReturnLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockState">
+        <PropertyRef Name="StockStateID" />
+      </Principal>
+      <Dependent Role="StockReturnLine">
+        <PropertyRef Name="StockStateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StockType__SizeI__0F2D40CE">
+    <End Role="Size" Type="Self.Size" Multiplicity="1" />
+    <End Role="StockTypeSizeLine" Type="Self.StockTypeSizeLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Size">
+        <PropertyRef Name="SizeID" />
+      </Principal>
+      <Dependent Role="StockTypeSizeLine">
+        <PropertyRef Name="SizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StockType__Stock__10216507">
+    <End Role="StockType" Type="Self.StockType" Multiplicity="1" />
+    <End Role="StockTypeSizeLine" Type="Self.StockTypeSizeLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockType">
+        <PropertyRef Name="StockTypeID" />
+      </Principal>
+      <Dependent Role="StockTypeSizeLine">
+        <PropertyRef Name="StockTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SupplierO__Order__11158940">
+    <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+    <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatus">
+        <PropertyRef Name="OrderStatusID" />
+      </Principal>
+      <Dependent Role="SupplierOrder">
+        <PropertyRef Name="OrderStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SupplierO__Stock__12FDD1B2">
+    <End Role="StockDescription" Type="Self.StockDescription" Multiplicity="1" />
+    <End Role="SupplierOrderLine" Type="Self.SupplierOrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StockDescription">
+        <PropertyRef Name="StockDescriptionID" />
+      </Principal>
+      <Dependent Role="SupplierOrderLine">
+        <PropertyRef Name="StockDescriptionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SupplierO__Suppl__1209AD79">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+    <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="SupplierOrder">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SupplierO__Suppl__13F1F5EB">
+    <End Role="SupplierOrder" Type="Self.SupplierOrder" Multiplicity="1" />
+    <End Role="SupplierOrderLine" Type="Self.SupplierOrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierOrder">
+        <PropertyRef Name="SupplierOrderID" />
+      </Principal>
+      <Dependent Role="SupplierOrderLine">
+        <PropertyRef Name="SupplierOrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WriteOffL__Stock__14E61A24">
+    <End Role="Stock" Type="Self.Stock" Multiplicity="1" />
+    <End Role="WriteOffLine" Type="Self.WriteOffLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stock">
+        <PropertyRef Name="StockID" />
+      </Principal>
+      <Dependent Role="WriteOffLine">
+        <PropertyRef Name="StockID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WriteOffL__Write__15DA3E5D">
+    <End Role="WriteOff" Type="Self.WriteOff" Multiplicity="1" />
+    <End Role="WriteOffLine" Type="Self.WriteOffLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WriteOff">
+        <PropertyRef Name="WriteOffID" />
+      </Principal>
+      <Dependent Role="WriteOffLine">
+        <PropertyRef Name="WriteOffID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OnlineOrder_Customer1">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="OnlineOrder" Type="Self.OnlineOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="OnlineOrder">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OnlineOrder_OrderStatus">
+    <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="0..1" />
+    <End Role="OnlineOrder" Type="Self.OnlineOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatus">
+        <PropertyRef Name="OrderStatusID" />
+      </Principal>
+      <Dependent Role="OnlineOrder">
+        <PropertyRef Name="OrderStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GradStockUpModelStoreContainer">
+    <EntitySet Name="AppUsers" EntityType="Self.AppUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BackOrder" EntityType="Self.BackOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BackOrderLine" EntityType="Self.BackOrderLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BackOrderStatus" EntityType="Self.BackOrderStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CheckInLaundry" EntityType="Self.CheckInLaundry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Colour" EntityType="Self.Colour" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerRental" EntityType="Self.CustomerRental" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerRentalLine" EntityType="Self.CustomerRentalLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Delivery" EntityType="Self.Delivery" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DeliveryStatus" EntityType="Self.DeliveryStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeType" EntityType="Self.EmployeeType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Establishment" EntityType="Self.Establishment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EstablishmentInstitute" EntityType="Self.EstablishmentInstitute" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EstablishmentStockTypeLine" EntityType="Self.EstablishmentStockTypeLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FacultyQualification" EntityType="Self.FacultyQualification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Institution" EntityType="Self.Institution" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InstitutionFaculty" EntityType="Self.InstitutionFaculty" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InstitutionFacultyLine" EntityType="Self.InstitutionFacultyLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="INSTITUTIONLINE" EntityType="Self.INSTITUTIONLINE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InstitutionLineQualification" EntityType="Self.InstitutionLineQualification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LaundryLine" EntityType="Self.LaundryLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OnlineOrder" EntityType="Self.OnlineOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Outfit" EntityType="Self.Outfit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentMethod" EntityType="Self.PaymentMethod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Price" EntityType="Self.Price" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseOrder" EntityType="Self.PurchaseOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseOrderLine" EntityType="Self.PurchaseOrderLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Qualification" EntityType="Self.Qualification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QualificationType" EntityType="Self.QualificationType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QualificationTypeLine" EntityType="Self.QualificationTypeLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RefundStatus" EntityType="Self.RefundStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReturnFromLaundry" EntityType="Self.ReturnFromLaundry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReturnLine" EntityType="Self.ReturnLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Size" EntityType="Self.Size" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockDescription" EntityType="Self.StockDescription" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockQualification" EntityType="Self.StockQualification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockReturn" EntityType="Self.StockReturn" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockReturnLine" EntityType="Self.StockReturnLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockState" EntityType="Self.StockState" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockType" EntityType="Self.StockType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockTypeSizeLine" EntityType="Self.StockTypeSizeLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SupplierOrder" EntityType="Self.SupplierOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SupplierOrderLine" EntityType="Self.SupplierOrderLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WriteOff" EntityType="Self.WriteOff" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WriteOffLine" EntityType="Self.WriteOffLine" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__AppUsers__EmplyI__7D0E9093" Association="Self.FK__AppUsers__EmplyI__7D0E9093">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="AppUsers" EntitySet="AppUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BackOrder__BackO__4D5F7D71" Association="Self.FK__BackOrder__BackO__4D5F7D71">
+      <End Role="BackOrderStatus" EntitySet="BackOrderStatus" />
+      <End Role="BackOrder" EntitySet="BackOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BackOrder__BackO__4F47C5E3" Association="Self.FK__BackOrder__BackO__4F47C5E3">
+      <End Role="BackOrder" EntitySet="BackOrder" />
+      <End Role="BackOrderLine" EntitySet="BackOrderLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BackOrder__Stock__503BEA1C" Association="Self.FK__BackOrder__Stock__503BEA1C">
+      <End Role="StockDescription" EntitySet="StockDescription" />
+      <End Role="BackOrderLine" EntitySet="BackOrderLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BackOrder__Suppl__4E53A1AA" Association="Self.FK__BackOrder__Suppl__4E53A1AA">
+      <End Role="SupplierOrder" EntitySet="SupplierOrder" />
+      <End Role="BackOrder" EntitySet="BackOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Customer__Organi__51300E55" Association="Self.FK__Customer__Organi__51300E55">
+      <End Role="Organization" EntitySet="Organization" />
+      <End Role="Customer" EntitySet="Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CustomerR__Custo__5224328E" Association="Self.FK__CustomerR__Custo__5224328E">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="CustomerRental" EntitySet="CustomerRental" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CustomerR__Custo__55F4C372" Association="Self.FK__CustomerR__Custo__55F4C372">
+      <End Role="CustomerRental" EntitySet="CustomerRental" />
+      <End Role="CustomerRentalLine" EntitySet="CustomerRentalLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CustomerR__Deliv__531856C7" Association="Self.FK__CustomerR__Deliv__531856C7">
+      <End Role="Delivery" EntitySet="Delivery" />
+      <End Role="CustomerRental" EntitySet="CustomerRental" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CustomerR__Order__540C7B00" Association="Self.FK__CustomerR__Order__540C7B00">
+      <End Role="OrderStatus" EntitySet="OrderStatus" />
+      <End Role="CustomerRental" EntitySet="CustomerRental" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CustomerR__Payme__55009F39" Association="Self.FK__CustomerR__Payme__55009F39">
+      <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+      <End Role="CustomerRental" EntitySet="CustomerRental" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CustomerR__Stock__56E8E7AB" Association="Self.FK__CustomerR__Stock__56E8E7AB">
+      <End Role="Stock" EntitySet="Stock" />
+      <End Role="CustomerRentalLine" EntitySet="CustomerRentalLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Delivery__Delive__57DD0BE4" Association="Self.FK__Delivery__Delive__57DD0BE4">
+      <End Role="DeliveryStatus" EntitySet="DeliveryStatus" />
+      <End Role="Delivery" EntitySet="Delivery" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Employee__Employ__58D1301D" Association="Self.FK__Employee__Employ__58D1301D">
+      <End Role="EmployeeType" EntitySet="EmployeeType" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Establish__Estab__59C55456" Association="Self.FK__Establish__Estab__59C55456">
+      <End Role="Establishment" EntitySet="Establishment" />
+      <End Role="EstablishmentInstitute" EntitySet="EstablishmentInstitute" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Establish__Estab__5BAD9CC8" Association="Self.FK__Establish__Estab__5BAD9CC8">
+      <End Role="Establishment" EntitySet="Establishment" />
+      <End Role="EstablishmentStockTypeLine" EntitySet="EstablishmentStockTypeLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Establish__Insti__5AB9788F" Association="Self.FK__Establish__Insti__5AB9788F">
+      <End Role="Institution" EntitySet="Institution" />
+      <End Role="EstablishmentInstitute" EntitySet="EstablishmentInstitute" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Establish__Stock__5CA1C101" Association="Self.FK__Establish__Stock__5CA1C101">
+      <End Role="StockType" EntitySet="StockType" />
+      <End Role="EstablishmentStockTypeLine" EntitySet="EstablishmentStockTypeLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FacultyQu__Facul__5D95E53A" Association="Self.FK__FacultyQu__Facul__5D95E53A">
+      <End Role="Faculty" EntitySet="Faculty" />
+      <End Role="FacultyQualification" EntitySet="FacultyQualification" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FacultyQu__Insti__5E8A0973" Association="Self.FK__FacultyQu__Insti__5E8A0973">
+      <End Role="Institution" EntitySet="Institution" />
+      <End Role="FacultyQualification" EntitySet="FacultyQualification" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FacultyQu__Quali__5F7E2DAC" Association="Self.FK__FacultyQu__Quali__5F7E2DAC">
+      <End Role="Qualification" EntitySet="Qualification" />
+      <End Role="FacultyQualification" EntitySet="FacultyQualification" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Instituti__Colou__607251E5" Association="Self.FK__Instituti__Colou__607251E5">
+      <End Role="Colour" EntitySet="Colour" />
+      <End Role="InstitutionFaculty" EntitySet="InstitutionFaculty" />
+    </AssociationSet>
+    <AssociationSet Name="FK__INSTITUTI__Estab__65370702" Association="Self.FK__INSTITUTI__Estab__65370702">
+      <End Role="Establishment" EntitySet="Establishment" />
+      <End Role="INSTITUTIONLINE" EntitySet="INSTITUTIONLINE" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Instituti__Estab__681373AD" Association="Self.FK__Instituti__Estab__681373AD">
+      <End Role="Establishment" EntitySet="Establishment" />
+      <End Role="InstitutionLineQualification" EntitySet="InstitutionLineQualification" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Instituti__Facul__6166761E" Association="Self.FK__Instituti__Facul__6166761E">
+      <End Role="Faculty" EntitySet="Faculty" />
+      <End Role="InstitutionFaculty" EntitySet="InstitutionFaculty" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Instituti__Facul__634EBE90" Association="Self.FK__Instituti__Facul__634EBE90">
+      <End Role="Faculty" EntitySet="Faculty" />
+      <End Role="InstitutionFacultyLine" EntitySet="InstitutionFacultyLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Instituti__Insti__625A9A57" Association="Self.FK__Instituti__Insti__625A9A57">
+      <End Role="Institution" EntitySet="Institution" />
+      <End Role="InstitutionFaculty" EntitySet="InstitutionFaculty" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Instituti__Insti__6442E2C9" Association="Self.FK__Instituti__Insti__6442E2C9">
+      <End Role="Institution" EntitySet="Institution" />
+      <End Role="InstitutionFacultyLine" EntitySet="InstitutionFacultyLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__INSTITUTI__Insti__662B2B3B" Association="Self.FK__INSTITUTI__Insti__662B2B3B">
+      <End Role="Institution" EntitySet="Institution" />
+      <End Role="INSTITUTIONLINE" EntitySet="INSTITUTIONLINE" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Instituti__Insti__690797E6" Association="Self.FK__Instituti__Insti__690797E6">
+      <End Role="Institution" EntitySet="Institution" />
+      <End Role="InstitutionLineQualification" EntitySet="InstitutionLineQualification" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Instituti__Quali__69FBBC1F" Association="Self.FK__Instituti__Quali__69FBBC1F">
+      <End Role="Qualification" EntitySet="Qualification" />
+      <End Role="InstitutionLineQualification" EntitySet="InstitutionLineQualification" />
+    </AssociationSet>
+    <AssociationSet Name="FK__INSTITUTI__Stock__671F4F74" Association="Self.FK__INSTITUTI__Stock__671F4F74">
+      <End Role="StockType" EntitySet="StockType" />
+      <End Role="INSTITUTIONLINE" EntitySet="INSTITUTIONLINE" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Instituti__Stock__6AEFE058" Association="Self.FK__Instituti__Stock__6AEFE058">
+      <End Role="StockType" EntitySet="StockType" />
+      <End Role="InstitutionLineQualification" EntitySet="InstitutionLineQualification" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LaundryLi__Check__6BE40491" Association="Self.FK__LaundryLi__Check__6BE40491">
+      <End Role="CheckInLaundry" EntitySet="CheckInLaundry" />
+      <End Role="LaundryLine" EntitySet="LaundryLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LaundryLi__Stock__6CD828CA" Association="Self.FK__LaundryLi__Stock__6CD828CA">
+      <End Role="Stock" EntitySet="Stock" />
+      <End Role="LaundryLine" EntitySet="LaundryLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LaundryLi__Stock__6DCC4D03" Association="Self.FK__LaundryLi__Stock__6DCC4D03">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="LaundryLine" EntitySet="LaundryLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Outfit__Institut__70A8B9AE" Association="Self.FK__Outfit__Institut__70A8B9AE">
+      <End Role="Institution" EntitySet="Institution" />
+      <End Role="Outfit" EntitySet="Outfit" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Outfit__StockTyp__719CDDE7" Association="Self.FK__Outfit__StockTyp__719CDDE7">
+      <End Role="StockType" EntitySet="StockType" />
+      <End Role="Outfit" EntitySet="Outfit" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Price__Establish__72910220" Association="Self.FK__Price__Establish__72910220">
+      <End Role="Establishment" EntitySet="Establishment" />
+      <End Role="Price" EntitySet="Price" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Price__Instituti__73852659" Association="Self.FK__Price__Instituti__73852659">
+      <End Role="Institution" EntitySet="Institution" />
+      <End Role="Price" EntitySet="Price" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Price__StockType__74794A92" Association="Self.FK__Price__StockType__74794A92">
+      <End Role="StockType" EntitySet="StockType" />
+      <End Role="Price" EntitySet="Price" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__Custo__756D6ECB" Association="Self.FK__PurchaseO__Custo__756D6ECB">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__Deliv__76619304" Association="Self.FK__PurchaseO__Deliv__76619304">
+      <End Role="Delivery" EntitySet="Delivery" />
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__Order__7755B73D" Association="Self.FK__PurchaseO__Order__7755B73D">
+      <End Role="OrderStatus" EntitySet="OrderStatus" />
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__Payme__7849DB76" Association="Self.FK__PurchaseO__Payme__7849DB76">
+      <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__Price__793DFFAF" Association="Self.FK__PurchaseO__Price__793DFFAF">
+      <End Role="Price" EntitySet="Price" />
+      <End Role="PurchaseOrderLine" EntitySet="PurchaseOrderLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__Purch__7A3223E8" Association="Self.FK__PurchaseO__Purch__7A3223E8">
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+      <End Role="PurchaseOrderLine" EntitySet="PurchaseOrderLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__Stock__7B264821" Association="Self.FK__PurchaseO__Stock__7B264821">
+      <End Role="Stock" EntitySet="Stock" />
+      <End Role="PurchaseOrderLine" EntitySet="PurchaseOrderLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Qualifica__Quali__7C1A6C5A" Association="Self.FK__Qualifica__Quali__7C1A6C5A">
+      <End Role="Qualification" EntitySet="Qualification" />
+      <End Role="QualificationTypeLine" EntitySet="QualificationTypeLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Qualifica__Quali__7D0E9093" Association="Self.FK__Qualifica__Quali__7D0E9093">
+      <End Role="QualificationType" EntitySet="QualificationType" />
+      <End Role="QualificationTypeLine" EntitySet="QualificationTypeLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ReturnLin__Check__7E02B4CC" Association="Self.FK__ReturnLin__Check__7E02B4CC">
+      <End Role="CheckInLaundry" EntitySet="CheckInLaundry" />
+      <End Role="ReturnLine" EntitySet="ReturnLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ReturnLin__Retur__7EF6D905" Association="Self.FK__ReturnLin__Retur__7EF6D905">
+      <End Role="ReturnFromLaundry" EntitySet="ReturnFromLaundry" />
+      <End Role="ReturnLine" EntitySet="ReturnLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ReturnLin__Stock__7FEAFD3E" Association="Self.FK__ReturnLin__Stock__7FEAFD3E">
+      <End Role="Stock" EntitySet="Stock" />
+      <End Role="ReturnLine" EntitySet="ReturnLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stock__Departmen__00DF2177" Association="Self.FK__Stock__Departmen__00DF2177">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Stock" EntitySet="Stock" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stock__LocationI__01D345B0" Association="Self.FK__Stock__LocationI__01D345B0">
+      <End Role="Location" EntitySet="Location" />
+      <End Role="Stock" EntitySet="Stock" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stock__StockDesc__02C769E9" Association="Self.FK__Stock__StockDesc__02C769E9">
+      <End Role="StockDescription" EntitySet="StockDescription" />
+      <End Role="Stock" EntitySet="Stock" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stock__StockStat__03BB8E22" Association="Self.FK__Stock__StockStat__03BB8E22">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Stock" EntitySet="Stock" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stock__StockStat__04AFB25B" Association="Self.FK__Stock__StockStat__04AFB25B">
+      <End Role="StockState" EntitySet="StockState" />
+      <End Role="Stock" EntitySet="Stock" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StockDesc__Colou__05A3D694" Association="Self.FK__StockDesc__Colou__05A3D694">
+      <End Role="Colour" EntitySet="Colour" />
+      <End Role="StockDescription" EntitySet="StockDescription" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StockDesc__SizeI__0697FACD" Association="Self.FK__StockDesc__SizeI__0697FACD">
+      <End Role="Size" EntitySet="Size" />
+      <End Role="StockDescription" EntitySet="StockDescription" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StockDesc__Stock__078C1F06" Association="Self.FK__StockDesc__Stock__078C1F06">
+      <End Role="StockType" EntitySet="StockType" />
+      <End Role="StockDescription" EntitySet="StockDescription" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StockQual__Colou__0880433F" Association="Self.FK__StockQual__Colou__0880433F">
+      <End Role="Colour" EntitySet="Colour" />
+      <End Role="StockQualification" EntitySet="StockQualification" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StockQual__Quali__09746778" Association="Self.FK__StockQual__Quali__09746778">
+      <End Role="Qualification" EntitySet="Qualification" />
+      <End Role="StockQualification" EntitySet="StockQualification" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StockQual__Stock__0A688BB1" Association="Self.FK__StockQual__Stock__0A688BB1">
+      <End Role="StockType" EntitySet="StockType" />
+      <End Role="StockQualification" EntitySet="StockQualification" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StockRetu__Custo__0B5CAFEA" Association="Self.FK__StockRetu__Custo__0B5CAFEA">
+      <End Role="CustomerRental" EntitySet="CustomerRental" />
+      <End Role="StockReturnLine" EntitySet="StockReturnLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StockRetu__Stock__0C50D423" Association="Self.FK__StockRetu__Stock__0C50D423">
+      <End Role="StockReturn" EntitySet="StockReturn" />
+      <End Role="StockReturnLine" EntitySet="StockReturnLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StockRetu__Stock__0D44F85C" Association="Self.FK__StockRetu__Stock__0D44F85C">
+      <End Role="Stock" EntitySet="Stock" />
+      <End Role="StockReturnLine" EntitySet="StockReturnLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StockRetu__Stock__0E391C95" Association="Self.FK__StockRetu__Stock__0E391C95">
+      <End Role="StockState" EntitySet="StockState" />
+      <End Role="StockReturnLine" EntitySet="StockReturnLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StockType__SizeI__0F2D40CE" Association="Self.FK__StockType__SizeI__0F2D40CE">
+      <End Role="Size" EntitySet="Size" />
+      <End Role="StockTypeSizeLine" EntitySet="StockTypeSizeLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StockType__Stock__10216507" Association="Self.FK__StockType__Stock__10216507">
+      <End Role="StockType" EntitySet="StockType" />
+      <End Role="StockTypeSizeLine" EntitySet="StockTypeSizeLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SupplierO__Order__11158940" Association="Self.FK__SupplierO__Order__11158940">
+      <End Role="OrderStatus" EntitySet="OrderStatus" />
+      <End Role="SupplierOrder" EntitySet="SupplierOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SupplierO__Stock__12FDD1B2" Association="Self.FK__SupplierO__Stock__12FDD1B2">
+      <End Role="StockDescription" EntitySet="StockDescription" />
+      <End Role="SupplierOrderLine" EntitySet="SupplierOrderLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SupplierO__Suppl__1209AD79" Association="Self.FK__SupplierO__Suppl__1209AD79">
+      <End Role="Supplier" EntitySet="Supplier" />
+      <End Role="SupplierOrder" EntitySet="SupplierOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SupplierO__Suppl__13F1F5EB" Association="Self.FK__SupplierO__Suppl__13F1F5EB">
+      <End Role="SupplierOrder" EntitySet="SupplierOrder" />
+      <End Role="SupplierOrderLine" EntitySet="SupplierOrderLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WriteOffL__Stock__14E61A24" Association="Self.FK__WriteOffL__Stock__14E61A24">
+      <End Role="Stock" EntitySet="Stock" />
+      <End Role="WriteOffLine" EntitySet="WriteOffLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WriteOffL__Write__15DA3E5D" Association="Self.FK__WriteOffL__Write__15DA3E5D">
+      <End Role="WriteOff" EntitySet="WriteOff" />
+      <End Role="WriteOffLine" EntitySet="WriteOffLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OnlineOrder_Customer1" Association="Self.FK_OnlineOrder_Customer1">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="OnlineOrder" EntitySet="OnlineOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OnlineOrder_OrderStatus" Association="Self.FK_OnlineOrder_OrderStatus">
+      <End Role="OrderStatus" EntitySet="OrderStatus" />
+      <End Role="OnlineOrder" EntitySet="OnlineOrder" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

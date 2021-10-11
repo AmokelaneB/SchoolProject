@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2e0d2d8d36614262816e1f22fd9e2842" Name="Diagram1">
+        <EntityTypeShape EntityType="GradStockUpModel.AppUser" Width="1.5" PointX="15.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.BackOrder" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.BackOrderLine" Width="1.5" PointX="10.5" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.BackOrderStatu" Width="1.5" PointX="6" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Bank" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.CheckInLaundry" Width="1.5" PointX="13.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Colour" Width="1.5" PointX="6" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Customer" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.CustomerRental" Width="1.5" PointX="13.5" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.CustomerRentalLine" Width="1.5" PointX="15.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Delivery" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.DeliveryStatu" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Department" Width="1.5" PointX="11.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Document" Width="1.5" PointX="7.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Employee" Width="1.5" PointX="13" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.EmployeeType" Width="1.5" PointX="10.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Establishment" Width="1.5" PointX="0.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Event" Width="1.5" PointX="13.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Faculty" Width="1.5" PointX="0.75" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.FacultyQualification" Width="1.5" PointX="5.25" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Institution" Width="1.5" PointX="3" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.InstitutionFaculty" Width="1.5" PointX="8.25" PointY="27.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.INSTITUTIONLINE" Width="1.5" PointX="5.25" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.InstitutionLineQualification" Width="1.5" PointX="8.25" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.LaundryLine" Width="1.5" PointX="15.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Location" Width="1.5" PointX="11.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.OnlineOrder" Width="1.5" PointX="5.25" PointY="32.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.OrderStatu" Width="1.5" PointX="3" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Organization" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Outfit" Width="1.5" PointX="10.25" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.PaymentMethod" Width="1.5" PointX="3" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Price" Width="1.5" PointX="5.25" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.PurchaseOrder" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.PurchaseOrderLine" Width="1.5" PointX="7.5" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Qualification" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.QualificationType" Width="1.5" PointX="5.25" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.RefundStatu" Width="1.5" PointX="15.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.ReturnFromLaundry" Width="1.5" PointX="13.5" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.ReturnLine" Width="1.5" PointX="15.75" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Size" Width="1.5" PointX="0.75" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Status" Width="1.5" PointX="11.25" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Stock" Width="1.5" PointX="13.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.StockDescription" Width="1.5" PointX="8.25" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.StockQualification" Width="1.5" PointX="5.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.StockReturn" Width="1.5" PointX="16.5" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.StockReturnLine" Width="1.5" PointX="18.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.StockState" Width="1.5" PointX="11.25" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.StockType" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.Supplier" Width="1.5" PointX="6" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.SupplierOrder" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.SupplierOrderLine" Width="1.5" PointX="10.5" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.sysdiagram" Width="1.5" PointX="17.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.WriteOff" Width="1.5" PointX="16.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GradStockUpModel.WriteOffLine" Width="1.5" PointX="18.75" PointY="13" IsExpanded="true" />
+        <AssociationConnector Association="GradStockUpModel.FK__AppUsers__EmplyI__7D0E9093" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__BackOrder__BackO__4D5F7D71" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__BackOrder__BackO__4F47C5E3" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__BackOrder__Suppl__4E53A1AA" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__BackOrder__Stock__503BEA1C" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__LaundryLi__Check__6BE40491" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__ReturnLin__Check__7E02B4CC" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Instituti__Colou__607251E5" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__StockDesc__Colou__05A3D694" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__StockQual__Colou__0880433F" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Customer__Organi__51300E55" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__CustomerR__Custo__5224328E" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__PurchaseO__Custo__756D6ECB" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK_OnlineOrder_Customer1" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__CustomerR__Custo__55F4C372" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__CustomerR__Deliv__531856C7" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__CustomerR__Order__540C7B00" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__CustomerR__Payme__55009F39" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__StockRetu__Custo__0B5CAFEA" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__CustomerR__Stock__56E8E7AB" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Delivery__Delive__57DD0BE4" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__PurchaseO__Deliv__76619304" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Stock__Departmen__00DF2177" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Employee__Employ__58D1301D" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__INSTITUTI__Estab__65370702" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Instituti__Estab__681373AD" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Price__Establish__72910220" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__FacultyQu__Facul__5D95E53A" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Instituti__Facul__6166761E" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__FacultyQu__Insti__5E8A0973" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__FacultyQu__Quali__5F7E2DAC" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Instituti__Insti__625A9A57" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__INSTITUTI__Insti__662B2B3B" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Instituti__Insti__690797E6" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Outfit__Institut__70A8B9AE" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Price__Instituti__73852659" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__INSTITUTI__Stock__671F4F74" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Instituti__Quali__69FBBC1F" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Instituti__Stock__6AEFE058" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__LaundryLi__Stock__6CD828CA" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__LaundryLi__Stock__6DCC4D03" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Stock__LocationI__01D345B0" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__PurchaseO__Order__7755B73D" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__SupplierO__Order__11158940" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Outfit__StockTyp__719CDDE7" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__PurchaseO__Payme__7849DB76" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Price__StockType__74794A92" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__PurchaseO__Price__793DFFAF" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__PurchaseO__Purch__7A3223E8" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__PurchaseO__Stock__7B264821" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__StockQual__Quali__09746778" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__ReturnLin__Retur__7EF6D905" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__ReturnLin__Stock__7FEAFD3E" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__StockDesc__SizeI__0697FACD" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Stock__StockStat__03BB8E22" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Stock__StockDesc__02C769E9" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__Stock__StockStat__04AFB25B" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__StockRetu__Stock__0D44F85C" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__WriteOffL__Stock__14E61A24" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__StockDesc__Stock__078C1F06" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__SupplierO__Stock__12FDD1B2" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__StockQual__Stock__0A688BB1" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__StockRetu__Stock__0C50D423" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__StockRetu__Stock__0E391C95" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__SupplierO__Suppl__1209AD79" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__SupplierO__Suppl__13F1F5EB" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK__WriteOffL__Write__15DA3E5D" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.EstablishmentInstitute" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.EstablishmentStockTypeLine" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.InstitutionFacultyLine" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.QualificationTypeLine" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.StockTypeSizeLine" ManuallyRouted="false" />
+        <AssociationConnector Association="GradStockUpModel.FK_OnlineOrder_OrderStatus" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
